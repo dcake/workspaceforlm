@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+		 .mui-input-group{
+		    background: transparent;
+		 }
+		.mui-input-row label{
+			width:43%;
+			line-height: 30px;
+		}
+		.mui-input-row label ~ input{
+			width:54%;
+			float: left;
+			margin-top: 5px;
+		}
+		 .identity, .image-cont{
+		 	margin-top:10px;
+		 }
+		.image-cont{
+			font-size: 16px;
+			background: #FFFFFF;
+			padding:10px 15px;
+			font-family: 'Helvetica Neue', Helvetica, sans-serif; 
+		}
+		ul{
+			overflow:hidden;
+			padding: 0px;
+			margin:0px;
+		}
+		li{
+			width:50%;
+			float:left;
+			padding:10px;
+		}
+		.sampleimg{
+		 	padding-top:7%;
+		 	width:80%;
+		 }
+		 .uploadimg{
+		 	width:135px;
+		 	border-radius: 6px;
+		 	vertical-align: bottom;
+		 }
+		 .beizhu{
+		 	font-size:14px;
+		 }
+		 .mui-input-group .mui-input-row{
+		 	height: 50px;
+		 	line-height: 50px;
+		 }
+		 .mui-input-group .identity{
+			height: 53px;
+		}
+		.block-container{
+			width: 40%;
+		}
+		img{
+			width: 135px; 
+			height: 84px;
+		}
+		</style>
+	</head>
+	<body>
+	    <header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">身份验证</h1>
+		</header>
+		<div class="mui-content">
+     		<form class="mui-input-group">
+				<div class="mui-input-row identity">
+					<label>请选择身份</label>
+					<span @tap="selectIdentity()" class="block-container">
+				        <span class="block icon-xialakuang-copy" id='userResult'>{{identityTypeStr}}</span>
+				        <span class="mui-icon iconfont icon-xialakuang-copy mui-pull-right btn2"></span>
+			        </span>
+				</div>
+				<div class="mui-input-row">
+					<label>姓名</label>
+					<input v-model="trueName" type="text" placeholder="请输入姓名" />
+				</div>
+				<div class="mui-input-row">
+					<label>二代身份证号</label>
+					<input type="text" v-model="IDCard" placeholder="请输入身份证号" />
+				</div>
+				<div v-if="identityType == 1" class="mui-input-row">
+					<label>企业名称</label>
+					<input type="text" v-model="companyName" placeholder="请输入企业名称" />
+				</div>
+				<div class="image-cont">
+					<label style="width:100%">请上传本人身份证照片:</label>
+					<p class="beizhu">(需正反面清晰照片)</p>
+					<ul>
+						<li><img class="uploadimg" src="../img/Upload.png" id="cardFaceImg" @tap="uploadImg(event)"></li>
+						<li><img class="sampleimg" src="../img/card_z.png"></li>
+						<li><img class="uploadimg" src="../img/Upload.png" id="cardOtherImg" @tap="uploadImg(event)"></li>
+						<li><img class="sampleimg" src="../img/card_f.png" ></li>
+					</ul>
+				</div>
+				
+				<div v-if="identityType == 1" class="image-cont">
+					<label style="width:100%">请上传企业营业执照:</label>
+					<ul>
+						<li><img class="uploadimg" src="../img/Upload.png" id="businessLicenseFaceImg" @tap="uploadImg(event)"></li>
+						<li><img class="sampleimg" src="../img/card_zz.png"></li>
+					</ul>
+				</div>
+				
+				<div v-if="identityType == 1" class="image-cont">
+					<label style="width:100%">请上传企业法人身份证照片:</label>
+					<p class="beizhu">(需正反面清晰照片)</p>
+					<ul>
+						<li><img class="uploadimg" src="../img/Upload.png" id="legalpersonFaceImg" @tap="uploadImg(event)"></li>
+						<li><img class="sampleimg" src="../img/card_z.png"></li>
+						<li><img class="uploadimg" src="../img/Upload.png" id="legalpersonOtherImg" @tap="uploadImg(event)"></li>
+						<li><img class="sampleimg" src="../img/card_f.png"></li>
+					</ul>
+				</div>
+			</form>
+			<div class="but-box ">
+				<button @tap="subInfo()" class="queren" type="button">提交</button>
+		    </div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		new Vue({
+			el:'.mui-content',
+			data:{
+				identityTypeList:[],	//身份列表
+				identityType:'',		//身份val
+				identityTypeStr:'请选择',	//身份str
+				trueName:'',			//姓名
+				IDCard:'',				//身份证号
+				companyName:'',			//企业名称
+				imgFiles:[],			//照片文件列表
+				userInfo:getUser().userInfo
+			},
+			mounted:function(){
+				var self = this;
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				//获取身份类型
+				AjaxSend("MobileShipperUser/getShipperIdentity",{},"post",function(result){
+					if(result.status){
+						var dataList = result.data;
+						self.identityType = dataList[0].value;
+						self.identityTypeStr = dataList[0].label;
+						for(var i = 0; i < dataList.length; i++){
+							self.identityTypeList.push({title:dataList[i].label,value:dataList[i].value});
+						}
+					}
+				})
+			},
+			methods:{
+				/**
+				 * 选择身份
+				 */
+				selectIdentity:function(){
+					var self = this;
+					plus.nativeUI.actionSheet( {
+						title:"选择身份",
+						cancel:"取消",
+						buttons:self.identityTypeList
+					}, function(e){
+						if(e.index > 0){
+							self.identityType = self.identityTypeList[e.index-1].value;
+							self.identityTypeStr = self.identityTypeList[e.index-1].title;
+						}
+					});
+				},
+				/**
+				 * 选择图片
+				 */
+				uploadImg:function(event){
+					var self = this;
+					var btnArray = [{title:"拍照上传"},{title:"从相册获取"}];
+					plus.nativeUI.actionSheet({
+						title:"头像上传",
+						cancel:"取消",
+						buttons:btnArray
+					}, function(e){
+						var index = e.index;
+						switch (index){
+							case 0:
+								//取消
+								break;
+							case 1:
+								//调取摄像头
+								self.appendByCamera(event);
+								break;
+							case 2:
+								//从相册选取
+								self.appendByGallery(event);
+								break;
+						}
+					});
+				},
+				/**
+				 * 调取摄像头
+				 */
+				appendByCamera:function(event){
+					var self = this;
+					plus.camera.getCamera().captureImage(function(p){
+						plus.io.resolveLocalFileSystemURL(p, function(entry) {  
+				            var imgPath = entry.toLocalURL();
+							//在页面显示本地照片
+							event.target.src = imgPath;
+							self.compressImage(imgPath,event)
+						});	
+					});
+				},
+				/**
+				 * 从相册选取
+				 */
+				appendByGallery:function(event){
+					var self = this;
+					plus.gallery.pick(function(p){
+						//页面显示图片
+						event.target.src = p;
+				        self.compressImage(p,event);
+				    });
+				},
+				/**
+				 * 压缩
+				 */
+				compressImage:function(path,event){
+					var self = this;
+					var imgUrl = path;
+					//获取图片名称
+					var imgName = path.substr(imgUrl.lastIndexOf('/')+1);
+					//压缩后的图片路径
+					var zipPath = "_downloads/"+imgName;
+					plus.zip.compressImage({
+						src:imgUrl,
+						dst:zipPath,
+						quality:30,
+						overwrite:"true"
+					}, 
+					function() {
+						//压缩成功
+						self.pushFiles({name:event.target.id,path:zipPath})
+					},function(error) {
+						//压缩失败上传原图
+						self.pushFiles({name:event.target.id,path:imgUrl})
+					});
+				},
+				/**
+				 * 向imgFiles数组中添加数据
+				 */
+				pushFiles:function(imgFile){
+					var self = this;
+					for(var i = 0; i < self.imgFiles.length; i++){
+						if(imgFile.name == self.imgFiles[i].name){
+							self.imgFiles.splice(i,1);
+						}
+					}
+					self.imgFiles.push(imgFile);
+				},
+				/**
+				 * 提交
+				 */
+				subInfo:function(){
+					var self = this;
+					if(!self.trueName){
+						mui.toast("请输入姓名");
+						return;
+					}
+					if(!self.IDCard){
+						mui.toast("请输入身份证号");
+						return;
+					}
+					if(!isCardNo(self.IDCard)){
+						mui.toast("身份证号码格式不正确");
+						return;
+					}
+					if(self.identityType == '1' && !self.companyName){
+						mui.toast("请输入企业名称");
+						return;
+					}
+					if(self.identityType == '0' && self.imgFiles.length !=2){
+						mui.toast("请上传相关证件照片");
+						return;
+					}
+					if(self.identityType == '1' && self.imgFiles.length !=5){
+						mui.toast("请上传相关证件照片");
+						return;
+					}
+					var wt = plus.nativeUI.showWaiting();
+					var task=plus.uploader.createUpload(ServerHost+"/MobileShipperUser/identityAuthentication", 
+						{method:"POST",blocksize:204800,priority:100},
+						function(t,status){
+							wt.close();
+							//上传完成
+							if(status==200){
+								mui.alert("上传成功，等待审核","提示","确定",function () {
+									mui.back();
+								});
+							}else{
+								mui.toast("上传失败,请从新上传");
+							}
+						}
+					);
+					//添加上传文件
+					mui.each(self.imgFiles,function(index){
+						var imgFile = self.imgFiles[index];
+						task.addFile(imgFile.path,{key:imgFile.name});
+					})
+					task.addData("userId",self.userInfo.id);
+					task.addData("identityType",self.identityType);
+					task.addData("truename",htmlEncode(self.trueName));
+					task.addData("cardno",self.IDCard);
+					task.addData("companyName",htmlEncode(self.companyName));
+					task.start(); 
+				}
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			body {
+				background-color: #FFFFFF;
+			}
+			
+			.mui-content {
+				background-color: #FFFFFF;
+			}
+			.content {
+				border-bottom: 1px solid #EFEFEF;
+				padding: 10px 15px;
+			}
+			.mui-content img{
+				width: 90%;
+				height: 300px; 
+				margin-right: 10px;
+				margin-top: 15px;
+				margin-left: 15px;
+			}
+			.iconfont{
+				color: #1DACF9;
+				font-size: 24px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">企业认证</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content">
+				<span>企业运营资质</span><span class="mui-icon iconfont icon-yuanjiaojuxing1 mui-pull-right"></span>
+			</div>
+			<img v-bind:src="ServerHost+sortInfo.businessLicenseFaceImg"/>
+		</div>
+		
+		<script src="../css/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script>
+			new Vue({
+				el:'.mui-content',
+				data:{
+					sortInfo:getUser().sortInfo
+				},
+				mounted:function(){
+					mui.init({
+						swipeBack: true //启用右滑关闭功能
+					});
+					console.log(JSON.stringify(this.sortInfo))
+				}
+			})
+		</script>
+	</body>
+
+</html>

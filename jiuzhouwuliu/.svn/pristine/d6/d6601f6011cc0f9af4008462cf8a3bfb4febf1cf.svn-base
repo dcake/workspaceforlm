@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.DriverLogisticsPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.DriverLogisticsPosition" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="dirver_order_id" property="dirverOrderId" jdbcType="VARCHAR" />
+    <result column="cur_area" property="curArea" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dirver_order_id, cur_area, remarks, update_date, update_by, create_date, create_by, 
+    del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from driver_logistics_position
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from driver_logistics_position
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.DriverLogisticsPosition" >
+    insert into driver_logistics_position (id, dirver_order_id, cur_area, 
+      remarks, update_date, update_by, 
+      create_date, create_by, del_flag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{dirverOrderId,jdbcType=VARCHAR}, #{curArea,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.DriverLogisticsPosition" >
+    insert into driver_logistics_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dirverOrderId != null" >
+        dirver_order_id,
+      </if>
+      <if test="curArea != null" >
+        cur_area,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dirverOrderId != null" >
+        #{dirverOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="curArea != null" >
+        #{curArea,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.DriverLogisticsPosition" >
+    update driver_logistics_position
+    <set >
+      <if test="dirverOrderId != null" >
+        dirver_order_id = #{dirverOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="curArea != null" >
+        cur_area = #{curArea,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.DriverLogisticsPosition" >
+    update driver_logistics_position
+    set dirver_order_id = #{dirverOrderId,jdbcType=VARCHAR},
+      cur_area = #{curArea,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 根据订单获取物流位置信息   张彦学 -->
+  <select id="findDriverLogisticsPositionByGoodsownerOrder" parameterType="string" resultMap="BaseResultMap">
+  		SELECT
+			dlp.*
+		FROM
+			drive_order d,
+			driver_logistics_position dlp
+		WHERE
+			d.user_order_id = #{id}
+		AND d.id = dlp.dirver_order_id
+		ORDER BY
+			dlp.create_date DESC
+  </select>
+  
+  <!-- 根据车主订单id 查询物流位置信息   张彦学 -->
+  <select id="findDriverLogisticsPositionByDriverOrderId" parameterType="string" resultMap="BaseResultMap">
+  		SELECT * FROM driver_logistics_position WHERE dirver_order_id = #{driverOrderId} ORDER BY create_date DESC
+  </select>
+</mapper>

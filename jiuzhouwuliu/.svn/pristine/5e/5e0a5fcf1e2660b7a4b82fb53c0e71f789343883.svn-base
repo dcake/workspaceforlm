@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			.queren{
+				background: #ff5c5d;
+			}
+			.mui-table-view-cell {
+				line-height: 30px;
+				}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div id="setting" class="mui-content">
+			<ul class="mui-table-view">
+				<li @click="advice" class="mui-table-view-cell tz">
+					<a class="mui-navigate-right" >
+						<div class="his-text">
+							<p>投诉建议</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell tz" id="">
+					<a class="mui-navigate-right">
+						<div class="his-text">
+							<p>版本更新</p>
+						</div>
+					</a>
+				</li>
+				<li @click="changePw" class="mui-table-view-cell tz">
+					<a class="mui-navigate-right">
+						<div class="his-text">
+							<p>修改密码</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			
+			<div class="but-box ">
+				<button @click="logout" class="queren tz" id="../index-main.html" type="button">退出登录</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			new Vue({
+				el:'#setting',
+				data:{},
+				methods:{
+					//修改密码
+					changePw:function(){
+						var userInfo = getUser().userInfo;
+						if(!userInfo.id){
+							mui.openWindow({
+								url: '../login.html',
+								id: 'login.html',
+								show:{
+							      aniShow:'pop-in' 
+							   	} 
+							});
+						}else{
+							mui.openWindow({
+								url: 'change_password.html',
+								id: 'change_password.html',
+								show:{
+							      aniShow:'pop-in'
+							    }
+							});
+						}
+					},
+					//退出登录
+					logout:function(){
+						var userInfo = getUser().userInfo;
+						if(!userInfo.id){
+							mui.toast("你还未登录");
+							return;
+						}
+						mui.confirm("是否退出登录","提示：",['否', '是'],function(e){
+							if (e.index == 1) {
+								removeUser();
+								mui.openWindow({
+									url: '../login.html',
+									show:{
+								      aniShow:'pop-in'
+								    }
+								});
+							}
+						})
+					},
+					//投诉建议
+					advice:function(){
+						var userInfo = getUser().userInfo;
+						console.log(JSON.stringify(userInfo))
+						if(!userInfo.id){
+							mui.openWindow({
+								url: '../login.html',
+								id: 'login.html',
+								show:{
+							      aniShow:'pop-in' 
+							   	} 
+							});
+						}
+						/*if(userInfo.isTruename != 1){
+							mui.toast("请先实名认证");
+							return;
+						}*/
+						mui.openWindow({
+							url: 'history-record.html',
+							id: 'history-record.html',
+							show:{
+						      aniShow:'pop-in'
+						    }
+						});
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

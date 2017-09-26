@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			
+			.mui-table-view-cell {
+				padding: 10px 10px 10px 15px;
+			}
+			
+			.mui-navigate-right:after,
+			.mui-push-right:after {
+				top: 60px;
+			}
+			
+			h6,
+			.mui-h6 {
+				font-size: 16px;
+				line-height: 28px;
+			}
+			
+			.mui-col-xs-10 {
+				width: 78%;
+			}
+			
+			.mui-col-xs-2 {
+				width: 22%;
+			}
+			
+			.mui-ellipsis {
+				font-weight: 400;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">线路记录</h1>
+		</header>
+
+		<div class="mui-content" id="record">
+			<div>
+				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+					<li class="mui-table-view-cell" v-for="Line in LineList">
+						<a class="mui-navigate-right" @click="checkOrder(Line.goodsownerOrderId)">
+							<div class="mui-table">
+								<div class="mui-table-cell mui-col-xs-10">
+									<h4 class="mui-ellipsis">{{Line.shipperArea}}——{{Line.reciverArea}}</h4>
+									<p class="mui-h6 mui-ellipsis">发货地：{{Line.shipperAreaDetail}}</p>
+									<p class="mui-h6 mui-ellipsis">收货地：{{Line.reciverAreaDetail}}</p>
+								</div>
+								<div class="mui-table-cell mui-col-xs-2 mui-text-right">
+									<span class="mui-h5">{{Line.createDate}}</span>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var record = new Vue({
+			el: '#record',
+			data: {
+				userInfo: getUser().userInfo,
+				currentPager: 0,
+				flag: false,
+				pageSize: 10,
+				LineList: []
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					record.getLineList();
+					mui.init({
+						swipeBack: true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '#record',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: record.pullupRefresh
+							}
+						}
+					});
+				});
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-09-13
+				 * 获取线路记录
+				 */
+				getLineList: function() {
+					var data = {
+						currentPage: record.currentPager,
+						userId: record.userInfo.id //"e07a34e723ec4333babf6db66dbc3ebc"
+					}
+					AjaxSend('moblieLineRecord/findLineList', data, 'POST', function(result) {
+						if(result.status) {
+							//数组合并
+							record.LineList = record.LineList.concat(result.data);
+							if(result.data.length < record.pageSize) {
+								record.flag = true;
+							}
+						} else {
+							record.flag = true;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-13
+				 * 跳转到订单详情
+				 */
+				checkOrder: function(goodsownerOrderId) {
+					mui.openWindow({
+						url: '../App_deliverey/order-details.html',
+						id: '../App_deliverey/order-details.html',
+						extras: {
+							newsId: goodsownerOrderId
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-13
+				 * 上拉加载
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						record.getLineList(++record.currentPager);
+						mui('#record').pullRefresh().endPullupToRefresh(record.flag);
+					}, 1000);
+				}
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,111 @@
+package com.thinkgem.jeesite.modules.complaints.web;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.thinkgem.jeesite.common.dao.ComplainRecordMapper;
+import com.thinkgem.jeesite.common.entity.ComplainRecord;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.modules.complaints.service.AppealService;
+import com.thinkgem.jeesite.modules.sys.entity.Dict;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
+/**
+ * @desc 申述管理
+ * @author yaotengfei
+ * @date 2017年8月7日下午3:27:55
+ */
+@Controller
+@RequestMapping(value = "${adminPath}/complaints/appeal")
+public class AppealController {
+
+	@Autowired
+	private AppealService appealService;
+	@Autowired
+	private ComplainRecordMapper complainRecordMapper;
+	
+	/**
+	 * @desc 申述管理列表
+	 * @author yaotengfei
+	 * @date 2017年8月7日下午5:19:00
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ParseException 
+	 */
+	@RequestMapping("list")
+	public String getComplaintsList(ComplainRecord complainRecord,Model model,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		String startDateStr = request.getParameter("startDateStr");
+		String endDateStr = request.getParameter("endDateStr");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(!StringUtils.isEmpty(startDateStr)){
+			complainRecord.setStartDate(sdf.parse(startDateStr));
+		}
+		if(!StringUtils.isEmpty(endDateStr)){
+			complainRecord.setEndDate(sdf.parse(endDateStr));
+		}
+		Page<ComplainRecord> page = appealService.findComplainRecordListForPage(new Page<ComplainRecord>(request, response), complainRecord);
+		model.addAttribute("page", page);
+		List<Dict> userSortList=DictUtils.getDictList("users_user_sort");
+		model.addAttribute("complainRecord", complainRecord);
+		model.addAttribute("userSortList", userSortList);
+		return "modules/complaints/appealList";
+	}
+	
+	/**
+	 * @desc 跳转至详情
+	 * @author yaotengfei 
+	 * @date 2017年8月7日下午5:17:48
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("appealDetail")
+	public String appealDetail(Model model,String id){
+		ComplainRecord complainRecord = complainRecordMapper.findDetail(id);
+		//查询字典缓存获取用户类型
+		String result = DictUtils.getDictLabels(complainRecord.getUserSort(),"users_user_sort","未知");
+		complainRecord.setUserSortStr(result);
+		model.addAttribute("complainRecord",complainRecord);
+		return "modules/complaints/appealDetail";
+	}
+	
+	/**
+	 * @desc 申诉回复
+	 * @author yaotengfei
+	 * @date 2017年8月16日下午5:05:00
+	 * @param id
+	 * @param replyContent
+	 * @return
+	 */
+	@RequestMapping("reply")
+	@ResponseBody
+	public AjaxBeanUtil reply(ComplainRecord complainRecord){
+		//ComplainRecord complainRecord = complainRecordMapper.findDetail(complainRecord.getId());
+		complainRecord.setReplyContent(complainRecord.getReplyContent());
+		complainRecord.setReplyTime(new Date());
+		User user = UserUtils.getUser();
+		if (StringUtils.isNotBlank(user.getId())){
+			complainRecord.setReplyPerson(user.getId());
+		}
+		complainRecord.preUpdate();
+		complainRecordMapper.updateByPrimaryKeySelective(complainRecord);
+		return new AjaxBeanUtil("更新成功", true);
+	}
+	
+}

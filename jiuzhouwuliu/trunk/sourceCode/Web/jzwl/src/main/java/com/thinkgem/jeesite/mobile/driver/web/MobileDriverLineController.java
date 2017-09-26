@@ -1,0 +1,66 @@
+package com.thinkgem.jeesite.mobile.driver.web;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.thinkgem.jeesite.common.entity.DriveLine;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.mobile.driver.service.MobileDriverLineService;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+
+/** 
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月6日 下午5:16:42 
+ * 类说明:线路Controller 
+ */
+@Controller
+@RequestMapping(value="/${adminPath}/mobileDriveLine")
+public class MobileDriverLineController extends BaseController{
+	@Autowired
+	private MobileDriverLineService mobileDriverLineService;
+	
+	/**
+	 * 测试页面
+	 * 崔亚光
+	 * 2017-09-07
+	 */
+	@RequestMapping(value="/test")
+	public String test(){
+		return "/mobile/test/driveLineTest";
+	}
+	/**
+	 * 线路列表
+	 * 崔亚光
+	 * 2017-09-06
+	 * @return
+	 */
+	@RequestMapping(value="/list", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil list(String pageNo,String driverId){
+		return mobileDriverLineService.getList(pageNo,driverId);
+	}
+	/**
+	 * 新增线路
+	 * 崔亚光
+	 * 2017-09-07
+	 */
+	@RequestMapping(value="/addLine", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil addLine(DriveLine record){
+		return mobileDriverLineService.addLine(record);
+	}
+	/**
+	 * 删除线路
+	 * 崔亚光
+	 * 2017-09-07
+	 */
+	@RequestMapping(value="/deleteLine", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil deleteLine(String id){
+		return mobileDriverLineService.deleteLine(id);
+	}
+
+}

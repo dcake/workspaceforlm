@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.DriveOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.DriveOrder" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="drivers_id" property="driversId" jdbcType="VARCHAR" />
+    <result column="user_order_id" property="userOrderId" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="deposit" property="deposit" jdbcType="DOUBLE" />
+    <result column="pay_deposit_time" property="payDepositTime" jdbcType="TIMESTAMP" />
+    <result column="jingjia_status" property="jingjiaStatus" jdbcType="VARCHAR" />
+    <result column="jingjia_money" property="jingjiaMoney" jdbcType="DOUBLE" />
+    <result column="is_assign" property="isAssign" jdbcType="VARCHAR" />
+    <result column="assign_dirver_id" property="assignDirverId" jdbcType="VARCHAR" />
+    <result column="send_drive_name" property="sendDriveName" jdbcType="VARCHAR" />
+    <result column="goods_status" property="goodsStatus" jdbcType="VARCHAR" />
+    <result column="recive_goods_img1" property="reciveGoodsImg1" jdbcType="VARCHAR" />
+    <result column="recive_goods_img2" property="reciveGoodsImg2" jdbcType="VARCHAR" />
+    <result column="recive_goods_img3" property="reciveGoodsImg3" jdbcType="VARCHAR" />
+    <result column="recive_goods_img4" property="reciveGoodsImg4" jdbcType="VARCHAR" />
+    <result column="recive_goods_img5" property="reciveGoodsImg5" jdbcType="VARCHAR" />
+    <result column="back_img1" property="backImg1" jdbcType="VARCHAR" />
+    <result column="back_img2" property="backImg2" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="recive_goods_name" property="reciveGoodsName" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_id, drivers_id, user_order_id, user_type, deposit, pay_deposit_time, jingjia_status, 
+    jingjia_money, is_assign, assign_dirver_id, send_drive_name, goods_status, recive_goods_img1, 
+    recive_goods_img2, recive_goods_img3, recive_goods_img4, recive_goods_img5, back_img1, 
+    back_img2, express_no, recive_goods_name, create_by, del_flag, remarks, update_date, 
+    update_by, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from drive_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from drive_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.DriveOrder" >
+    insert into drive_order (id, goods_id, drivers_id, 
+      user_order_id, user_type, deposit, 
+      pay_deposit_time, jingjia_status, jingjia_money, 
+      is_assign, assign_dirver_id, send_drive_name, 
+      goods_status, recive_goods_img1, recive_goods_img2, 
+      recive_goods_img3, recive_goods_img4, recive_goods_img5, 
+      back_img1, back_img2, express_no, 
+      recive_goods_name, create_by, del_flag, 
+      remarks, update_date, update_by, 
+      create_date)
+    values (#{id,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{driversId,jdbcType=VARCHAR}, 
+      #{userOrderId,jdbcType=VARCHAR}, #{userType,jdbcType=VARCHAR}, #{deposit,jdbcType=DOUBLE}, 
+      #{payDepositTime,jdbcType=TIMESTAMP}, #{jingjiaStatus,jdbcType=VARCHAR}, #{jingjiaMoney,jdbcType=DOUBLE}, 
+      #{isAssign,jdbcType=VARCHAR}, #{assignDirverId,jdbcType=VARCHAR}, #{sendDriveName,jdbcType=VARCHAR}, 
+      #{goodsStatus,jdbcType=VARCHAR}, #{reciveGoodsImg1,jdbcType=VARCHAR}, #{reciveGoodsImg2,jdbcType=VARCHAR}, 
+      #{reciveGoodsImg3,jdbcType=VARCHAR}, #{reciveGoodsImg4,jdbcType=VARCHAR}, #{reciveGoodsImg5,jdbcType=VARCHAR}, 
+      #{backImg1,jdbcType=VARCHAR}, #{backImg2,jdbcType=VARCHAR}, #{expressNo,jdbcType=VARCHAR}, 
+      #{reciveGoodsName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.DriveOrder" >
+    insert into drive_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="driversId != null" >
+        drivers_id,
+      </if>
+      <if test="userOrderId != null" >
+        user_order_id,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="deposit != null" >
+        deposit,
+      </if>
+      <if test="payDepositTime != null" >
+        pay_deposit_time,
+      </if>
+      <if test="jingjiaStatus != null" >
+        jingjia_status,
+      </if>
+      <if test="jingjiaMoney != null" >
+        jingjia_money,
+      </if>
+      <if test="isAssign != null" >
+        is_assign,
+      </if>
+      <if test="assignDirverId != null" >
+        assign_dirver_id,
+      </if>
+      <if test="sendDriveName != null" >
+        send_drive_name,
+      </if>
+      <if test="goodsStatus != null" >
+        goods_status,
+      </if>
+      <if test="reciveGoodsImg1 != null" >
+        recive_goods_img1,
+      </if>
+      <if test="reciveGoodsImg2 != null" >
+        recive_goods_img2,
+      </if>
+      <if test="reciveGoodsImg3 != null" >
+        recive_goods_img3,
+      </if>
+      <if test="reciveGoodsImg4 != null" >
+        recive_goods_img4,
+      </if>
+      <if test="reciveGoodsImg5 != null" >
+        recive_goods_img5,
+      </if>
+      <if test="backImg1 != null" >
+        back_img1,
+      </if>
+      <if test="backImg2 != null" >
+        back_img2,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="reciveGoodsName != null" >
+        recive_goods_name,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="driversId != null" >
+        #{driversId,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrderId != null" >
+        #{userOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="payDepositTime != null" >
+        #{payDepositTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jingjiaStatus != null" >
+        #{jingjiaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaMoney != null" >
+        #{jingjiaMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isAssign != null" >
+        #{isAssign,jdbcType=VARCHAR},
+      </if>
+      <if test="assignDirverId != null" >
+        #{assignDirverId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDriveName != null" >
+        #{sendDriveName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStatus != null" >
+        #{goodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg1 != null" >
+        #{reciveGoodsImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg2 != null" >
+        #{reciveGoodsImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg3 != null" >
+        #{reciveGoodsImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg4 != null" >
+        #{reciveGoodsImg4,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg5 != null" >
+        #{reciveGoodsImg5,jdbcType=VARCHAR},
+      </if>
+      <if test="backImg1 != null" >
+        #{backImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="backImg2 != null" >
+        #{backImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsName != null" >
+        #{reciveGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.DriveOrder" >
+    update drive_order
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="driversId != null" >
+        drivers_id = #{driversId,jdbcType=VARCHAR},
+      </if>
+      <if test="userOrderId != null" >
+        user_order_id = #{userOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="deposit != null" >
+        deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="payDepositTime != null" >
+        pay_deposit_time = #{payDepositTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jingjiaStatus != null" >
+        jingjia_status = #{jingjiaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaMoney != null" >
+        jingjia_money = #{jingjiaMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isAssign != null" >
+        is_assign = #{isAssign,jdbcType=VARCHAR},
+      </if>
+      <if test="assignDirverId != null" >
+        assign_dirver_id = #{assignDirverId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDriveName != null" >
+        send_drive_name = #{sendDriveName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsStatus != null" >
+        goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg1 != null" >
+        recive_goods_img1 = #{reciveGoodsImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg2 != null" >
+        recive_goods_img2 = #{reciveGoodsImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg3 != null" >
+        recive_goods_img3 = #{reciveGoodsImg3,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg4 != null" >
+        recive_goods_img4 = #{reciveGoodsImg4,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsImg5 != null" >
+        recive_goods_img5 = #{reciveGoodsImg5,jdbcType=VARCHAR},
+      </if>
+      <if test="backImg1 != null" >
+        back_img1 = #{backImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="backImg2 != null" >
+        back_img2 = #{backImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="reciveGoodsName != null" >
+        recive_goods_name = #{reciveGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.DriveOrder" >
+    update drive_order
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      drivers_id = #{driversId,jdbcType=VARCHAR},
+      user_order_id = #{userOrderId,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=VARCHAR},
+      deposit = #{deposit,jdbcType=DOUBLE},
+      pay_deposit_time = #{payDepositTime,jdbcType=TIMESTAMP},
+      jingjia_status = #{jingjiaStatus,jdbcType=VARCHAR},
+      jingjia_money = #{jingjiaMoney,jdbcType=DOUBLE},
+      is_assign = #{isAssign,jdbcType=VARCHAR},
+      assign_dirver_id = #{assignDirverId,jdbcType=VARCHAR},
+      send_drive_name = #{sendDriveName,jdbcType=VARCHAR},
+      goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      recive_goods_img1 = #{reciveGoodsImg1,jdbcType=VARCHAR},
+      recive_goods_img2 = #{reciveGoodsImg2,jdbcType=VARCHAR},
+      recive_goods_img3 = #{reciveGoodsImg3,jdbcType=VARCHAR},
+      recive_goods_img4 = #{reciveGoodsImg4,jdbcType=VARCHAR},
+      recive_goods_img5 = #{reciveGoodsImg5,jdbcType=VARCHAR},
+      back_img1 = #{backImg1,jdbcType=VARCHAR},
+      back_img2 = #{backImg2,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      recive_goods_name = #{reciveGoodsName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询信息费列表 文帅 -->
+  <select id="findInfoFeeList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.DriveOrder" >
+    SELECT
+		t.*, t3.username AS username,
+		t3.truename AS truename,
+		t3.phoneno AS phoneno,
+		t3.user_sort AS userSort,
+		t2.order_no AS orderNo
+	FROM
+		drive_order t,
+		drivers t1,
+		goods t2,
+		users t3
+	WHERE
+		t.drivers_id = t1.id
+	AND t.goods_id = t2.id
+	AND t1.userid = t3.id
+	<!--AND t3.level="0" -->
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	AND t2.del_flag = "0"
+	AND t3.del_flag = "0"
+	<if test="username != null and username !='' ">
+		AND t3.username LIKE CONCAT('%','${username}','%' )
+    </if>
+    <if test="truename != null and truename !='' ">
+		AND t3.truename LIKE CONCAT('%','${truename}','%' )
+    </if>
+   	<if test="beginDate!= null and beginDate!= ''" >
+        and DATE_FORMAT(t.pay_deposit_time, '%Y-%m-%d') &gt;=#{beginDate}
+    </if>
+    <if test="endDate!= null and endDate!= ''" >
+        and DATE_FORMAT(t.pay_deposit_time, '%Y-%m-%d') &lt;=#{endDate}
+    </if>
+    order by t.pay_deposit_time desc
+  </select>
+  <!-- 根据车主订单ID查订单明细  庞成祥-->
+  <select id="findListByDriversId" resultType="com.thinkgem.jeesite.common.entity.DriveOrder" parameterType="com.thinkgem.jeesite.common.entity.DriveOrder" >
+  select * from(
+	SELECT
+	vo.goodsId as goodsId,
+	vo.orderId,
+	if(vo.goods_belongto='1',va.truename,vg.truename) as goodsownersName,
+	if(vo.goods_belongto='1',va.phoneno,vg.phoneno) as goodsownersPhoneno,
+	vo.order_no AS orderNo,
+	vo.goods_type AS goodsType,
+	vo.shipper_area AS shipperArea,
+	vo.shipper_area_detail AS shipperAreaDetail,
+	vo.reciver_area AS reciverArea,
+	vo.reciver_area_detail AS reciverAreaDetail,
+	vo.create_date,
+	(IFNULL(drm.first_recive_money, 0) + IFNULL(drm.second_recive_money, 0) + IFNULL(drm.first_recive_oil, 0) + IFNULL(drm.second_recive_oil, 0)) AS totalMoney,
+	IFNULL(uir.integral_score,0) AS integralScore
+	FROM view_all_drive_order_info vo
+	LEFT JOIN view_all_drivers_info vd ON vo.drivers_id=vd.driversId
+	LEFT JOIN view_all_goodsowner_order_info vgo ON vgo.goodsId=vo.goodsId
+	LEFT JOIN view_all_goodsowners_info vg ON vg.goodsownersId = vgo.goodsowners_id
+	LEFT JOIN view_all_agent_order_info vao ON vao.goodsId=vo.goodsId
+	LEFT JOIN view_all_agents_info va ON va.agentsId = vao.agents_id
+	LEFT JOIN driver_recive_money drm ON vo.orderId = drm.driver_order_id
+	LEFT JOIN users_integral_record uir ON vo.orderId = uir.params
+	WHERE vo.drivers_id = #{driversId,jdbcType=VARCHAR}) aa 
+	where aa.orderId is not null 
+    <if test="goodsownersName != null and goodsownersName !='' ">
+		and aa.goodsownersName LIKE CONCAT('%','${goodsownersName}','%' ) 
+  	</if>
+  	<if test="goodsownersPhoneno != null and goodsownersPhoneno !='' ">
+		and aa.goodsownersPhoneno LIKE CONCAT('%','${goodsownersPhoneno}','%' )
+  	</if>
+  	<if test="beginDate!= null and beginDate!= ''" >
+        and DATE_FORMAT(aa.create_date, '%Y-%m-%d') &gt;=#{beginDate}
+    </if>
+    <if test="endDate!= null and endDate!= ''" >
+        and DATE_FORMAT(aa.create_date, '%Y-%m-%d') &lt;=#{endDate}
+    </if>
+    ORDER BY aa.create_date DESC
+  </select>
+  
+  <!-- 根据车主ID查询该车主的运输数量 文帅 -->
+  <select id="findCountByDriverId" resultType="int" parameterType="string">
+  	SELECT
+		COUNT(*)
+	FROM
+		drive_order
+	WHERE
+		drivers_id = #{driversId,jdbcType=VARCHAR}
+	AND del_flag = "0"
+  </select>
+  
+  <!--根据经纪人订单或货主订单查询车主订单   张彦学 -->
+  <select id="findDriveOrderByOrderId" parameterType="string" resultMap="BaseResultMap">
+  		SELECT
+			*
+		FROM
+			drive_order
+		WHERE
+			user_order_id = #{id}
+  </select>
+    <!-- 获取车辆列表 崔亚光 -->
+  <select id="findDriversList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    t.*,
+    u.truename
+    from drivers t,users u
+    where t.drive_fleet_id = #{driveFleetId,jdbcType=VARCHAR}
+  </select>
+ <!-- 获取普通车主  崔亚光 drive_order-->
+ <select id="findInviteList" resultMap="BaseResultMap" parameterType="java.lang.String">
+ select 
+    t.*,t1.area_code,t1.user_sort,t1.head_img,t1.sex,t1.truename
+    from drivers t,users t1 
+   where t.driver_type='0' 
+   AND t.userid=t1.id
+ </select>
+  <!-- 添加车辆  崔亚光 -->
+  <update id="addCar" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    update drivers
+    <set >
+      <if test="faceImg != null and faceImg != ''">
+        face_img = #{faceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="driveFleetId != null and  driveFleetId !=''" >
+        drive_fleet_id = #{driveFleetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isHasCar != null and isHasCar != ''" >
+        is_has_car = #{isHasCar,jdbcType=VARCHAR},
+      </if>
+      <if test="truckNo != null and truckNo != ''" >
+        truck_no = #{truckNo,jdbcType=VARCHAR},
+      </if>
+      <if test="truckType != null and truckType != ''" >
+        truck_type = #{truckType,jdbcType=VARCHAR},
+      </if>
+      <if test="truckWidth != null and truckWidth != ''" >
+        truck_width = #{truckWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="truckHeight != null and truckHeight != ''" >
+        truck_height = #{truckHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="truckLength != null and truckLength != ''" >
+        truck_length = #{truckLength,jdbcType=VARCHAR},
+      </if>
+      <if test="truckMaxwight != null and truckMaxwight != ''" >
+        truck_maxwight = #{truckMaxwight,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenceImg1 != null and driveLicenceImg1 != ''" >
+        drive_licence_img1 = #{driveLicenceImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenceImg2 != null and driveLicenceImg2 != ''" >
+        drive_licence_img2 = #{driveLicenceImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="moveLicenceImg1 != null and moveLicenceImg1 != ''" >
+        move_licence_img1 = #{moveLicenceImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="moveLicenceImg2 != null and moveLicenceImg2 != ''" >
+        move_licence_img2 = #{moveLicenceImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrueDrive != null and isTrueDrive != ''" >
+        is_true_drive = #{isTrueDrive,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrueMove != null and isTrueMove != ''" >
+        is_true_move = #{isTrueMove,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null and delFlag != ''" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null and remarks != ''" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询订单列表 文帅 -->
+  <select id="findDriverOrderList" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		d.*,
+		g.order_no AS orderNo,
+		g.shipper_area AS shipperArea,
+		g.reciver_area AS reciverArea,
+		g.goods_type AS goodsType,
+		g.need_truck_type AS needTruckType,
+		g.goods_num AS goodsNum,
+		g.goods_unit AS goodsUnit,
+		g.need_truck_length AS needTruckLength,
+		g.zc_ymd AS zcYmd
+	FROM
+		drive_order d,
+		goods g
+	WHERE
+	 	d.goods_id = g.id
+	AND d.drivers_id= #{driverId,jdbcType=VARCHAR}
+ 	<if test='type=="0"'>
+       d.goods_status IN ("3","4","12","13","14"),
+    </if>
+    <if test='type=="1"'>
+       d.goods_status = "5",
+    </if>
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+  <!-- 根据货物ID查询订单详情 -->
+  <select id="findOrderByGoodsId" resultMap="BaseResultMap" parameterType="string">
+  	SELECT
+		*
+	FROM
+		drive_order
+	WHERE
+		goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findOrderListByGoodsId" resultMap="BaseResultMap" parameterType="string">
+  	SELECT
+		*
+	FROM
+		drive_order
+	WHERE
+		goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+</mapper>

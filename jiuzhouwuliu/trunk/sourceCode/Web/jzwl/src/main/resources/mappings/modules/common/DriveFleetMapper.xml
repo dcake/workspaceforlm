@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.DriveFleetMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.DriveFleet" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fleet_name" property="fleetName" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="fleet_level" property="fleetLevel" jdbcType="VARCHAR" />
+    
+    <result column="driver_type" property="driversType" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fleet_name, create_by, del_flag, remarks, update_date, update_by, create_date, 
+    fleet_level
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from drive_fleet
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from drive_fleet
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.DriveFleet" >
+    insert into drive_fleet (id, fleet_name, create_by, 
+      del_flag, remarks, update_date, 
+      update_by, create_date, fleet_level
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fleetName,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{fleetLevel,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.DriveFleet" >
+    insert into drive_fleet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fleetName != null" >
+        fleet_name,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="fleetLevel != null" >
+        fleet_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fleetName != null" >
+        #{fleetName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fleetLevel != null" >
+        #{fleetLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.DriveFleet" >
+    update drive_fleet
+    <set >
+      <if test="fleetName != null" >
+        fleet_name = #{fleetName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fleetLevel != null" >
+        fleet_level = #{fleetLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.DriveFleet" >
+    update drive_fleet
+    set fleet_name = #{fleetName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      fleet_level = #{fleetLevel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 获得车队实体 -->
+  <select id="findDriveFleetList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.DriveFleet" >
+    select *
+    from drive_fleet
+  </select>
+    <!-- 获取车队列表 王涛-->
+  <select id="findList" resultType="com.thinkgem.jeesite.common.entity.Drivers" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+		 Select * from(SELECT
+		 		 t.id,
+		 		 t.drive_fleet_id,
+				 t.driver_type,t.is_org_driver,
+		         u.username,
+		         u.truename,  
+				 u.phoneno,
+				 t1.create_date
+		FROM
+				drivers t,
+				users u,
+			  drive_fleet t1
+		WHERE
+		       t.drive_fleet_id=t1.id
+		AND
+		       t.userid=u.id
+		<!--AND  t.driver_type in('2','1')-->
+        ) aa
+        
+	    <if test="truename !=null ">
+	    	where aa.drive_fleet_id in (select vd.drive_fleet_id from view_all_drivers_info vd
+	    	where vd.truename like CONCAT('%','${truename}','%' )
+	    	 <if test="phoneno !=null and phoneno !=''">
+	    		and vd.phoneno like CONCAT('%','${phoneno}','%' )
+	    	</if>
+	    	)
+	    </if>
+      ORDER BY aa.drive_fleet_id,aa.create_date,aa.driver_type DESC
+    </select>
+      <select id="selectByPrimaryKeyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    		 SELECT
+				 t1.*,
+		         u.username,
+		         u.truename,  
+				 u.phoneno
+		FROM
+				drivers t,
+				users u,
+			  drive_fleet t1
+		WHERE
+		       t.drive_fleet_id=t1.id
+		AND
+		       t.userid=u.id
+		AND 
+        t.driver_type='2'
+        AND
+     t1.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!--  通过车队id查询该车队的所有成员 pcx-->
+   <select id="findFleetMemberListById" resultType="com.thinkgem.jeesite.common.entity.Drivers" parameterType="com.thinkgem.jeesite.common.entity.DriveFleet" >
+	SELECT
+		v.driversId AS id,
+		v.usersId AS userid,
+		v.*
+	FROM
+		view_all_drivers_info v
+	WHERE
+		v.drive_fleet_id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!-- 删除车队下所以成员 pcx -->
+  <update id="deleteAllFleetMember" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    update drivers
+    set 
+    drive_fleet_id = null,
+    driver_type ='0',
+    update_date = #{updateDate,jdbcType=TIMESTAMP},
+    update_by = #{updateBy,jdbcType=VARCHAR}
+    where drive_fleet_id = #{driveFleetId,jdbcType=VARCHAR}
+  </update>
+  <!-- 删除车队下某个成员 pcx -->
+  <update id="deleteFleetMemberByID" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    update drivers
+    set 
+    drive_fleet_id = null,
+    driver_type ='0',
+    update_date = #{updateDate,jdbcType=TIMESTAMP},
+    update_by = #{updateBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

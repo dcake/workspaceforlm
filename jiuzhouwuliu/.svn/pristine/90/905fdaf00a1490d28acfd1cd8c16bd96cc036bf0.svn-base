@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.popupbox .popup,
+			.popupbox1 .popup,
+			.popupbox2 .popup {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				bottom: 0;
+			}
+			
+			.popupbox1 .popup {
+				height: 100%;
+				overflow: auto;
+			}
+			
+			.popupbox .mui-popup-title,
+			.popupbox1 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.popupbox2 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+			}
+			
+			.popupbox .mui-popup-cont button,
+			.popupbox1 .mui-popup-cont button,
+			.popupbox2 .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 34px;
+			}
+			
+			.mui-btn {
+				background-color: #efeff4;
+				color: #333;
+			}
+			
+			.mui-popup-button:first-child:last-child {
+				border-radius: 6px 6px 6px 6px;
+			}
+			
+			.mui-popup-button {
+				font-size: 17px;
+				line-height: 44px;
+				position: relative;
+				width: 100%;
+				height: 44px;
+				text-align: center;
+				color: #f7f7f7;
+				background: #1dacf9; 
+				display: block;
+			}
+			
+			.popupbox .mui-popup-buttons,
+			.popupbox1 .mui-popup-buttons,
+			.popupbox2 .mui-popup-buttons {
+				border-top: 0px solid #ddd;
+				margin-bottom: 11px;
+				clear: both;
+				width: 100%;
+				padding: 0 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="popupbox1 popupbox mui-backdrop">
+				<div class="popup">
+					<div class="mui-popup-cont">
+						<div class="mui-popup-title">车长</div>
+						<div class="popup-class" style="padding-bottom: 2px;"> 
+							<button @tap="selectTruckLength(event,index)" v-for="(item,index) in truckLength" v-bind:class="{'mui-btn-primary':(index==0),'mui-btn':(index!=0)}" v-bind:id="'length'+index">{{item.label}}</button>
+						</div> 
+						<div class="mui-popup-title">车宽</div>
+						<div class="popup-class" style="padding-bottom: 2px;">
+							<button @tap="selectTruckWidth(event,index)" v-for="(item,index) in truckWidth" v-bind:class="{'mui-btn-primary':(index==0),'mui-btn':(index!=0)}" v-bind:id="'width'+index">{{item.label}}</button>
+						</div>
+						<div class="mui-popup-title">车型</div>
+						<div class="popup-class" id="vehiclebox"> 
+							<button @tap="selectTruckType(event,index)" v-for="(item,index) in truckType" v-bind:class="{'mui-btn-primary':(index==0),'mui-btn':(index!=0)}" v-bind:id="'type'+index">{{item.label}}</button>
+						</div>
+					</div>
+					<div @tap="subBtn()" class="mui-popup-buttons">
+						<span class="mui-popup-button mui-popup-button-bold">确定</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:'.mui-content',
+				data:{
+					truckLength:{},	//车长
+					lengthVal:'0',
+					tempLengthId:'length0',//中间变量，存储选中的按钮id，用来改变颜色
+					truckWidth:{},	//车宽
+					widthVal:'0',
+					tempWidthId:'width0',
+					truckType:{},	//车型
+					typeVal:'0',
+					tempTypeId:'type0'
+				},
+				mounted:function(){
+					var self = this;
+					mui.init();
+					mui.back = function(){
+						plus.webview.currentWebview().hide();
+					}
+					//获取车辆信息
+					AjaxSend("MobileSearchDriver/getConditions",{},"post",function(result){
+						if(result.status){
+							var dataList = result.data;
+							self.truckLength = dataList.truckLength;
+							self.truckWidth = dataList.truckWidth;
+							self.truckType = dataList.truckType;
+						}
+					})
+				},
+				methods:{
+					/**
+					 * 选择车长
+					 */
+					selectTruckLength:function(e,index){
+						var self = this;
+						document.getElementById(self.tempLengthId).setAttribute("class","mui-btn");
+						self.tempLengthId = e.target.getAttribute("id");
+						e.target.setAttribute("class","mui-btn-primary");
+						self.lengthVal = self.truckLength[index].value;
+					},
+					/**
+					 * 选择车宽
+					 */
+					selectTruckWidth:function(e,index){
+						var self = this;
+						document.getElementById(self.tempWidthId).setAttribute("class","mui-btn");
+						self.tempWidthId = e.target.getAttribute("id");
+						e.target.setAttribute("class","mui-btn-primary");
+						self.widthVal = self.truckWidth[index].value;
+					},
+					/**
+					 * 选择车型
+					 */
+					selectTruckType:function(e,index){
+						var self = this;
+						document.getElementById(self.tempTypeId).setAttribute("class","mui-btn");
+						self.tempTypeId = e.target.getAttribute("id");
+						e.target.setAttribute("class","mui-btn-primary"); 
+						self.TypeVal = self.truckType[index].value;
+					},
+					/*
+					 * 确定
+					 */
+					subBtn:function(){
+						
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,120 @@
+package com.thinkgem.jeesite.mobile.common.service;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import com.thinkgem.jeesite.common.dao.UsersSuggestionMapper;
+import com.thinkgem.jeesite.common.entity.UsersSuggestion;
+import com.thinkgem.jeesite.common.utils.IdGen;
+import com.thinkgem.jeesite.mobile.entity.PageParam;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.mobile.utils.SaveFileUtil;
+
+/**
+ * @desc 投诉建议Service
+ * @author yaotengfei
+ * @date 2017年8月10日上午10:45:53
+ */
+@Service
+@Transactional
+public class MobileCommonSuggestService {
+	
+	@Autowired
+	private UsersSuggestionMapper usersSuggestionMapper;
+
+	/**
+	 * @desc 提交投诉建议
+	 * @author yaotengfei
+	 * @date 2017年8月10日上午10:47:44
+	 * @param usersSuggestion
+	 * @return
+	 * @throws IOException 
+	 */
+	public AjaxBeanUtil submitSuggest(UsersSuggestion usersSuggestion,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		usersSuggestion.setId(IdGen.uuid());
+		usersSuggestion.setDelFlag("0");
+		//创建一个通用的多部分解析器  
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());  
+        //判断 request 是否有文件上传,即多部分请求  
+        if(multipartResolver.isMultipart(request)){  
+            //转换成多部分request    
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;  
+            //取得request中的所有文件名  
+            Iterator<String> iter = multiRequest.getFileNames();
+            //图片存放路径
+            String tempURL = "/upload/Img/APPSuggestImg/";
+            int i = 1;
+            while(iter.hasNext()){
+                //取得上传文件  
+                MultipartFile file = multiRequest.getFile(iter.next());
+                String imgPath = SaveFileUtil.saveImg(request,file,tempURL);
+                if(i == 1){
+                	usersSuggestion.setImg1(imgPath);
+    	        }
+    	        if(i == 2){
+    	        	usersSuggestion.setImg2(imgPath);
+    	        }
+    	        if(i == 3){
+    	        	usersSuggestion.setImg3(imgPath);
+    	        }
+    	        if(i == 4){
+    	        	usersSuggestion.setImg4(imgPath);
+    	        }
+    	        if(i == 5){
+    	        	usersSuggestion.setImg5(imgPath);
+    	        }
+    	        i++;
+            }
+            usersSuggestion.preInsert();
+            usersSuggestionMapper.insert(usersSuggestion);
+        }  
+		return new AjaxBeanUtil("提交成功", true);
+	}
+	
+	/**
+	 * @desc 获取投诉建议列表
+	 * @author yaotengfei
+	 * @date 2017年8月22日下午5:04:51
+	 * @param request
+	 * @return
+	 */
+	public AjaxBeanUtil getSuggestList(HttpServletRequest request){
+		String userId = request.getParameter("userId");
+		String current = request.getParameter("currentPage");
+		int currentPage = (Integer.parseInt(current)-1)*PageParam.DEFAULT_PAGESIZE;
+		int pageSize = PageParam.DEFAULT_PAGESIZE;
+		List<UsersSuggestion> suggestionList = usersSuggestionMapper.getSuggestionList(userId, currentPage, pageSize);
+		if(suggestionList.size() == 0){
+			return new AjaxBeanUtil("暂无数据", false);
+		}
+		//Map<String Object> ResultMap = new HashMap<String Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("suggestionList", suggestionList);
+		resultMap.put("pageSize", pageSize);
+		return new AjaxBeanUtil("success", true, resultMap);
+	}
+	
+	/**
+	 * @desc 根据id获取投诉建议详情
+	 * @author yaotengfei
+	 * @date 2017年8月22日下午5:52:48
+	 * @param suggestId
+	 * @return
+	 */
+	public AjaxBeanUtil getSuggestDetail(String suggestId){
+		UsersSuggestion suggestion = usersSuggestionMapper.findDetail(suggestId);
+		return new AjaxBeanUtil("success", true, suggestion);
+	}
+}

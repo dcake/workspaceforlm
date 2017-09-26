@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			body {
+				background: #f1f1f1;
+			}
+			
+			.mui-content {
+				background: #fff;
+			}
+			
+			.mui-input-row label {
+				font-family: 'Helvetica Neue', Helvetica, sans-serif;
+				line-height: 1.1;
+				float: left;
+				width: 47%;
+				padding: 11px 15px;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				float: right;
+				width: 53%;
+				margin-bottom: 0;
+				padding-left: 0;
+				border: 0;
+			}
+			
+			.mui-input-group .mui-input-row {
+				height: 50px;
+			}
+			
+			.mui-input-group .mui-input-row label {
+				line-height: 28px;
+			}
+			
+			/*.mui-input-group .mui-input-row input {
+				line-height: 30px;
+			}*/
+			
+			.mui-input-group .mui-input-row input {
+				/* line-height: 49px; */
+				margin-top: 4px;
+			}
+			
+			.mui-input-row .mui-input-clear~.mui-icon-clear {
+				line-height: 1.3;
+			}
+			
+			.but-box {
+				margin-top: 20px;
+				padding: 0px 15px;
+			}
+			
+			.mui-table-view-cell {
+				position: relative;
+				overflow: hidden;
+				padding: 11px 15px;
+				-webkit-touch-callout: none;
+			}
+			
+			.mui-table-view-cell:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 15px;
+				height: 0px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+			
+			.remark {
+				color: #999;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-cell:last-child:before,
+			.mui-table-view-cell:last-child:after {
+				height: 1px;
+			}
+			
+			.mui-input-group:after {
+				height: 0px;
+			}
+			
+			.mui-table-view-cell>a:not(.mui-btn) {
+				line-height: 31px;
+			}
+			
+			.mui-radio input[type='radio']:checked:before,
+			.mui-checkbox input[type='checkbox']:checked:before {
+				color: #007AFF;
+			}
+			
+			input[type=checkbox]+label:before {
+				content: "";
+				border: 1px solid #999;
+				font-size: 11px;
+				line-height: 15px;
+				margin: 0 5px 0 0;
+				height: 14px;
+				width: 14px;
+				text-align: center;
+				vertical-align: middle;
+				display: inline-block;
+				border-radius: 10px;
+			}
+			
+			.but-box {
+				margin: 15px 0px;
+			}
+			
+			.mui-input-group .mui-input-row:after {
+				background-color: #ddd;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 0px;
+			}
+			
+			.mui-table-view:before {
+				position: absolute;
+				top: -1px;
+				right: 0;
+				left: 0;
+				height: 0px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.mui-table-view-cell>a:not(.mui-btn).mui-active {
+				background-color: transparent;
+			}
+			.popupbox .popup{
+			    width: 100%;
+			    background: #fff;
+			    position: fixed;
+			    bottom: 0;
+			}
+			.popupbox .mui-popup-title{
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+			.popupbox .mui-popup-cont button{
+			    width: 19%;
+			    margin: 2%;
+			    height: 34px;
+			}
+			.mui-popup-button:first-child:last-child {
+			    border-radius: 6px 6px 6px 6px;
+			    margin: 0 20px;	
+			 }	
+			.mui-popup-button {
+			    font-size: 17px;
+			    line-height: 44px;
+			    position: relative;
+			    width: 100%;
+			    height: 44px;
+			    padding: 0 5px;
+			    text-align: center;
+			    color: #f7f7f7;
+			    background: #1dacf9;	
+			}
+			.popupbox .mui-popup-buttons{
+			    border-top: 0px solid #ddd;
+			    margin-bottom: 11px;
+			    clear: both;
+			}	
+			.popupbox .mui-popup-cont{
+			    padding: 10px;
+			    margin-bottom: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="deal">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">确认交易</h1>
+		</header>
+
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row mui-checkbox" style="height: 75px;">
+					<label style="width: 100%;">是否开具增值税发票<p style="color: #1dacf9;font-size: 12px;line-height: 1.5;margin-top: 5px;">系统推广期间不收取任何费用，如需发票则增收10%手续费</p></label>
+					<input id="check" name="checkbox1" value="Item 3" type="checkbox" @click="service">
+				</div>
+				<div class="mui-input-row">
+					<label>公司名称</label>
+					<input id='name' type="text" class="mui-input-clear mui-input" placeholder="请输入公司名称">
+				</div>
+				<div class="mui-input-row">
+					<label>纳税人识别号</label>
+					<input id='payDuty' type="number" class="mui-input-clear mui-input" placeholder="请输入纳税人识别号">
+				</div>
+				<div class="mui-input-row">
+					<label>地址</label>
+					<input id='site' type="text" class="mui-input-clear mui-input" placeholder="请输入地址">
+				</div>
+				<div class="mui-input-row">
+					<label>电话</label>
+					<input id='phone' type="text" maxlength="15" class="mui-input-clear mui-input" placeholder="请输入电话">
+				</div>
+				<div class="mui-input-row">
+					<label>开户行</label>
+					<input id='open' type="text" class="mui-input-clear mui-input" placeholder="请输入开户行">
+				</div>
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='account' type="number" maxlength="21" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>发票邮寄地址</label>
+					<input id='invoice' type="text" class="mui-input-clear mui-input" placeholder="请输入发票邮寄地址">
+				</div>
+			</form>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" v-on:click="paymode">
+					<a class="mui-navigate-right" id='showUserPicker'>
+						选择支付方式
+						<span class="mui-pull-right ui-alert" id="pay" style="font-size: 16px;color: #333333;padding-right: 20px;">垫资及开票</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">交易价格<span class="mui-pull-right" style="color: #ff3c00;">￥<span id="price"></span></span></li>
+				<li class="mui-table-view-cell" style="padding: 5px 15px;"><span class="mui-pull-right remark" >运费：￥<span id="freight" class="remark"></span></span></li>
+				<li class="mui-table-view-cell" v-bind:style="styleObject"><span class="mui-pull-right remark">增值税：￥<span id="tax" class="remark">110</span></span></li>
+				<li class="mui-table-view-cell">支付金额<span class="mui-pull-right" style="color: #ff3c00;">￥<span id="money"></span></span></li>
+				<li class="mui-table-view-cell">
+					<a class="goods" style="color:#007AFF;text-decoration:underline;">垫资说明</a>
+				</li>
+			</ul>
+		</div>
+		<div class="but-box">
+			<button class="queren tz" type="button" @click="paydeal">立即支付</button>
+		</div>
+		
+		<!--弹窗-货物类型 -->
+		<div class="popupbox mui-backdrop">
+			<div class="popup">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title" style="text-align: center;">垫资说明</div>
+					<div class="popup-class" style="padding:0 15px;">
+                      <p>垫资说明内容垫资说明内容垫资说明内容垫资说明内容垫资说明内容垫资说明内容</p>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span class="mui-popup-button mui-popup-button-bold">关闭</span>
+				</div>
+			</div>
+		</div>
+    <!----> 
+		
+	</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script type="text/javascript" src="../js/jquery.js" ></script>
+	<!--<script src="../js/mui.min.js"></script>-->
+	<!--<script src="../js/mui.picker.min.js"></script>-->
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/base.js" ></script>
+	<script type="text/javascript" src="../js/vue.js" ></script>
+	<script>
+		
+		var deal = new Vue({
+			el: '#deal',
+			data: {
+				userInfo: getUser().userInfo,
+				styleObject: {
+					padding: '5px 15px',
+					display: 'none'
+				}
+			},
+			mounted: function(){
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				mui.plusReady(function(){
+					deal.paymode();
+					var pay = document.getElementById('pay');
+					var price = document.getElementById('price');
+					var freight = document.getElementById('freight');
+					var money = document.getElementById('money');
+					if(getUser().level=="C"){
+						pay.innerHTML = '余额';
+						money.innerHTML = Number(price.innerHTML)
+					}else{
+						money.innerHTML = "0"
+					}
+					//获取传过来的用户id、竞价人id、type、订单id、运费
+					userInfoid = plus.webview.currentWebview().data.userInfoid;
+					userid = plus.webview.currentWebview().data.userid;
+					type = plus.webview.currentWebview().data.type;
+					goodsownerOrderId = plus.webview.currentWebview().data.goodsownerOrderId;
+					
+					price.innerHTML = plus.webview.currentWebview().data.price;
+					freight.innerHTML = plus.webview.currentWebview().data.price;
+				})
+			},
+			methods: {
+				paymode: function(){
+					(function($, doc) {
+						$.init();
+						$.ready(function() {
+							//普通示例
+							var userPicker = new $.PopPicker();
+							if(deal.userInfo.level=="A" || deal.userInfo.level=="B"){
+								userPicker.setData([{
+									value: 'ywj',
+									text: '垫资及开票'
+								}, {
+									value: 'aaa',
+									text: '余额'
+								}, {
+									value: 'lj',
+									text: '支付宝'
+								}, {
+									value: 'ymt',
+									text: '微信'
+								}, {
+									value: 'shq',
+									text: '招商银行'
+								}]);
+							}else{
+								userPicker.setData([{
+									value: 'aaa',
+									text: '余额'
+								}, {
+									value: 'lj',
+									text: '支付宝'
+								}, {
+									value: 'ymt',
+									text: '微信'
+								}, {
+									value: 'shq',
+									text: '招商银行'
+								}]);
+							}
+							var showUserPickerButton = doc.getElementById('showUserPicker');
+							showUserPickerButton.addEventListener('tap', function(event) {
+								userPicker.show(function(items) {
+									pay.innerText = JSON.stringify(items[0].text).replace(/\"/g, "");
+									if(items[0].text == "垫资及开票"){
+										money.innerHTML = "0"
+									}else{
+										money.innerHTML = Number(price.innerHTML)
+									}
+									//返回 false 可以阻止选择框的关闭
+									//return false;
+								});
+							}, false);
+						});
+					})(mui, document);
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 提交数据
+				 */
+				paydeal: function(){
+					var check = document.getElementById('check').checked;
+					var name = document.getElementById('name').value.trim();
+					var payDuty = document.getElementById('payDuty').value.trim();
+					var site = document.getElementById('site').value.trim();
+					var phone = document.getElementById('phone').value.trim();
+					var open = document.getElementById('open').value.trim();
+					var account = document.getElementById('account').value.trim();
+					var invoice = document.getElementById('invoice').value.trim();
+					var pay = document.getElementById('pay').innerHTML;
+					var price = document.getElementById('price').innerHTML;
+					var freight = document.getElementById('freight').innerHTML;
+					var tax = document.getElementById('tax').innerHTML;
+					var money = document.getElementById('money').innerHTML;
+					var num = '';
+
+//					if(name == ''){
+//						mui.toast("请输入公司名称")
+//						return;
+//					};
+//					if(payDuty == ''){
+//						mui.toast("请输入纳税人识别号")
+//						return;
+//					};
+//					if(site == ''){
+//						mui.toast("请输入地址")
+//						return;
+//					};
+//					if(phone == ''){
+//						mui.toast("请输入电话号码")
+//						return;
+//					};
+//					if(checkPhone(phone) == false || checkTel(phone) == false) {
+//						mui.toast('请填写正确电话号码');
+//						return;
+//					};
+//					if(open == ''){
+//						mui.toast("请输入开户行")
+//						return;
+//					};
+//					if(account == ''){
+//						mui.toast("请输入账号")
+//						return;
+//					};
+//					if(luhmCheck(account) == false){
+//						mui.toast('请填写正确账号');
+//						return;
+//					};
+//					if(invoice == ''){
+//						mui.toast("请输入发票邮寄地址")
+//						return;
+//					};
+
+					money = Number(freight);
+					if(pay == "垫资及开票"){
+						money.innerHTML = 0;
+					};
+					if(check){
+						num = 1;
+					}else{
+						num = 0
+					};
+					
+					var data = {
+						userId: userInfoid,
+						type: type,
+						jingJiaRenId: userid,
+						goodsownerOrderId: goodsownerOrderId,
+						isBill: num,
+						companyName: name,
+						taxpayerNo: payDuty,
+						adress: site,
+						tel: phone,
+						bankName: open,
+						bankCardno: account,
+						billToAddress: invoice,
+						payStyle: pay,
+						dealMoney: price,
+						carryFee: freight,
+						taxFee: tax,
+						payMoney: money
+					};
+					AjaxSend('mobileBid/confrimTransaction',data,'POST',function(result){
+						if(result.status){
+							mui.openWindow({
+								url: 'pay-success.html',
+								id: 'pay-success.html'
+							});
+						}else{
+							mui.toast(result.msg)
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 开发票加收10%手续费
+				 */
+				service: function(){
+					var check = document.getElementById('check').checked;
+					var tax = document.getElementById('tax');
+					var pay = document.getElementById('pay').innerHTML;
+					//是否开票
+					if(check){
+						deal.styleObject.display = 'block';
+						tax.innerHTML = price.innerHTML/10;
+						price.innerHTML = Number(tax.innerHTML)+Number(freight.innerHTML)
+						money.innerHTML = Number(price.innerHTML)
+						if(pay == "垫资及开票"){
+							money.innerHTML = 0;
+						}
+					}else{
+						deal.styleObject.display = 'none';
+						price.innerHTML = Number(freight.innerHTML)
+						money.innerHTML = Number(freight.innerHTML)
+						if(pay == "垫资及开票"){
+							money.innerHTML = 0;
+						}
+					}
+				}
+			}
+		})
+		//		点击弹出选择属性界面
+					var body = document.body;
+					$(".popupbox").hide();
+					$(".goods").click(
+						function() {
+							$(".popupbox").show();
+							body.style.overflow = 'hidden';
+						}
+					);
+					//    结束
+					$(".mui-popup-buttons span").click(
+						function() {
+							$(".popupbox").hide();
+							body.style.overflow = 'auto';
+						}
+					)
+	</script>
+
+</html>

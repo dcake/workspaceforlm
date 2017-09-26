@@ -1,0 +1,170 @@
+package com.thinkgem.jeesite.modules.driver.service;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.DriveFleetMapper;
+import com.thinkgem.jeesite.common.dao.DriversMapper;
+import com.thinkgem.jeesite.common.dao.UsersMapper;
+import com.thinkgem.jeesite.common.entity.DriveFleet;
+import com.thinkgem.jeesite.common.entity.Drivers;
+import com.thinkgem.jeesite.common.persistence.Page;
+/**
+ * 
+ * 王涛
+ *车队管理
+ */
+@Service("driveFleetService")
+@Transactional
+public class DriveFleetService {
+	@Autowired
+	private DriversMapper driversMapper;
+	@Autowired
+	private UsersMapper usersMapper;
+	@Autowired
+	private DriveFleetMapper driveFleetMapper;
+	
+	/**
+	 * @description	：加载车队信息
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午4:57:04
+	 * @return Page<DriveFleet>
+	 */
+	public Page<Drivers> findPage(Page<Drivers> page, Drivers drivers) {
+		drivers.setPage(page);
+		page.setList(driveFleetMapper.findList(drivers));
+		return page;
+	}
+
+	
+	public DriveFleet findById(String id){
+		return driveFleetMapper.selectByPrimaryKeyId(id);
+	}
+	  public List<DriveFleet>findDriveFleetList(DriveFleet driveFleet){
+		  return driveFleetMapper.findDriveFleetList(driveFleet);
+	  }
+	  public DriveFleet getDriveFleet(DriveFleet driveFleet){
+			return driveFleetMapper.selectByPrimaryKey(driveFleet.getId());
+		}
+
+
+	/**
+	 * @description	：保存车队信息
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午4:56:32
+	 * @return void
+	 */
+	public void saveFleet(Drivers drivers, String[] idArr) {
+		//添加车队
+		DriveFleet df = new DriveFleet();
+		df.setFleetName(drivers.getUsername());
+		df.preInsert();
+		driveFleetMapper.insertSelective(df);
+		//更新车队长信息
+		drivers.setDriverType("2");
+		drivers.setDriveFleetId(df.getId());
+		drivers.preUpdate();
+		driversMapper.updateByPrimaryKeySelective(drivers);
+		//更新车主信息
+		for(int i=0;i<idArr.length;i++){
+			Drivers d = driversMapper.selectByPrimaryKey(idArr[i]);
+			if(null!=d){
+				d.setDriverType("1");
+				d.setDriveFleetId(df.getId());
+				d.preUpdate();
+				driversMapper.updateByPrimaryKeySelective(d);
+			}
+		}
+	}
+
+
+	/**
+	 * @description	：更新车队信息
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午1:43:14
+	 * @return void
+	 */
+	public void updateFleet(Drivers master, String[] idArr) {
+		// TODO Auto-generated method stub
+		Drivers member = null;
+		List<String> idList = new ArrayList<String>();
+		for(int i=0;i<idArr.length;i++){
+			idList.add(idArr[i]);
+		}
+		DriveFleet df = new DriveFleet();
+		df.setId(master.getDriveFleetId());
+		List<Drivers> list = driveFleetMapper.findFleetMemberListById(df);
+		for(Drivers d:list){
+			if("2".equals(d.getDriverType())){
+				if(d.getId().equals(master.getId())){
+				}else{
+					master.preUpdate();
+					master.setDriverType("2");
+					driversMapper.updateByPrimaryKeySelective(master);
+					d.preUpdate();
+					d.setDriveFleetId(null);
+					d.setDriverType("0");
+					driversMapper.updateByPrimaryKey(d);
+				}
+			}else{
+				if(idList.contains(d.getId())){
+					idList.remove(d.getId());
+				}else{
+					d.preUpdate();
+					d.setDriverType("0");
+					d.setDriveFleetId(null);
+					driversMapper.updateByPrimaryKey(d);
+				}
+			}
+		}
+		
+		for(String id:idList){
+			member = driversMapper.selectByPrimaryKey(id);
+			member.setDriveFleetId(master.getDriveFleetId());
+			member.setDriverType("1");
+			driversMapper.updateByPrimaryKey(member);
+		}
+	}
+
+
+	/**
+	 * @description	：通过车队id查询该车队的所有成员
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 上午9:58:31
+	 * @return List<Drivers>
+	 */
+	public List<Drivers> findFleetMemberListById(DriveFleet driveFleet) {
+		// TODO Auto-generated method stub
+		return driveFleetMapper.findFleetMemberListById(driveFleet);
+	}
+
+
+	/**
+	 * @description	：删除所有的车队员及车队
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:22:21
+	 * @return int
+	 */
+	public void deleteAllFleetMember(Drivers drivers) {
+		// TODO Auto-generated method stub
+		drivers.preUpdate();
+		this.driveFleetMapper.deleteAllFleetMember(drivers);
+		driveFleetMapper.deleteByPrimaryKey(drivers.getDriveFleetId());
+	}
+	/**
+	 * @description	：删除车队下某个成员
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:26:17
+	 * @return void
+	 */
+	public void deleteFleetMemberByID(Drivers drivers) {
+		// TODO Auto-generated method stub
+		drivers.preUpdate();
+		this.driveFleetMapper.deleteFleetMemberByID(drivers);
+	}
+	
+}
+

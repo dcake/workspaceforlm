@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+
+		<style>
+			.mui-content > .mui-table-view:first-child {
+   				 margin-top: 0;
+			}
+			.headbox {
+				padding: 20px 30px;
+				color: #fff;
+				background-color: #1dacf9;
+				font-size: 18px;
+				overflow: hidden;
+			}
+			.icon-huoche2 {
+				font-size: 70px;
+			}
+			.h_left {
+				width: 50%;
+				float: left;
+				text-align: right;
+				padding-right: 20px;
+			}
+			.h_right {
+				width: 50%;
+				float: right;
+				padding-top: 12px;
+			}
+			.about4{
+				background-color: #fff;
+				padding: 20px 15px;
+				overflow: hidden;
+			}
+			.about4_main ul li {
+			    padding-left: 40px;
+			    font-size: 16px;
+			    color: #333333;
+			    line-height: 30px;
+			    margin-bottom: 30px;
+			    background: url(../img/dot01.png) left center no-repeat;	
+			    background-size: 15px;		   
+			}
+			.about4_main ul li:first-child {
+			    padding-left: 40px;
+			    font-size: 16px;
+			    color: #333333;
+			    line-height: 30px;
+			    margin-bottom: 30px;
+			    background: url(../img/dot02.png) left center no-repeat;	
+			    background-size: 15px;	
+			    z-index: 9;		   
+			}
+			.about4_main ul li p {
+				line-height: 20px;
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+			.l_tit {
+				font-size: 16px;
+			}
+			.g_line {
+			    width: 1px;
+			    height: 100%;
+			    background-color: #cecece;
+			    position: absolute;
+			    left: 47px;
+			}
+			.about4_main {
+			    position: relative;
+			}
+			.orange{
+				color: #ff3c00;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">物流信息</h1>
+		</header>
+
+		<div class="mui-content">
+			<div class="headbox">
+				<span class="mui-icon iconfont icon-huoche2 h_left "></span>
+				<span class="h_right" >您的订单在路上 <br> 请耐心等待</span>
+			</div>
+
+			<div class="about4">
+				<div class="about4_main">
+					<div class="g_line" style="top: 30px;"></div>
+						<ul>
+							<li v-for="(item,index) in dataList">
+								<p v-bind:class="{'l_tit orange':(index==0),'l_tit':(index!=0)}">
+									<span v-if="index==0">已到达</span>{{item.curArea}}
+								</p><p class="color_a">{{item.createDate}}</p>
+							</li>
+						</ul>
+				</div>
+			</div>
+			            
+		</div>
+	</body>
+	
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		new Vue({
+			el:'.mui-content',
+			data:{
+				dataList:{}
+			},
+			mounted:function(){
+				var self = this;
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				mui.plusReady(function(){
+					self.dataList = plus.webview.currentWebview().positionList;
+				})
+			}
+		})
+	</script>
+
+</html>

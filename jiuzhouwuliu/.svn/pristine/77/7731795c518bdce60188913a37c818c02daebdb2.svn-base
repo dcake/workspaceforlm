@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				margin-right: 20px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				height: 50px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content {
+				margin-top: 55px;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.mui-input-row {
+				padding: 15px;
+			}
+			
+			.re_tip {
+				font-style: normal;
+				border: 1px solid #3f9e00;
+				color: #3f9e00;
+				padding: 0 6px;
+				margin-left: 10px;
+				border-radius: 6px;
+				font-size: 16px;
+			}
+			/*收藏*/
+			
+			.icon-xing1:before {
+				/*padding-right: 5px;*/
+				font-size: 18px;
+			}
+			
+			.icon-star1:before {
+				/*padding-right: 5px;*/
+				font-size: 18px;
+				color: #F0AD4E;
+			}
+			
+			.badding-num {
+				height: 50px;
+				vertical-align: middle;
+				text-align: center;
+				padding: 17px 0px;
+				color: #ff5400;
+				box-shadow: 2px 3px 6px #EFEFEF;
+				font-size: 16px;
+			}
+			
+			#promptBtn {
+				background-color: #1dacf9;
+			}
+			/*地址弹出框*/
+			
+			#city {
+				max-width: 80%;
+				display: inline-block;
+				overflow: hidden;
+				word-break: keep-all;
+				/*不换行*/
+				white-space: nowrap;
+				/*不换行*/
+			}
+			
+			._citys {
+				background: #fff;
+				position: relative;
+			}
+			
+			._citys0 {
+				margin: 0;
+				padding: 0;
+				border-bottom: 2px solid #1dacf9;
+			}
+			
+			._citys0 li {
+				width: 30%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 16px;
+				display: inline-block;
+				text-align: center;
+			}
+			
+			._citys0 .citySel {
+				background: #1dacf9;
+				color: #fff;
+			}
+			
+			#cColse {
+				width: 18px;
+				height: 18px;
+				line-height: 18px;
+				text-align: center;
+				color: #1dacf9;
+				position: absolute;
+				right: 10px;
+				top: 12px;
+				border: 1px solid #1dacf9;
+				border-radius: 4px;
+			}
+			
+			._citys1 {
+				overflow: hidden;
+				padding-bottom: 10px;
+			}
+			
+			._citys1 a {
+				width: 23%;
+				height: 35px;
+				float: left;
+				background-color: #f5f5f5;
+				color: #666;
+				margin: 5px 1% 0;
+				line-height: 35px;
+				text-align: center;
+				cursor: pointer;
+				font-size: 15px;
+				overflow: hidden;
+			}
+			
+			.mui-media-object {
+				border-radius: 50%;
+				height: 80px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="add">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 id="title" class="mui-title">添加收藏</h1>
+				<button id='promptBtn' class="mui-pull-right mui-icon iconfont icon-sousuo" @click="search"></button>
+				<div id="info"></div>
+				<div class="ad-selector">
+					<ul>
+						<li id=""><span id="city" class="ui-alert select-size">选择省</span>
+							<a class="mui-icon mui-icon-arrowdown" style="vertical-align: top;"></a>
+						</li>
+						<li style="height: 50px;overflow: hidden;"><span id='city2' class="ui-alert select-size">选择市</span>
+							<a class="mui-icon mui-icon-arrowdown"></a>
+						</li>
+						<li class="moreclass"><span id='city3' class="select-size">选择区</span>
+							<a class="mui-icon mui-icon-arrowdown" style=""></a>
+						</li>
+					</ul>
+				</div>
+			</header>
+			<div class="mui-content">
+				<form class="mui-input-group" v-if="onOff">
+					<div class="mui-input-row" v-for="(list,index) in lists">
+						<span id="shoucang" class="iconfont icon-xing1 mui-pull-right" @click="getCollect(list.userid)"></span>
+						<a class="mui-navigate-right" @click="ckperson(list.userSort,list.userid)">
+							<img class="mui-media-object mui-pull-left" :src="list.headImg" onerror="this.src='../img/touxiang2.png'" />
+							<div class="mui-media-body mui-ellipsis">
+								<p><span class="name">{{list.truename}}<i class="re_tip">{{list.userSort}}</i></span>
+									<p class="mui-ellipsis address">{{list.areaCode}}{{list.sex}}{{list.companyName}}</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis jiaoyi">交易{{list.count}}笔</span>
+									</p>
+							</div>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" src="../js/Popt.js"></script>
+	<script type="text/javascript" src="../js/cityJson.js"></script>
+	<script type="text/javascript" src="../js/citySetThree.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var vm = new Vue({
+			el: '#add',
+			data: {
+				userInfo: getUser().userInfo,
+				lists: [],
+				currentPager: 0,
+				flag: false,
+				pageSize: 10, //每页返回最大10条数据
+				onOff: false
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					vm.getadd(vm.currentPager);
+					mui.init({
+							swipeBack: true, //启用右滑关闭功能
+							pullRefresh: {
+								container: '#add',
+								up: {
+									contentinit: '',
+									contentrefresh: '正在加载...',
+									contentnomore: '没有更多数据了 ',
+									callback: vm.pullupRefresh
+								}
+							}
+						});
+				})
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-09-22
+				 * 添加收藏列表
+				 */
+				getadd: function(Pager){
+					var data = {
+						currentPage: Pager,
+						userid: vm.userInfo.id
+					}
+					AjaxSend('mobileUsersCollect/addCollectList', data, 'POST', function(result){
+						if(result.status) {
+							vm.onOff = true;
+							for(var i = 0; i < result.data.length; i++) {
+								//拼接头像url
+								result.data[i].headImg = ServerHost + result.data.headImg;
+								
+								if(result.data[i].userSort == '1') {
+									result.data[i].userSort = '车主'
+								}
+								if(result.data[i].userSort == '2') {
+									result.data[i].userSort = '经纪人'
+								}
+								//拼接信息
+								if(result.data[i].areaCode && (result.data[i].sex || result.data[i].companyName)) {
+									result.data[i].areaCode = result.data[i].areaCode + '/'
+								}
+								if(result.data[i].sex && result.data[i].companyName) {
+									result.data[i].sex = result.data[i].sex + '/'
+								}
+							}
+							//数组合并
+							vm.lists = vm.lists.concat(result.data);
+							if(result.data.length<pageSize){
+								vm.flag = true
+							}
+						}else{
+							vm.flag = true
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 根据收藏用户id查询收藏
+				 */
+				getList: function(collectUserid) {
+					var data = {
+						collectUserid: collectUserid,
+						userid: vm.userInfo.id
+					}
+					AjaxSend('mobileUsersCollect/getUserCollect', data, 'POST', function(result) {
+						if(result.status) {
+							vm.onOff = true;
+//							for(var i = 0; i < result.data.length; i++) {
+								//拼接头像url
+								result.data.headImg = ServerHost + result.data.headImg;
+								
+								if(result.data.userSort == '1') {
+									result.data.userSort = '车主'
+								}
+								if(result.data.userSort == '2') {
+									result.data.userSort = '经纪人'
+								}
+								//拼接信息
+								if(result.data.areaCode && (result.data.sex || result.data.companyName)) {
+									result.data.areaCode = result.data.areaCode + '/'
+								}
+								if(result.data.sex && result.data.companyName) {
+									result.data.sex = result.data.sex + '/'
+								}
+//							}
+							vm.lists = [];
+							//数组合并
+							vm.lists = vm.lists.concat(result.data);
+						}else{
+							mui.toast("没有该用户")
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 弹出搜索框
+				 */
+				search: function(e) {
+					var info = document.getElementById("info");
+					//					document.getElementById("promptBtn").addEventListener('tap', function(e) {
+					//						e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+					var btnArray = ['取消', '确定'];
+					mui.prompt('请输入用户ID：', '', '搜索', btnArray, function(e) {
+						if(e.index == 1) {
+							if(e.value == "") {
+								mui.toast("请输入用户ID");
+								return false;
+							} else {
+								vm.getList(e.value);
+							}
+						} else {
+
+						}
+						//						})
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-15
+				 * 收藏或取消
+				 */
+				getCollect: function(agentId) {
+					var isCollect= null;
+					if($("#shoucang").hasClass('icon-xing1')) {
+						isCollect=0
+					}else{
+						isCollect=1
+					}
+					var data = {
+						collectUserid: agentId,
+						userid: vm.userInfo.id,
+						isCollect: isCollect
+					}
+					AjaxSend('mobileUsersCollect/addCollect', data, 'POST', function(result) {
+						console.log(JSON.stringify(result))
+						if(result.status) {
+							if($("#shoucang").hasClass('icon-xing1')) {
+								$("#shoucang").addClass('icon-star1').removeClass('icon-xing1').html('已收藏');
+								isCollect=1
+							} else {
+								$("#shoucang").addClass('icon-xing1').removeClass('icon-star1').html('收藏');
+								isCollect=0
+							}
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 跳转到查看资料页
+				 */
+				ckperson: function(type, jingJiaRenid) {
+					if(type == '车主') {
+						var id = '../App_bidding/ck_person_details.html'
+					} else {
+						var id = '../App_bidding/ck_broker_details.html'
+					};
+					var data = {
+						agentId: jingJiaRenid,
+						userId: vm.userInfo.id
+					}
+					mui.openWindow({
+						url: id,
+						id: id,
+						extras: {
+							data: data
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-22
+				 * 上拉加载
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						vm.getadd(++vm.currentPager);
+						mui('#add').pullRefresh().endPullupToRefresh(vm.flag);
+					}, 1000);
+				}
+			}
+		})
+
+		/**
+		 * 熊世齐
+		 * 2017-09-14
+		 * 选择城市
+		 */
+		var oW = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+		var oH = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+		$("#city").click(function(e) {
+			SelCity(this, e);
+			$("._citys").css("width", oW)
+			$("._citys").css("height", oH - 199 + 'px')
+			$("#PoPy").css("width", oW)
+			$("#PoPy").css("left", 0)
+		});
+
+		mui("body").on("tap", ".tz", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});
+
+		$('#shoucang01').click(function() {
+			$(this).addClass('icon-star1').removeClass('icon-xing1');
+		});
+		//收藏
+		$('#shoucang02').click(function() {
+			$(this).addClass('icon-star1').removeClass('icon-xing1');
+		});
+		//收藏
+		$('#shoucang03').click(function() {
+			$(this).addClass('icon-star1').removeClass('icon-xing1');
+		});
+		mui("body").on("tap", ".tz", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});
+	</script>
+
+</html>

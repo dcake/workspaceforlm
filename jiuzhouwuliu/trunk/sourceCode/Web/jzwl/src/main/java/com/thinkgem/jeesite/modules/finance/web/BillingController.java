@@ -1,0 +1,125 @@
+package com.thinkgem.jeesite.modules.finance.web;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.thinkgem.jeesite.common.entity.GoodsBilling;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcel;
+import com.thinkgem.jeesite.modules.finance.ExportGoodsBilling;
+import com.thinkgem.jeesite.modules.finance.service.BillingService;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+
+/**
+ * @description	开票管理
+ * @author 文帅
+ * @date 2017年8月7日 上午11:58:01
+ */
+@Controller
+@RequestMapping(value="${adminPath}/finance/billing")
+public class BillingController {
+	@Autowired
+	private BillingService billingService;
+	/**
+	 * @description	跳转到开票管理列表页面
+	 * @author 文帅
+	 * @date 2017年8月7日 下午2:17:09
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"list", ""})
+	public String list(HttpServletRequest request,HttpServletResponse response,Model model,GoodsBilling goodsBilling) {
+		Page<GoodsBilling> page = billingService.findBillingList(new Page<GoodsBilling>(request, response), goodsBilling);
+		for(GoodsBilling u:page.getList()){
+			u.setGoodsType(DictUtils.getDictLabel(u.getGoodsType(),"goods_type",u.getGoodsType()));
+		}
+		model.addAttribute("page", page);
+		return "modules/finance/billingList";
+	}
+	
+	/**
+	 * @description	跳转到开票详情页面
+	 * @author 文帅
+	 * @date 2017年8月7日 下午4:55:17
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"goBillingDetail", ""})
+	public String goBillingDetail(HttpServletRequest request,String id) {
+		GoodsBilling goodsBilling=billingService.findBillingById(id);
+		goodsBilling.setGoodsType(DictUtils.getDictLabel(goodsBilling.getGoodsType(),"goods_type",goodsBilling.getGoodsType()));
+		goodsBilling.setLevel(DictUtils.getDictLabel(goodsBilling.getLevel(),"car_level",goodsBilling.getLevel()));
+		request.setAttribute("goodsBilling", goodsBilling);
+		return "modules/finance/billingDetail";
+	}
+	
+	/**
+	 * @description	开票费导出
+	 * @author 文帅
+	 * @date 2017年8月14日 上午10:43:06
+	 * @param goodsBilling
+	 * @param response
+	 * @param request
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "/export")
+	public String export(GoodsBilling goodsBilling,HttpServletResponse response,HttpServletRequest request, RedirectAttributes redirectAttributes){
+		List<GoodsBilling> goodsBillingList= billingService.findList(goodsBilling);
+		List<ExportGoodsBilling> list=new ArrayList<ExportGoodsBilling>();
+		for(GoodsBilling b:goodsBillingList){
+			ExportGoodsBilling exportGoodsBilling=new ExportGoodsBilling();
+			exportGoodsBilling.setCompanyName(b.getCompanyName());
+			exportGoodsBilling.setOrderNo(b.getOrderNo());
+			exportGoodsBilling.setPayMoney(Double.parseDouble(b.getPayMoney()));
+			exportGoodsBilling.setTruename(b.getTruename());
+			exportGoodsBilling.setGoodsType(DictUtils.getDictLabel(b.getGoodsType(),"goods_type",b.getGoodsType()));
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");  
+			String DateStr=sdf.format(b.getCreateDate()); 
+			exportGoodsBilling.setTime(DateStr);
+			exportGoodsBilling.setBillingMoney(b.getBillingMoney());
+			exportGoodsBilling.setBillingNo(b.getBillingNo());
+			exportGoodsBilling.setIsSettleAccounts("否");
+			if("1".equals(b.getIsHasBill())){
+				exportGoodsBilling.setIsHasBill("是");
+			}else if("0".equals(b.getIsHasBill())){
+				exportGoodsBilling.setIsHasBill("否");
+			}
+			list.add(exportGoodsBilling);
+		}
+		try {
+			new ExportExcel("开票管理", ExportGoodsBilling.class, 2).setDataList(list).write(response, "开票管理.xlsx").dispose();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect: ${adminPath}/finance/billing/list";
+	}
+	
+	/**
+	 * @description	填写发票编号后点击确定
+	 * @author 文帅
+	 * @date 2017年8月16日 下午2:23:11
+	 * @param goodsBilling
+	 * @return
+	 */
+	@RequestMapping(value="saveBilling",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil saveBilling(GoodsBilling goodsBilling){
+		return billingService.saveBilling(goodsBilling);
+	}
+}

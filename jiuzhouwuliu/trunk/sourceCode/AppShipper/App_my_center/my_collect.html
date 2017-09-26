@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				margin-right: 20px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: 40%;
+				padding: 8px 9px;
+			}
+			
+			.history-sold {
+				margin-top: -15px;
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.but-box {
+				margin: 35px 15px 0px;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				margin-top: 44px;
+				height: 40px;
+				background: #FFFFFF;
+			}
+			
+			ul {
+				width: 100%;
+				list-style: none;
+				padding: 0px 10px;
+			}
+			
+			.ad-selector li {
+				position: relative;
+				float: left;
+				width: 33.333%;
+				font-size: 14px;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				margin-top: 5px;
+			}
+			
+			.mui-input-row {
+				padding: 15px;
+			}
+			
+			.re_tip {
+				font-style: normal;
+				border: 1px solid #3f9e00;
+				color: #3f9e00;
+				padding: 0 6px;
+				margin-left: 10px;
+				border-radius: 6px;
+				font-size: 16px;
+			}
+			
+			.mui-media-object {
+				border-radius: 50%;
+				height: 80px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="collect">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 id="title" class="mui-title">我的收藏</h1>
+				<a class="mui-icon iconfont icon-tianjiajiahaowubiankuang mui-pull-right" @click="addCollect"></a>
+			</header>
+			<div class="mui-content">
+				<form class="mui-input-group">
+					<div class="mui-input-row" v-for="collects in collectList">
+						<a class="mui-navigate-right" @click="ckperson(collects.userSort,collects.collectUserid)">
+							<img class="mui-media-object mui-pull-left" :src="collects.headImg" onerror="this.src='../img/touxiang2.png'"/>
+							<div class="mui-media-body mui-ellipsis">
+								<p><span class="name">{{collects.truename}}<i class="re_tip">{{collects.userSort}}</i></span>
+									<p class="mui-ellipsis address">{{collects.areaCode}}{{collects.sex}}{{collects.companyName}}</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis jiaoyi">交易{{collects.count}}笔</span>
+									</p>
+							</div>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var collect = new Vue({
+			el: '#collect',
+			data: {
+				userInfo: getUser().userInfo,
+				currentPager: 0,
+				flag: false,
+				pageSize: 10,
+				collectList: []
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					collect.getcollect();
+					window.addEventListener("collect", function(event) {
+						mui('.mui-content').pullRefresh().refresh(true);
+						collect.currentPager = 0;
+						collect.collectList = []; //清空集合去重
+						collect.getcollect();
+					})
+					mui.init({
+						swipeBack: true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '.mui-content',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: collect.pullupRefresh
+							}
+						}
+					});
+				})
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 获取我的收藏
+				 */
+				getcollect: function() {
+					var data = {
+						currentPage: collect.currentPager,
+						userid: collect.userInfo.id
+					}
+					AjaxSend('mobileUsersCollect/list', data, 'POST', function(result) {
+						if(result.status) {
+							for(var i = 0; i < result.data.length; i++) {
+								//拼接头像url
+								result.data[i].headImg = ServerHost + result.data[i].headImg;
+								if(result.data[i].userSort == 1) {
+									result.data[i].userSort = '车主'
+								}
+								if(result.data[i].userSort == 2) {
+									result.data[i].userSort = '经纪人'
+								}
+								//拼接信息
+								if(result.data[i].areaCode && (result.data[i].sex || result.data[i].companyName)) {
+									result.data[i].areaCode = result.data[i].areaCode + '/'
+								}
+								if(result.data[i].sex && result.data[i].companyName) {
+									result.data[i].sex = result.data[i].sex + '/'
+								}
+							}
+							//数组合并
+							collect.collectList = collect.collectList.concat(result.data);
+							if(result.data.length<collect.pageSize){
+								collect.flag = true;
+							}
+						}else{
+							collect.flag = true;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 跳转到详情页
+				 */
+				ckperson: function(type, jingJiaRenid) {
+					if(type == '车主') {
+						var id = '../App_bidding/ck_person_details.html'
+					} else {
+						var id = '../App_bidding/ck_broker_details.html'
+					};
+					var data = {
+						agentId: jingJiaRenid,
+						userId: collect.userInfo.id
+					}
+					mui.openWindow({
+						url: id,
+						id: id,
+						extras: {
+							data: data
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 跳转到添加收藏
+				 */
+				addCollect: function() {
+					mui.openWindow({
+						url: 'add_collect.html',
+						id: 'add_collect.html'
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-14
+				 * 上拉加载
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						collect.getcollect(++collect.currentPager);
+						mui('.mui-content').pullRefresh().endPullupToRefresh(collect.flag);
+					}, 1000);
+				}
+			}
+		})
+	</script>
+
+</html>

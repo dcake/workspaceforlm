@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				margin-right: 10px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: 40%;
+				padding: 8px 9px;
+			}
+			
+			.history-sold {
+				margin-top: -15px;
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.but-box {
+				margin: 35px 15px;
+				text-align: center;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				margin-top: 44px;
+				height: 40px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content {
+				margin-top: 40px;
+			}
+			
+			ul {
+				width: 100%;
+				list-style: none;
+				padding: 0px 10px;
+			}
+			
+			.ad-selector li {
+				position: relative;
+				float: left;
+				width: 33.333%;
+				font-size: 14px;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				margin-top: 3px;
+				/*line-height: 25px;*/
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			
+			.content-padding {
+				padding: 23px 15px;
+				border-bottom: 1px solid #efefef;
+			}
+			
+			.money {
+				font-size: 18px;
+				color: #ff4800;
+				margin-left: 86px;
+			}
+			
+			.shopping .left {
+				width: 32%;
+				float: left;
+				font-size: 16px;
+				color: #777;
+				padding: 1px 15px;
+			}
+			
+			.shopping .right {
+				width: 68%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			
+			.queren {
+				background: #1dacf9;
+				color: #fff;
+				width: 45%;
+				height: 48px;
+				font-size: 18px;
+				border-radius: 6px;
+				display: inline-block;
+			}
+			/*收藏*/
+			
+			#shoucang {
+				margin-top: 3px;
+			}
+			
+			.icon-xing1:before {
+				padding-right: 2px;
+				font-size: 18px;
+			}
+			
+			.icon-star1:before {
+				padding-right: 2px;
+				font-size: 18px;
+				color: #F0AD4E;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			.mui-media-object{
+				border-radius: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">查看经纪人</h1>
+		</header>
+		<div class="mui-content" id="berker">
+			<form class="mui-input-group">
+				<div class="mui-left content-padding">
+					<template v-if="berkerinfor.headImg !='http://192.168.7.52:8080/jzwl/'">
+						<img class="mui-media-object mui-pull-left" :src="berkerinfor.headImg">
+					</template>
+					<template v-else>
+						<img class="mui-media-object mui-pull-left" src="../img/head_img01.png">
+					</template>
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="name">{{berkerinfor.truename}}</span>
+							<span class="money">￥{{berkerinfor.entrustPrice}}</span>
+							<template v-if="berkerinfor.isCollect == 1">
+								<span id="shoucang" class="iconfont icon-star1 mui-pull-right"></span></p>
+							</template>
+						<p class="mui-ellipsis address">{{berkerinfor.companyName}}</p>
+						<p class="mui-ellipsis">
+							<button type="button" class="mui-btn mui-pull-right tz" v-on:click="getborkerId(berkerinfor.agentsId)">查看资料</button>
+						</p>
+					</div>
+				</div>
+			</form>
+			<ul class="mui-table-view shopping">
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">出发时间</div>
+					<div class="right">{{inforData.zcYmd}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">发货人</div>
+					<div class="right">{{inforData.shipperName}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">联系方式</div>
+					<div class="right" @click="dialTest(inforData.shipperTel)">{{inforData.shipperTel}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">发货地</div>
+					<div class="right">{{inforData.shipperArea}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">收货地</div>
+					<div class="right">{{inforData.reciverArea}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">需求车型</div>
+					<div class="right">{{inforData.needTruckType}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">货物类型</div>
+					<div class="right">{{inforData.goodsType}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">货物单位</div>
+					<div class="right">{{inforData.goodsUnit}}</div>
+				</li>
+			</ul>
+			<div class="but-box">
+				<button class="queren tz" type="button" id="con_bz.html" style="margin-right: 8px;" @click="getaffirm(berkerinfor.entrustPrice)">确认交易</button>
+				<button class="queren tz" type="button" id="bidding.html" style="margin-left: 8px;" @click="getcancel">取消委托</button>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var lookbroker = new Vue({
+			el: '#berker',
+			data: {
+				berkerinfor: {},
+				inforData: {},
+				userInfo: getUser().userInfo,
+				goodsownerOrderId:''
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					mui.init({
+						swipeBack: true //启用右滑关闭功能
+					});
+					lookbroker.goodsownerOrderId = plus.webview.currentWebview().goodsownerOrderId; 
+					lookbroker.getberker(lookbroker.goodsownerOrderId);
+					lookbroker.getbadd(lookbroker.goodsownerOrderId);
+				})
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-08-31
+				 * 获取经纪人信息
+				 */
+				getberker: function(goodsId) {
+					var typ = {
+						goodsownerOrderId: goodsId,
+						userId: lookbroker.userInfo.id,
+						type: 1
+					};
+					AjaxSend('mobileBid/lookBidOrAgent', typ, 'POST', function(result) {
+						if(result.status) {
+							console.log(JSON.stringify(result))
+							//数组合并
+							lookbroker.berkerinfor = result.data
+							//拼接头像url
+							result.data.headImg = ServerHost + result.data.headImg;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-08-31
+				 * 获取货物详情
+				 */
+				getbadd: function(goodsId) {
+					var data = {
+						goodsownerOrderId: goodsId
+					};
+					AjaxSend('mobileBid/lookGoodsDetail', data, 'POST', function(result) {
+						if(result.status) {
+							lookbroker.inforData = result.data;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 查看经纪人资料
+				 */
+				getborkerId: function(agentIdParam){
+					var param = {
+						agentId: agentIdParam,
+						userId: lookbroker.userInfo.id
+					}
+					mui.openWindow({
+						url: 'ck_broker_details.html',
+						id: 'ck_broker_details.html',
+						extras: {
+							data: param
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 取消委托
+				 */
+				getcancel: function(){
+					var data = {
+						goodsownerOrderId:lookbroker.goodsownerOrderId,  
+						userId:"1"     //lookbroker.userInfo.id
+					}
+					AjaxSend('mobileBid/cancleWeiTuo',data,'POST',function(result){
+						if(result.status){
+							plus.webview.getWebviewById("ck_broker.html").close();
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 确认交易跳转
+				 */
+				getaffirm: function(entrustPrice){
+					var param = {
+						userInfoid: lookbroker.userInfo.id,
+						price: entrustPrice,
+						type: 1,
+						goodsownerOrderId:lookbroker.goodsownerOrderId
+					}
+					mui.openWindow({
+						url: 'con_bz.html',
+						id: 'con_bz.html',
+						extras: {
+							data: param
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-08
+				 * 点击电话直接拨打
+				 */
+				dialTest: function(phone) {
+					plus.nativeUI.confirm("您确定要拨打电话吗？",
+						function(event) {
+							if(event.index == 1) {
+								plus.device.dial(phone, false);
+							} else {
+								return false;
+							}
+						}, '客服消息', ['取消', '确定']
+					)
+				}
+			}
+		})
+//		mui("body").on("tap", ".tz", function() {
+//			var url = this.getAttribute('id');
+//			mui.openWindow({
+//				url: url,
+//				id: url
+//			});
+//		});
+	</script>
+
+</html>

@@ -1,0 +1,67 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.thinkgem.jeesite.common.entity.AgentOrder;
+import com.thinkgem.jeesite.common.entity.Agents;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+
+@MyBatisDao
+public interface AgentOrderMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(AgentOrder record);
+
+    int insertSelective(AgentOrder record);
+
+    AgentOrder selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(AgentOrder record);
+
+    int updateByPrimaryKey(AgentOrder record);
+
+	/**
+	 * @description	：查询经纪人订单
+	 * @author pangchengxiang
+	 * @date 2017年8月21日 下午5:37:01
+	 * @return List<Agents>
+	 */
+	List<Agents> findAgentOrderList(Agents agents);
+	/**
+	 * @description	根据经纪人ID查询经纪人交易总数量
+	 * @author 文帅
+	 * @date 2017年8月23日 上午11:49:55
+	 * @param agentId
+	 * @return
+	 */
+	int findDealTotalCountByAgentId(@Param("agentId")String agentId,@Param("weituoOrFabu")String weituoOrFabu);
+	/**
+	 * @description	根据经纪人ID和用户ID查询曾与我交易次数
+	 * @author 文帅
+	 * @date 2017年8月23日 上午11:56:51
+	 * @param agentId
+	 * @param userId
+	 * @return
+	 */
+	int findDealCountByAgentId(@Param("agentId")String agentId,@Param("userId")String userId);
+	/**
+	 * @description	根据委托货主订单ID查询经纪人订单
+	 * @author 文帅
+	 * @date 2017年8月25日 下午2:59:22
+	 * @param goodsownerOrderid
+	 * @return
+	 */
+	AgentOrder findByGoodsownerOrderId(String goodsownerOrderid);
+	/**
+	 * @description	通过货物ID查询经纪人订单详情
+	 * @author 文帅
+	 * @date 2017年9月8日 下午4:05:14
+	 * @param goodsId
+	 * @return
+	 */
+	AgentOrder findOrderByGoodId(String goodsId);
+
+	Integer findCount(String userid);//根据用户ID查询经纪人交易次数 崔亚光
+}

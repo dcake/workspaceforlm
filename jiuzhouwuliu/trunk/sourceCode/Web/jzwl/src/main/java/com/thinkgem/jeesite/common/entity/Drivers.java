@@ -1,0 +1,503 @@
+package com.thinkgem.jeesite.common.entity;
+
+
+import java.util.Date;
+
+import com.thinkgem.jeesite.common.persistence.CommonEntity;
+
+public class Drivers extends CommonEntity<Drivers>{
+    //
+	private static final long serialVersionUID = 1L;
+
+	private String id;
+
+    private String userid;
+
+    private String driverType;
+
+    private String isOrgDriver;
+
+    private String faceImg;
+
+    private String driveFleetId;
+
+    private String isHasCar;
+
+    private String truckNo;
+
+    private String truckType;
+
+    private String truckLength;
+    
+    private String truckWidth;
+    
+    private String truckHeight;
+
+    private String truckMaxwight;
+
+    private String driveLicenceImg1;
+
+    private String driveLicenceImg2;
+
+    private String moveLicenceImg1;
+
+    private String moveLicenceImg2;
+
+    private String isTrueDrive;
+
+    private String isTrueMove;
+    //非数据库字段
+    private String username;//用户名
+    private String sex;
+    private Integer userno;
+	private String phoneno;//手机号
+    private String status;//状态
+    private String examineStatus;//审核状态
+    private String examineRemark;//审核意见
+    private String level;//等级
+    private String fleetName;//所属车队
+    private String usersStatus;//状态 //用户状态 0正常 1锁定
+    private String driverMasterChangeAuditingStatus;//审核状态 0未审核 1已审核 2审核未通过
+    private String truename;//姓名
+    private String cardno;
+    private Date beginDate;//开始时间
+    private Date endDate;//结束时间
+    private String goodsType;//货物类型
+    private String orderNo;//订单编号
+    private double  payMoney;//交易价格
+    private String shipperArea;//发货地址
+    private String reciverArea;//收货地址
+    private String zcSf;//装车时间
+    private String password;
+    private String headImg;
+    private String cardFaceImg; 
+    private String cardOtherImg;
+    private Integer count;//交易数
+    private String isTrueName;//是否实名认证
+    
+    private String driverOrderId;//车主订单
+    private Integer transportCount;//运输次数
+    private String isCollect;//判断该车主是否被当前用户收藏（0-否，1-是）
+    private String personDescribe;//个人简介
+    private String areaCode;
+    private String gpsInfo;
+    
+	public String getAreaCode() {
+		return areaCode;
+	}
+
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
+	}
+
+	public String getGpsInfo() {
+		return gpsInfo;
+	}
+
+	public void setGpsInfo(String gpsInfo) {
+		this.gpsInfo = gpsInfo;
+	}
+
+	public String getCardFaceImg() {
+		return cardFaceImg;
+	}
+
+	public void setCardFaceImg(String cardFaceImg) {
+		this.cardFaceImg = cardFaceImg;
+	}
+
+	public String getCardOtherImg() {
+		return cardOtherImg;
+	}
+
+	public void setCardOtherImg(String cardOtherImg) {
+		this.cardOtherImg = cardOtherImg;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getGoodsType() {
+		return goodsType;
+	}
+
+	public void setGoodsType(String goodsType) {
+		this.goodsType = goodsType;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public double getPayMoney() {
+		return payMoney;
+	}
+
+	public void setPayMoney(double payMoney) {
+		this.payMoney = payMoney;
+	}
+
+	public String getShipperArea() {
+		return shipperArea;
+	}
+
+	public void setShipperArea(String shipperArea) {
+		this.shipperArea = shipperArea;
+	}
+
+	public String getReciverArea() {
+		return reciverArea;
+	}
+
+	public void setReciverArea(String reciverArea) {
+		this.reciverArea = reciverArea;
+	}
+
+	public String getZcSf() {
+		return zcSf;
+	}
+
+	public void setZcSf(String zcSf) {
+		this.zcSf = zcSf;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+
+	public String getCardno() {
+		return cardno;
+	}
+
+	public void setCardno(String cardno) {
+		this.cardno = cardno;
+	}
+
+	public String getTruename() {
+		return truename;
+	}
+
+	public void setTruename(String truename) {
+		this.truename = truename;
+	}
+
+	public String getUsersStatus() {
+		return usersStatus;
+	}
+
+	public void setUsersStatus(String usersStatus) {
+		this.usersStatus = usersStatus;
+	}
+
+	public String getDriverMasterChangeAuditingStatus() {
+		return driverMasterChangeAuditingStatus;
+	}
+
+	public void setDriverMasterChangeAuditingStatus(
+			String driverMasterChangeAuditingStatus) {
+		this.driverMasterChangeAuditingStatus = driverMasterChangeAuditingStatus;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public Integer getUserno() {
+		return userno;
+	}
+
+	public void setUserno(Integer userno) {
+		this.userno = userno;
+	}
+
+	public String getPhoneno() {
+		return phoneno;
+	}
+
+	public void setPhoneno(String phoneno) {
+		this.phoneno = phoneno;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getExamineStatus() {
+		return examineStatus;
+	}
+
+	public void setExamineStatus(String examineStatus) {
+		this.examineStatus = examineStatus;
+	}
+
+	public String getExamineRemark() {
+		return examineRemark;
+	}
+
+	public void setExamineRemark(String examineRemark) {
+		this.examineRemark = examineRemark;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getFleetName() {
+		return fleetName;
+	}
+
+	public void setFleetName(String fleetName) {
+		this.fleetName = fleetName;
+	}
+
+	public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid == null ? null : userid.trim();
+    }
+
+    public String getDriverType() {
+        return driverType;
+    }
+
+    public void setDriverType(String driverType) {
+        this.driverType = driverType == null ? null : driverType.trim();
+    }
+
+    public String getIsOrgDriver() {
+        return isOrgDriver;
+    }
+
+    public void setIsOrgDriver(String isOrgDriver) {
+        this.isOrgDriver = isOrgDriver == null ? null : isOrgDriver.trim();
+    }
+
+    public String getFaceImg() {
+        return faceImg;
+    }
+
+    public void setFaceImg(String faceImg) {
+        this.faceImg = faceImg == null ? null : faceImg.trim();
+    }
+
+    public String getDriveFleetId() {
+        return driveFleetId;
+    }
+
+    public void setDriveFleetId(String driveFleetId) {
+        this.driveFleetId = driveFleetId == null ? null : driveFleetId.trim();
+    }
+
+    public String getIsHasCar() {
+        return isHasCar;
+    }
+
+    public void setIsHasCar(String isHasCar) {
+        this.isHasCar = isHasCar == null ? null : isHasCar.trim();
+    }
+
+    public String getTruckNo() {
+        return truckNo;
+    }
+
+    public void setTruckNo(String truckNo) {
+        this.truckNo = truckNo == null ? null : truckNo.trim();
+    }
+
+    public String getTruckType() {
+        return truckType;
+    }
+
+    public void setTruckType(String truckType) {
+        this.truckType = truckType == null ? null : truckType.trim();
+    }
+
+    public String getTruckLength() {
+        return truckLength;
+    }
+
+    public void setTruckLength(String truckLength) {
+        this.truckLength = truckLength == null ? null : truckLength.trim();
+    }
+
+    public String getTruckMaxwight() {
+        return truckMaxwight;
+    }
+
+    public void setTruckMaxwight(String truckMaxwight) {
+        this.truckMaxwight = truckMaxwight == null ? null : truckMaxwight.trim();
+    }
+
+    public String getDriveLicenceImg1() {
+        return driveLicenceImg1;
+    }
+
+    public void setDriveLicenceImg1(String driveLicenceImg1) {
+        this.driveLicenceImg1 = driveLicenceImg1 == null ? null : driveLicenceImg1.trim();
+    }
+
+    public String getDriveLicenceImg2() {
+        return driveLicenceImg2;
+    }
+
+    public void setDriveLicenceImg2(String driveLicenceImg2) {
+        this.driveLicenceImg2 = driveLicenceImg2 == null ? null : driveLicenceImg2.trim();
+    }
+
+    public String getMoveLicenceImg1() {
+        return moveLicenceImg1;
+    }
+
+    public void setMoveLicenceImg1(String moveLicenceImg1) {
+        this.moveLicenceImg1 = moveLicenceImg1 == null ? null : moveLicenceImg1.trim();
+    }
+
+    public String getMoveLicenceImg2() {
+        return moveLicenceImg2;
+    }
+
+    public void setMoveLicenceImg2(String moveLicenceImg2) {
+        this.moveLicenceImg2 = moveLicenceImg2 == null ? null : moveLicenceImg2.trim();
+    }
+
+    public String getIsTrueDrive() {
+        return isTrueDrive;
+    }
+
+    public void setIsTrueDrive(String isTrueDrive) {
+        this.isTrueDrive = isTrueDrive == null ? null : isTrueDrive.trim();
+    }
+
+    public String getIsTrueMove() {
+        return isTrueMove;
+    }
+
+    public void setIsTrueMove(String isTrueMove) {
+        this.isTrueMove = isTrueMove == null ? null : isTrueMove.trim();
+    }
+    
+    public String getTruckWidth() {
+        return truckWidth;
+    }
+
+    public void setTruckWidth(String truckWidth) {
+        this.truckWidth = truckWidth == null ? null : truckWidth.trim();
+    }
+    
+	public String getTruckHeight() {
+		return truckHeight;
+	}
+
+	public void setTruckHeight(String truckHeight) {
+		this.truckHeight = truckHeight;
+	}
+
+	public String getIsTrueName() {
+		return isTrueName;
+	}
+
+	public void setIsTrueName(String isTrueName) {
+		this.isTrueName = isTrueName;
+	}
+
+	public String getDriverOrderId() {
+		return driverOrderId;
+	}
+
+	public void setDriverOrderId(String driverOrderId) {
+		this.driverOrderId = driverOrderId;
+	}
+
+	public Integer getTransportCount() {
+		return transportCount;
+	}
+
+	public void setTransportCount(Integer transportCount) {
+		this.transportCount = transportCount;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public String getIsCollect() {
+		return isCollect;
+	}
+
+	public void setIsCollect(String isCollect) {
+		this.isCollect = isCollect;
+	}
+
+	public String getPersonDescribe() {
+		return personDescribe;
+	}
+
+	public void setPersonDescribe(String personDescribe) {
+		this.personDescribe = personDescribe;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	
+}

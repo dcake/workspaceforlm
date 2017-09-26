@@ -1,0 +1,273 @@
+body{
+	font-size: 14px;
+}
+input, textarea, select, span,label{
+	font-size: 14px;
+}
+button {
+    border: none ;
+}
+.queren {
+    background: #1dacf9;
+    color: #fff;
+    width: 100%;
+    height: 48px;
+    font-size: 18px;
+    border-radius: 6px;
+    display: block;
+}
+li{
+    list-style: none;
+}
+.mui-bar {
+	-webkit-box-shadow: 0 0 0;
+	box-shadow: 0 0 0;
+	background-color: #1dacf9;
+}
+
+.mui-bar-nav {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	text-align: center;
+}
+.mui-title{
+	color:#fff;
+}
+.mui-bar-nav .mui-icon{
+	color:#fff;
+	/*font-size: 20px;*/
+}
+.mui-btn{
+	background-color: #1DACF9;
+	color:#fff;
+	border:none;
+}
+.mui-content {
+	margin-bottom: 10px;
+}
+
+.orange {
+	color: #ff0600;
+}
+.yellow {
+	color: #ff7800;
+}
+.green {
+	color: #3f9e00;
+} 
+.blue {
+	color: #1dacf9;
+}
+.gray {
+	color: #999;
+}
+.ml10{
+	margin-left: 10px;
+}
+.b_btn {
+				margin: 30px 2%;
+				width: 96%;
+				height: 60px;
+				text-align: center;
+				color: #fff;
+				font-size: 18px;
+				background-color: #1dacf9;
+}
+.mui-input-row,.mui-input-row:last-child{
+            background:#fff;
+}
+.block{
+			width:48%;
+			padding:0px 1%;
+			border: 0;
+}
+.unedit-block{
+			background: #EEEEEE;
+}
+
+.block-container{
+	height: 40px;
+ 	line-height: 40px;
+ 	margin-top:6px;
+ 	padding-left:3px;
+	display:-moz-inline-box;
+	display:inline-block;
+	width:50%;
+ 	border:1px solid #CCCCCC;
+ 	border-radius: 3px;
+ 	font-size: 16px;
+}
+.btn2{
+	height:38px;
+	width:20px;
+	padding:2px;
+	float: right;
+	border-left:1px solid #CCCCCC;
+	border-radius: 3px;	
+}
+.icon-xialakuang-copy:before{
+	font-size: 10px;
+}
+.but-box {
+	margin: 30px 15px 0px;
+}
+.icon-star1{
+	color: #F0AD4E;
+}
+/*selector固定头部下拉选择*/
+.ad-selector{
+	position: fixed;
+	width: 100%;
+	top: 44px;
+	height: 50px;
+	line-height: 50px;
+	background: #fff;
+	border-bottom: 1px solid #ddd;
+  z-index: 10;
+}
+.ad-selector ul{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.ad-selector li{
+	width: 33.333%;
+	float: left;
+	text-align: center;
+}
+.ad-selector ul span{
+	font-size: 15px;
+}
+/*底部按钮固定*/
+.fixBtn{
+	position: fixed;
+	bottom: 0;
+	background-color: #FCFCFC;
+	width: 100%;
+	height: 55px;
+	border-top: 1px solid #ccc;
+	margin: 0;
+}
+.fixBtn button{
+	margin: 2%;
+	width: 96%;
+	height: 40px;
+	color: #fff;
+	background-color: #1dacf9;
+  border: 1px solid #1dacf9;
+}
+.fixBtn button:active{
+	background-color: #1dacf9;
+}
+/*tab头部切换固定*/
+#segmentedControl{
+	position: fixed;
+	z-index: 10;
+}
+
+
+/*添加货物*/
+
+  .address ul li a span.add-right{
+  	float: right;
+  }
+  .add-con{
+  	margin-top: 10px;
+  }
+  .add-con ul li span{
+  	float: right;
+  	padding-right: 20px;
+  	color: #999 ;
+  }
+  .add-xz label{
+  	float: left;
+  	width: 25%;
+  }
+  .add-xz input{
+  	border: none;
+  	float:left;
+  	width: 50%;
+  	margin-bottom: 0;
+  	padding: 0;
+  	height: auto;
+  }
+  .add-xz .xlk{
+  	float:right;  
+  	width: 12%;
+  }
+  .add-xz .xlk span{
+  	float:right;
+  	padding-right:15px;
+  	width: 20%;
+  }
+  .add-xz select{
+  	float:left;
+  	margin-bottom: 0;
+  	padding: 0;
+  	width: 50%;
+  	color: #333;
+  }
+  .mui-icon-arrowdown:before{
+  	font-size: 16px;
+  }
+  .add-time .zc-time{
+  	width:35%;
+  	float: left;
+  }   
+  .add-time label{
+  	float: left;
+  	width: 25%;
+  	padding-top: 5px;
+  }
+  .add-time .zc-time input{
+  	width: 35%;
+  	margin-bottom: 0;
+  	height: 30px;
+  	position: absolute;
+  }
+  .add-time .zc-time span{
+  	position: relative;
+  	line-height: 30px;
+  	padding-right: 0px;
+  }
+  .add-time .xz-time{
+  	float: right;
+  }
+  .add-time .xz-time select{
+  	float:left;
+  	margin: 0;
+  	padding: 0;
+  	width: 83%;
+  	padding-top: 5px;
+  	padding-right: 5px;
+  }
+  .add-time .xz-time span{
+  	float: right;
+  	padding-right: 0px;
+  }
+  .upload-pic{
+  	margin-top: 10px;
+  }
+  .feedback .image-list{
+  	padding-left: 15px;
+  }
+  .bz label{
+  	float: left;
+  	padding-top: 5px;
+  }
+  .bz input{
+  	float: left;
+  	width: 70%;
+  	height: 30px;
+  	padding-left: 10px;
+  	border: none;
+  	margin-bottom: 0;
+  }
+   .upload-pic P{
+		padding-left: 15px;
+   }
+
+
+
+
+

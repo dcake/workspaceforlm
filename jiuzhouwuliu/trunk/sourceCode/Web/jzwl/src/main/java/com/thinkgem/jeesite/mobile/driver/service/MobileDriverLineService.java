@@ -1,0 +1,64 @@
+package com.thinkgem.jeesite.mobile.driver.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.DriveLineMapper;
+import com.thinkgem.jeesite.common.entity.DriveLine;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.mobile.utils.PageParam;
+
+/**
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月6日 下午5:39:32 类说明: 线路service
+ */
+@Service
+@Transactional
+public class MobileDriverLineService {
+	@Autowired
+	private DriveLineMapper driveLineMapper;
+
+	/**
+	 * 线路service 崔亚光 2017-09-06
+	 * 
+	 * @return
+	 */
+	public AjaxBeanUtil getList(String pageNo, String driverId) {
+		int currentPage = Integer.parseInt(pageNo) * PageParam.DEFAULT_PAGESIZE;
+		int pageSize = PageParam.DEFAULT_PAGESIZE;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("driverId", driverId);
+		paramMap.put("currentPage", currentPage);
+		paramMap.put("pageSize", pageSize);
+		List<DriveLine> list = driveLineMapper.findLineList(paramMap);
+		return new AjaxBeanUtil("查询成功", true, list);
+	}
+
+	/**
+	 * 新增线路 崔亚光 2017-09-07
+	 */
+	public AjaxBeanUtil addLine(DriveLine record) {
+		record.preInsert();
+		driveLineMapper.insert(record);
+		return new AjaxBeanUtil("保存成功", true);
+	}
+
+	/**
+	 * 删除线路 崔亚光 2017-09-07
+	 */
+	public AjaxBeanUtil deleteLine(String id) {
+		try {
+			driveLineMapper.deleteByPrimaryKey(id);
+			return new AjaxBeanUtil("删除成功", true);
+		} catch (Exception e) {
+			return new AjaxBeanUtil("系统异常", false);
+		}
+
+	}
+
+}

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.DriverReciveMoneyMapper">
+	<resultMap id="BaseResultMap"
+		type="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="driver_order_id" property="driverOrderId"
+			jdbcType="VARCHAR" />
+		<result column="first_recive_money" property="firstReciveMoney"
+			jdbcType="DOUBLE" />
+		<result column="first_recive_oil" property="firstReciveOil"
+			jdbcType="DOUBLE" />
+		<result column="first_recive_time" property="firstReciveTime"
+			jdbcType="TIMESTAMP" />
+		<result column="second_recive_money" property="secondReciveMoney"
+			jdbcType="DOUBLE" />
+		<result column="second_recive_oil" property="secondReciveOil"
+			jdbcType="DOUBLE" />
+		<result column="second_recive_time" property="secondReciveTime"
+			jdbcType="TIMESTAMP" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, driver_order_id, first_recive_money, first_recive_oil,
+		first_recive_time, second_recive_money,
+		second_recive_oil, second_recive_time, create_date, update_by, create_by, del_flag,
+		remarks, update_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from driver_recive_money
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from driver_recive_money
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		insert into driver_recive_money (id, driver_order_id,
+		first_recive_money,
+		first_recive_oil, first_recive_time, second_recive_money,
+		second_recive_oil, second_recive_time, create_date,
+		update_by, create_by, del_flag,
+		remarks, update_date)
+		values (#{id,jdbcType=VARCHAR}, #{driverOrderId,jdbcType=VARCHAR},
+		#{firstReciveMoney,jdbcType=DOUBLE},
+		#{firstReciveOil,jdbcType=DOUBLE},
+		#{firstReciveTime,jdbcType=TIMESTAMP},
+		#{secondReciveMoney,jdbcType=DOUBLE},
+		#{secondReciveOil,jdbcType=DOUBLE},
+		#{secondReciveTime,jdbcType=TIMESTAMP},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{updateBy,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR},
+		#{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		insert into driver_recive_money
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="driverOrderId != null">
+				driver_order_id,
+			</if>
+			<if test="firstReciveMoney != null">
+				first_recive_money,
+			</if>
+			<if test="firstReciveOil != null">
+				first_recive_oil,
+			</if>
+			<if test="firstReciveTime != null">
+				first_recive_time,
+			</if>
+			<if test="secondReciveMoney != null">
+				second_recive_money,
+			</if>
+			<if test="secondReciveOil != null">
+				second_recive_oil,
+			</if>
+			<if test="secondReciveTime != null">
+				second_recive_time,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="driverOrderId != null">
+				#{driverOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="firstReciveMoney != null">
+				#{firstReciveMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="firstReciveOil != null">
+				#{firstReciveOil,jdbcType=DOUBLE},
+			</if>
+			<if test="firstReciveTime != null">
+				#{firstReciveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="secondReciveMoney != null">
+				#{secondReciveMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="secondReciveOil != null">
+				#{secondReciveOil,jdbcType=DOUBLE},
+			</if>
+			<if test="secondReciveTime != null">
+				#{secondReciveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		update driver_recive_money
+		<set>
+			<if test="driverOrderId != null">
+				driver_order_id = #{driverOrderId,jdbcType=VARCHAR},
+			</if>
+			<if test="firstReciveMoney != null">
+				first_recive_money = #{firstReciveMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="firstReciveOil != null">
+				first_recive_oil = #{firstReciveOil,jdbcType=DOUBLE},
+			</if>
+			<if test="firstReciveTime != null">
+				first_recive_time = #{firstReciveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="secondReciveMoney != null">
+				second_recive_money = #{secondReciveMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="secondReciveOil != null">
+				second_recive_oil = #{secondReciveOil,jdbcType=DOUBLE},
+			</if>
+			<if test="secondReciveTime != null">
+				second_recive_time = #{secondReciveTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		update driver_recive_money
+		set driver_order_id = #{driverOrderId,jdbcType=VARCHAR},
+		first_recive_money = #{firstReciveMoney,jdbcType=DOUBLE},
+		first_recive_oil = #{firstReciveOil,jdbcType=DOUBLE},
+		first_recive_time = #{firstReciveTime,jdbcType=TIMESTAMP},
+		second_recive_money = #{secondReciveMoney,jdbcType=DOUBLE},
+		second_recive_oil = #{secondReciveOil,jdbcType=DOUBLE},
+		second_recive_time = #{secondReciveTime,jdbcType=TIMESTAMP},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		update_by = #{updateBy,jdbcType=VARCHAR},
+		create_by = #{createBy,jdbcType=VARCHAR},
+		del_flag = #{delFlag,jdbcType=CHAR},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<!-- 获取垫资列表 文帅 -->
+	<select id="findMatFundsList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		SELECT
+			t.*,
+			t6.username AS username,
+			t6.truename AS truename,
+			t6.phoneno AS phoneno,
+			t6.`level` AS `level`,
+			IFNULL(t4.carry_fee,0) AS carryFee,
+			IFNULL(t4.tax_fee,0) AS taxFee,
+			t4.is_settle_accounts AS isSettleAccounts,
+			t2.order_no AS orderNo,
+			t4.id AS goodsownerDealId,
+			(IFNULL(first_recive_money,0)+IFNULL(second_recive_money,0)) AS totalMoney
+		FROM
+			driver_recive_money t,
+			drive_order t1,
+			goods t2,
+			goodsowner_order t3,
+			goodsowner_deal t4,
+			goodsowners t5,
+			users t6
+		WHERE
+			t.driver_order_id = t1.id
+		AND t1.goods_id = t2.id
+		AND t2.id = t3.goods_id
+		AND t3.id = t4.goodsowner_order_id
+		AND t3.goodsowners_id = t5.id
+		AND t5.user_id = t6.id
+		AND t1.user_type="0"
+	<!--AND t3.jingjia_or_weituo="0" -->
+		AND t6.`level`IN("A","B")
+		AND t4.pay_style="0"
+		AND t.del_flag = "0"
+		AND t1.del_flag = "0"
+		AND t2.del_flag = "0"
+		AND t3.del_flag = "0"
+		AND t4.del_flag = "0"
+		AND t5.del_flag = "0"
+		AND t6.del_flag = "0"
+		<if test="username != null and username !='' ">
+			AND t6.username LIKE CONCAT('%','${username}','%' )
+	    </if>
+	    <if test="truename != null and truename !='' ">
+			AND t6.truename LIKE CONCAT('%','${truename}','%' )
+	    </if>
+	    <if test="isSettleAccounts != null and isSettleAccounts !='' ">
+			AND t4.is_settle_accounts = #{isSettleAccounts,jdbcType=VARCHAR} 
+	  	</if>
+	  	<if test="beginDate!= null and beginDate!= ''" >
+	        AND DATE_FORMAT(t.create_date, '%Y-%m-%d') &gt;=#{beginDate}
+	    </if>
+	    <if test="endDate!= null and endDate!= ''" >
+	        AND DATE_FORMAT(t.create_date, '%Y-%m-%d') &lt;=#{endDate}
+	    </if>
+	</select>
+	<!-- 根据垫资ID查询实体 文帅 -->
+	<select id="findById" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.DriverReciveMoney">
+		SELECT
+			t.*,
+			t6.username AS username,
+			t6.truename AS truename,
+			t6.phoneno AS phoneno,
+			t6.`level` AS `level`,
+			IFNULL(t4.carry_fee,0) AS carryFee,
+			IFNULL(t4.tax_fee,0) AS taxFee,
+			t4.is_settle_accounts AS isSettleAccounts,
+			t2.order_no AS orderNo,
+			t4.id AS goodsownerDealId,
+			(IFNULL(t.first_recive_money,0)+IFNULL(t.second_recive_money,0)) AS totalMoney
+		FROM
+			driver_recive_money t,
+			drive_order t1,
+			goods t2,
+			goodsowner_order t3,
+			goodsowner_deal t4,
+			goodsowners t5,
+			users t6
+		WHERE
+			t.driver_order_id = t1.id
+		AND t1.goods_id = t2.id
+		AND t2.id = t3.goods_id
+		AND t3.id = t4.goodsowner_order_id
+		AND t3.goodsowners_id = t5.id
+		AND t5.user_id = t6.id
+		AND t.del_flag = "0"
+		AND t1.del_flag = "0"
+		AND t2.del_flag = "0"
+		AND t3.del_flag = "0"
+		AND t4.del_flag = "0"
+		AND t5.del_flag = "0"
+		AND t6.del_flag = "0"
+		AND t.id=#{id,jdbcType=VARCHAR}
+	</select>
+</mapper>

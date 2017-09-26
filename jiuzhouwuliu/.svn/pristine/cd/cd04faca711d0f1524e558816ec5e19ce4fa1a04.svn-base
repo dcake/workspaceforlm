@@ -1,0 +1,318 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">    
+    <title>详情</title>    
+	<meta name="decorator" content="default"/>
+	<link rel="stylesheet" href="${ctxStatic}/image-viewer/css/viewer.min.css">
+	<!-- 引入layer插件 -->
+	<link rel="stylesheet" href="${ctxStatic}/layer-v2.0/layer/skin/layer.css">
+	<script src="${ctxStatic}/layer-v2.0/layer/layer.js"></script>
+	<script src="${ctxStatic}/layer-v2.0/layer/laydate/laydate.js"></script>
+	<script type="text/javascript" src="${ctxStatic}/jquery-validation/1.11.1/lib/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="${ctxStatic}/jquery-validation/1.11.1/lib/jquery.form.js"></script> 
+	<script type="text/javascript" src="${ctxStatic}/pinyin/pinyin.js?v=<%=System.currentTimeMillis()%>"></script>
+	<script type="text/javascript" src="${ctxStatic}/jquery/uploadFile.js?v=<%=System.currentTimeMillis()%>"></script>
+    <script type="text/javascript">
+  	//回调函数，在编辑和保存动作时，供openDialog调用提交表单
+			
+			  	  	/*-----------------上传头像图片开始--------------*/
+			   $(function () {
+			    			$("#upImage").uploadPreview({ Img: "headImg", Width: 120, Height: 120 });
+			    			$("#upImage1").uploadPreview({ Img: "cardFaceImg", Width: 120, Height: 120 });
+			    			$("#upImage2").uploadPreview({ Img: "cardOtherImg", Width: 120, Height: 120 });
+			    			$("#upImage3").uploadPreview({ Img: "driveLicenceImg1", Width: 120, Height: 120 });
+			    			$("#upImage4").uploadPreview({ Img: "driveLicenceImg2", Width: 120, Height: 120 });
+			    			$("#upImage5").uploadPreview({ Img: "moveLicenceImg1", Width: 120, Height: 120 });
+			    			$("#upImage6").uploadPreview({ Img: "moveLicenceImg2", Width: 120, Height: 120 });
+			    });		
+			  	function NewFile(){   
+				   		$("#upImage").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage").val()!=""){
+				   				$('#headImg').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   		function addImg1(){   
+				   		$("#upImage1").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage1").val()!=""){
+				   				$('#cardFaceImg').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   		function addImg2(){   
+				   		$("#upImage2").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage2").val()!=""){
+				   				$('#cardOtherImg').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   		function addImg3(){   
+				   		$("#upImage3").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage3").val()!=""){
+				   				$('#driveLicenceImg1').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   		function addImg4(){   
+				   		$("#upImage4").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage4").val()!=""){
+				   				$('#driveLicenceImg2').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   		function addImg5(){   
+				   		$("#upImage5").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage5").val()!=""){
+				   				$('#moveLicenceImg1').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   		function addImg6(){   
+				   		$("#upImage6").click();
+				   		var st = window.setInterval(function(){
+				   			if($("#upImage6").val()!=""){
+				   				$('#moveLicenceImg2').show();
+				   				window.clearInterval(st);
+				   			}
+				   		},100);
+				   	}
+				   	 	/*---------------头像图片上传结束-------------*/
+				   	 	//限制只能输入数字
+						function keyupInput(obj){
+						if (event.keyCode==37 || event.keyCode==39){//左 、右键
+						   	
+						   	 }else{
+						   	 obj.value=obj.value.replace(/[^0-9]/g,'');
+						   	 }
+						   	}
+	</script>
+	<style type="text/css">
+	.form-search .ul-form li label{width:70px;text-align:right;}
+	.gun { overflow-x: hidden; overflow-y: auto; }
+	</style>
+  </head>
+  
+  <body>
+  
+  	<div style="text-align: center">
+	  <ul class="nav nav-tabs" role="tablist" style="margin:10px 10px 10px 10px">
+	    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab" onClick="setIframeWidth();">基本信息</a></li>
+	    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" onClick="setIframeWidth();">认证信息</a></li>
+	  </ul>
+	  <!-- Tab panes -->
+	  <div class="tab-content">
+	  <div role="tabpanel" class="tab-pane active" id="home">
+	  <form id="infoForm" method = 'post' class="breadcrumb form-search" style="background-color: white;" enctype="multipart/form-data">
+	  <input type="text" id="id" name="id" value="${drivers.id}" style="display:none"/>
+	 <!-------------------------------------基本信息--------------------------------------------------------------  -->
+	  <ul class="ul-form" style="height:300px;">
+	  		<li>
+	    	<label>用户名：</label>
+	    	<input type="text" readonly="readonly" class="input-medium" style="width:163px"value="${users.username}"/>
+		   	</li>
+	    	<li>
+	    	<label>手机：</label>
+	    	<input type="text" readonly="readonly" class="input-medium" style="width:163px"value="${users.phoneno}"/>
+		   	</li>
+	    	<li class="clearfix"></li>
+	    		<li>
+	    	<label>姓名：</label>
+	    	<input type="text" readonly="readonly" class="input-medium" style="width:163px"value="${users.truename}"/>
+		   	</li>
+	    		<li>
+	    	<label>身份证号：</label>
+	    	<input type="text" readonly="readonly" class="input-medium" style="width:163px"value="${users.cardno}"/>
+		   	</li>
+	    	<li class="clearfix"></li>
+	 		 			<li>
+	    	 	<label>状态：</label>
+	 		<select disabled="disabled" class="input-medium" style="width: 177px;">
+		   			<c:forEach items="${usersStatus}" var="t">
+		   			<option value="${t.value}" ${t.value==users.status? 'selected':''}>${t.label}</option>
+		   			</c:forEach>
+		   	</select>
+	 		</li>
+	 			<li>
+	    	<label>所属车队：</label>
+	 		<select disabled="disabled" class="input-medium" style="width: 177px;">
+		   				<c:forEach items="${DriveFleetList}" var="t">
+		   			<option value="${t.id}" ${t.id==drivers.driveFleetId? 'selected':''}>${t.fleetName}</option>
+		   			</c:forEach>
+		   	</select>
+	 		</li>
+	 		<li class="clearfix"></li>
+	 			<li>
+	    	<label>支付积分：</label>
+	    	<input type="text" readonly="readonly" maxlength="10" class="input-medium"  value="${users.currentPoint}"/>
+		   	</li>
+	 		 			<li>
+	    	 	<label>等级：</label>
+	 		<select disabled="disabled" class="input-medium" style="width: 177px;">
+		   			<c:forEach items="${carLevel}" var="t">
+		   			<option value="${t.value}" ${t.value==users.level? 'selected':''}>${t.label}</option>
+		   			</c:forEach>
+		   	</select>
+	 		</li>
+	    		<li>
+	    		<label style="margin-right: 100px;margin-top: 35px;">头像：</label>
+	    		<div style="border:1px solid #eee;width:120px;height:120px;margin-left: 140px;margin-top: -50px;cursor: pointer;">
+	    			<img id="headImg"  style="width:120; height:120px;" <c:if test="${users.headImg!=null&&users.headImg!=''}">src="<%=basePath%>${users.headImg}"</c:if>/>
+	    		</div>
+	    	</li>
+		</ul>
+	 	</form>
+	 	 <!-- 图片共用from表单提交 ------------------------------------------------------------------------------------>
+	   	<form id="newFileForm2"  action="${ctx}/driver/driverList/uploadImage" method="post" enctype="multipart/form-data">
+	   	 <input type="text" class="input-medium input-short" name="id"  id="id" style="display:none"/>
+	        <!-- 头像图片 -->
+    	  	<input id="upImage" type="file" name="file" style="display:none"/>
+    	  	<!-- 身份证图片 -->
+    	  	<input id="upImage1" type="file" name="file1" style="display:none"/>
+    	  	<input id="upImage2" type="file" name="file2" style="display:none"/>
+    	  	<!-- 驾驶证图片 -->
+    	  	<input id="upImage3" type="file" name="file3" style="display:none"/>
+    	  	<input id="upImage4" type="file" name="file4" style="display:none"/>
+    	  	<!-- 行驶证图片 -->
+    	  	<input id="upImage5" type="file" name="file5" style="display:none"/>
+    	  	<input id="upImage6" type="file" name="file6" style="display:none"/>
+	    </form>
+	 	<!-- --------------------------------------------------------认证信息----------------------------------------- -->
+	  </div>
+ 	<div role="tabpanel" class="tab-pane" id="profile">
+	  		<div style="margin-top:50px;margin-top: -33px;" >
+	  		    	<!--   <form id="infoForm1"  class="breadcrumb form-search" style="background-color: white;" > -->
+	  		    	<div style="overflow:-Scroll;overflow-y:hidden;height: 780px;">
+	   <form id="infoForm" method = 'post' class="breadcrumb form-search" style="background-color: white;" enctype="multipart/form-data">
+	  <ul class="ul-form" style="">
+	    	<li class="clearfix"></li>
+	  		<li>
+	    	<label >车牌号：</label>
+	    	<input type="text" readonly="readonly" class="input-medium" style="width:163px" value="${drivers.truckNo}"/>
+		   	</li>
+		   	  <li>
+		   	  	<label>车型：</label>
+		   		<select class="input-medium"  style="width: 177px;" disabled="disabled" >
+		   			<option value="">不限</option>
+		   			<c:forEach items="${truckType}" var="t">
+		   			<option value="${t.value}" <c:if test="${t.value==drivers.truckType}">selected</c:if>>${t.label}</option>
+		   			</c:forEach>
+		   		</select>
+		   	</li>
+	    	<li class="clearfix" ></li>
+	    	 <li  style="list-style-type:none;">
+		   	  	<label style="margin-left: 9px;">车长：</label>
+		   		<select class="input-medium"  style="width: 177px;" disabled="disabled">
+		   			<c:forEach items="${truckLength}" var="t">
+		   			<option value="${t.value}" <c:if test="${t.value==drivers.truckLength}">selected</c:if>>${t.label}</option>
+		   			</c:forEach>
+		   		</select>&nbsp;&nbsp;米
+		   	</li>
+	    	 	  <li  style="list-style-type:none;">
+		   	  	<label style="margin-left: -10px;">车宽：</label>
+		   		<select  class="input-medium"  style="width: 177px;" disabled="disabled">
+		   			<c:forEach items="${truckWidth}" var="t">
+		   			<option value="${t.value}" <c:if test="${t.value==drivers.truckWidth}">selected</c:if>>${t.label}</option>
+		   			</c:forEach>
+		   		</select>&nbsp;&nbsp;米
+		   	</li>
+		   	<li class="clearfix"  style="list-style-type:none;"></li>
+	    	 	<%--   <li  style="list-style-type:none;">
+		   	  	<label style="margin-left: 9px;">承重：</label>
+		   		<select  class="input-medium"  style="width: 177px;" disabled="disabled">
+		   			<c:forEach items="${truckMaxwight}" var="t">
+		   			<option value="${t.value}" <c:if test="${t.value==drivers.truckMaxwight}">selected</c:if>>${t.label}</option>
+		   			</c:forEach>
+		   		</select>&nbsp;&nbsp;吨
+		   	</li> --%>
+		   	 	<li >
+	    	<label style="margin-left: 9px;margin-top: 10px;">承重：</label>
+	    	<input type="text" maxlength="100" class="input-medium"  style="width:163px"  readonly="readonly"value="${drivers.truckMaxwight}"/>&nbsp;&nbsp;吨
+		   	</li>
+	    	<li class="clearfix"></li>
+	    	</ul>
+	    	</form>
+	    	 <ul class="ul-form" style="">
+	     <!-- 添加身份证图片 -->
+	     <li  style="list-style-type:none;">
+	    		<label style="margin-right: 369px;width:80px">身份证照片：</label>
+	  		<div style="margin-top:130px">
+		    	<div style="width:500px;margin:10px auto;">
+					<div id="imagesCradNo" style="margin-left:-60px">
+					  	<img id="cardFaceImg" width="120" height="120" style="margin-top: -210px;margin-left: 38px;cursor: pointer;" <c:if test="${users.cardFaceImg!=null&&users.cardFaceImg!=''}">src="<%=basePath%>${users.cardFaceImg}"</c:if> />
+					  	<img id="cardOtherImg"  width="120" height="120"  style="margin-top: -210px;cursor: pointer;"<c:if test="${users.cardOtherImg!=null&&users.cardOtherImg!=''}">src="<%=basePath%>${users.cardOtherImg}"</c:if> />
+					</div>
+				</div>
+			</div>
+			</li>
+	    	<!-- 添加驾驶证图片 -->
+			      <li  style="list-style-type:none;">
+	    		<label style="margin-right: 369px;width:80px">驾驶证：</label>
+	  		<div style="margin-top:100px">
+		    	<div style="width:500px;margin:10px auto;">
+					<div id="imagesDriveLicence" style="margin-left:-60px">
+					  	<img id="driveLicenceImg1" width="120" height="120" style="margin-top: -210px;margin-left: 38px;cursor: pointer;" <c:if test="${drivers.driveLicenceImg1!=null&&drivers.driveLicenceImg1!=''}">src="<%=basePath%>${drivers.driveLicenceImg1}"</c:if> />
+					  	<img id="driveLicenceImg2"  width="120" height="120"  style="margin-top: -210px;cursor: pointer;"<c:if test="${drivers.driveLicenceImg2!=null&&drivers.driveLicenceImg2!=''}">src="<%=basePath%>${drivers.driveLicenceImg2}"</c:if> />
+					</div>
+				</div>
+			</div>
+			</li>
+	    		<!-- 行驶证图片 -->
+			          <li  style="list-style-type:none;">
+	    		<label style="margin-right: 369px;width:80px">行驶证：</label>
+	  		<div style="margin-top:100px">
+		    	<div style="width:500px;margin:10px auto;">
+					<div id="imagesDriverCard" style="margin-left:-60px">
+					  	<img id="moveLicenceImg1" width="120" height="120" style="margin-top: -210px;margin-left: 38px;cursor: pointer;" <c:if test="${drivers.moveLicenceImg1!=null&&drivers.moveLicenceImg1!=''}">src="<%=basePath%>${drivers.moveLicenceImg1}"</c:if> />
+					  	<img id="moveLicenceImg2"  width="120" height="120"  style="margin-top: -210px;cursor: pointer;"<c:if test="${drivers.moveLicenceImg2!=null&&drivers.moveLicenceImg2!=''}">src="<%=basePath%>${drivers.moveLicenceImg2}"</c:if> />
+					</div>
+				</div>
+			</div>
+			</li>
+		</ul>
+		
+	 </div>
+				</div>
+			</div>
+	  </div>
+	</div>
+	<script type="text/javascript" src="${ctxStatic}/image-viewer/js/viewer.min.js"></script>
+	<script>
+		//头像
+		var viewerPhoto = new Viewer(document.getElementById('headImg'), {
+			url : 'src'
+		});
+		//身份证图片放大
+		var viewer = new Viewer(document.getElementById('imagesCradNo'), {
+			url : 'src'
+		});
+		//驾驶证图片放大
+		var viewer1 = new Viewer(document.getElementById('imagesDriveLicence'), {
+			url : 'src'
+		});
+		//行驶证图片放大
+		var viewer2 = new Viewer(document.getElementById('imagesDriverCard'), {
+			url : 'src'
+		});
+	</script>
+  </body>
+</html>

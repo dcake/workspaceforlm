@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.UsersMapper" >
+  <resultMap id="UsersMap" type="com.thinkgem.jeesite.common.entity.Users" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="phoneno" property="phoneno" jdbcType="VARCHAR" />
+    <result column="userno" property="userno" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="cardno" property="cardno" jdbcType="VARCHAR" />
+    <result column="card_face_img" property="cardFaceImg" jdbcType="VARCHAR" />
+    <result column="card_other_img" property="cardOtherImg" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="examine_status" property="examineStatus" jdbcType="VARCHAR" />
+    <result column="examine_remark" property="examineRemark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="current_point" property="currentPoint" jdbcType="INTEGER" />
+    <result column="person_describe" property="personDescribe" jdbcType="VARCHAR" />
+    <result column="account_money" property="accountMoney" jdbcType="DOUBLE" />
+    <result column="user_sort" property="userSort" jdbcType="VARCHAR" />
+    <result column="is_truename" property="isTruename" jdbcType="VARCHAR" />
+    <result column="gps_info" property="gpsInfo" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    
+    <result column="fleet_name" property="fleetName" jdbcType="VARCHAR" />
+    <result column="truck_no" property="truckNo" jdbcType="VARCHAR" />
+	<result column="truck_type" property="truckType" jdbcType="VARCHAR" />
+	<result column="truck_height" property="truckHeight" jdbcType="VARCHAR" />
+	<result column="truck_length" property="truckLength" jdbcType="VARCHAR" />
+	<result column="truck_maxwight" property="truckMaxwight" jdbcType="VARCHAR" />
+	<result column="drive_licence_img1" property="driveLicenceImg1" jdbcType="VARCHAR" />
+	<result column="drive_licence_img2" property="driveLicenceImg2" jdbcType="VARCHAR" />
+	<result column="move_licence_img1" property="moveLicenceImg1" jdbcType="VARCHAR" />
+	<result column="move_licence_img2" property="moveLicenceImg2" jdbcType="VARCHAR" />
+	<result column="is_true_drive" property="isTrueDrive" jdbcType="VARCHAR" />
+	<result column="is_true_move" property="isTrueMove" jdbcType="VARCHAR" />
+	
+	<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="identity_type" property="identityType" jdbcType="VARCHAR" />
+    <result column="business_license_face_img" property="businessLicenseFaceImg" jdbcType="VARCHAR" />
+    <result column="business_license_other_img" property="businessLicenseOtherImg" jdbcType="VARCHAR" />
+    <result column="business_license_imgs" property="businessLicenseImgs" jdbcType="VARCHAR" />
+    <result column="legalperson_face_img" property="legalpersonFaceImg" jdbcType="VARCHAR" />
+    <result column="legalperson_other_img" property="legalpersonOtherImg" jdbcType="VARCHAR" />
+    <result column="is_truecommpany" property="isTruecommpany" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.Users" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userno" property="userno" jdbcType="INTEGER" />
+    <result column="phoneno" property="phoneno" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="spell" property="spell" jdbcType="VARCHAR" />
+    <result column="cardno" property="cardno" jdbcType="VARCHAR" />
+    <result column="card_face_img" property="cardFaceImg" jdbcType="VARCHAR" />
+    <result column="card_other_img" property="cardOtherImg" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="examine_status" property="examineStatus" jdbcType="VARCHAR" />
+    <result column="examine_remark" property="examineRemark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="current_point" property="currentPoint" jdbcType="INTEGER" />
+    <result column="person_describe" property="personDescribe" jdbcType="VARCHAR" />
+    <result column="account_money" property="accountMoney" jdbcType="DOUBLE" />
+    <result column="user_sort" property="userSort" jdbcType="VARCHAR" />
+    <result column="is_truename" property="isTruename" jdbcType="VARCHAR" />
+    <result column="gps_info" property="gpsInfo" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="recentPersonInfoMap" type="com.thinkgem.jeesite.mobile.entity.RecentPersonInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goodsownerOrderId" property="goodsownerOrderId" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="user_sort" property="userSort" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
+    <result column="currentUserId" property="currentUserId" jdbcType="VARCHAR" />
+</resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, userno, phoneno, username, password, truename, spell, cardno, card_face_img, 
+    card_other_img, sex, head_img, level, examine_status, examine_remark, status, current_point, 
+    person_describe, account_money, user_sort, is_truename, gps_info, area_code, app_id, 
+    last_login_time, del_flag, remarks, update_date, update_by, create_date, create_by
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from users
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+    insert into users (id, userno, phoneno, 
+      username, password, truename, 
+      spell, cardno, card_face_img, 
+      card_other_img, sex, head_img, 
+      level, examine_status, examine_remark, 
+      status, current_point, person_describe, 
+      account_money, user_sort, is_truename, 
+      gps_info, area_code, app_id, 
+      last_login_time, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{userno,jdbcType=INTEGER}, #{phoneno,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{truename,jdbcType=VARCHAR}, 
+      #{spell,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{cardFaceImg,jdbcType=VARCHAR}, 
+      #{cardOtherImg,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{examineStatus,jdbcType=VARCHAR}, #{examineRemark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{currentPoint,jdbcType=INTEGER}, #{personDescribe,jdbcType=VARCHAR}, 
+      #{accountMoney,jdbcType=DOUBLE}, #{userSort,jdbcType=VARCHAR}, #{isTruename,jdbcType=VARCHAR}, 
+      #{gpsInfo,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userno != null" >
+        userno,
+      </if>
+      <if test="phoneno != null" >
+        phoneno,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="truename != null" >
+        truename,
+      </if>
+      <if test="spell != null" >
+        spell,
+      </if>
+      <if test="cardno != null" >
+        cardno,
+      </if>
+      <if test="cardFaceImg != null" >
+        card_face_img,
+      </if>
+      <if test="cardOtherImg != null" >
+        card_other_img,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="headImg != null" >
+        head_img,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="examineStatus != null" >
+        examine_status,
+      </if>
+      <if test="examineRemark != null" >
+        examine_remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="currentPoint != null " >
+        current_point,
+      </if>
+      <if test="personDescribe != null" >
+        person_describe,
+      </if>
+      <if test="accountMoney != null" >
+        account_money,
+      </if>
+      <if test="userSort != null" >
+        user_sort,
+      </if>
+      <if test="isTruename != null" >
+        is_truename,
+      </if>
+      <if test="gpsInfo != null" >
+        gps_info,
+      </if>
+      <if test="areaCode != null" >
+        area_code,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userno != null" >
+        #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="phoneno != null" >
+        #{phoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="truename != null" >
+        #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="spell != null" >
+        #{spell,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null" >
+        #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cardFaceImg != null" >
+        #{cardFaceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardOtherImg != null" >
+        #{cardOtherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null" >
+        #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="examineStatus != null" >
+        #{examineStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="examineRemark != null" >
+        #{examineRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPoint != null " >
+        #{currentPoint,jdbcType=INTEGER},
+      </if>
+      <if test="personDescribe != null" >
+        #{personDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="accountMoney != null" >
+        #{accountMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="userSort != null" >
+        #{userSort,jdbcType=VARCHAR},
+      </if>
+      <if test="isTruename != null" >
+        #{isTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsInfo != null" >
+        #{gpsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+ 
+   <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+    update users
+    <set >
+      <if test="userno != null" >
+        userno = #{userno,jdbcType=INTEGER},
+      </if>
+      <if test="phoneno != null" >
+        phoneno = #{phoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password !='' " >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="truename != null" >
+        truename = #{truename,jdbcType=VARCHAR},
+      </if>
+      <if test="spell != null" >
+        spell = #{spell,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null" >
+        cardno = #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="cardFaceImg != null" >
+        card_face_img = #{cardFaceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="cardOtherImg != null" >
+        card_other_img = #{cardOtherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="headImg != null" >
+        head_img = #{headImg,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="examineStatus != null" >
+        examine_status = #{examineStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="examineRemark != null" >
+        examine_remark = #{examineRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPoint != null and currentPoint != '' " >
+        current_point = #{currentPoint,jdbcType=INTEGER},
+      </if>
+      <if test="personDescribe != null" >
+        person_describe = #{personDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="accountMoney != null" >
+        account_money = #{accountMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="userSort != null" >
+        user_sort = #{userSort,jdbcType=VARCHAR},
+      </if>
+      <if test="isTruename != null" >
+        is_truename = #{isTruename,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsInfo != null" >
+        gps_info = #{gpsInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null" >
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+    update users
+    set userno = #{userno,jdbcType=INTEGER},
+      phoneno = #{phoneno,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      truename = #{truename,jdbcType=VARCHAR},
+      spell = #{spell,jdbcType=VARCHAR},
+      cardno = #{cardno,jdbcType=VARCHAR},
+      card_face_img = #{cardFaceImg,jdbcType=VARCHAR},
+      card_other_img = #{cardOtherImg,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      head_img = #{headImg,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      examine_status = #{examineStatus,jdbcType=VARCHAR},
+      examine_remark = #{examineRemark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      current_point = #{currentPoint,jdbcType=INTEGER},
+      person_describe = #{personDescribe,jdbcType=VARCHAR},
+      account_money = #{accountMoney,jdbcType=DOUBLE},
+      user_sort = #{userSort,jdbcType=VARCHAR},
+      is_truename = #{isTruename,jdbcType=VARCHAR},
+      gps_info = #{gpsInfo,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <!--   根据提交时间范围查询咨询列表 -->
+   <select id="findUsersListForPage" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+   SELECT
+   *
+   From users u 
+   where u.del_flag='0' 
+    <!--用户名-->
+    <if test="username != null and username !='' ">
+		and u.username LIKE CONCAT('%','${username}','%' )
+    </if>
+    <if test="truename != null and truename !='' ">
+		and u.truename LIKE CONCAT('%','${truename}','%' )
+    </if>
+    <!--用户类型-->
+    <if test="userSort != null and userSort !='' ">
+		and u.user_sort = #{userSort,jdbcType=VARCHAR} 
+	</if>
+	<!--手机号-->
+	<if test="phoneno != null and phoneno !='' ">
+		and u.phoneno LIKE CONCAT('%','${phoneno}','%' )
+	</if>
+ 	ORDER BY u.create_date DESC
+  </select>
+  
+  <!-- 根据手机号查询用户 by yaotengfei -->
+  <select id="selectByPhone" resultMap="BaseResultMap">
+  	SELECT
+		*
+	FROM
+		`users`
+	WHERE
+		phoneno = #{0}
+	AND user_sort = #{1}
+  </select>
+  <!-- 获取车主详情 崔亚光 -->
+  <select id="getInfo" resultMap="UsersMap" parameterType="java.lang.String">
+  	select t.*,df.fleet_name,d.*
+  	from users t
+		LEFT JOIN drivers d ON t.id=d.userid 
+		LEFT JOIN drive_fleet df ON d.drive_fleet_id=df.id
+  	where  
+  	 t.id=#{id}
+  </select>
+  <!-- 获取货主审核信息 崔亚光 -->
+  <select id="getGoods" resultMap="UsersMap" parameterType="java.lang.String">
+  	select t.* ,g.*
+  	from users t
+  	left join goodsowners g ON t.id=g.user_id
+  	where t.id=#{id}
+  </select>
+   <!-- 分类管理列表  add by崔亚光 -->
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Users">
+  	select t.*
+  	from users t
+  	where t.user_sort in ('0','1')
+  	<if test="userSort != null and userSort != ''">
+  	and t.user_sort=#{userSort}
+  	</if>
+  	<if test="truename != null and truename != ''">
+  	and t.truename like CONCAT("%",#{truename},"%")
+  	</if>
+  	<if test="level != null and level != ''">
+  	and t.level=#{level}
+  	</if>
+  	order by t.create_date
+  </select>
+   <!-- 更新等级  崔亚光 -->
+  <update id="updateLevel" parameterType="com.thinkgem.jeesite.common.entity.Users">
+  	update users
+    <set>
+    level = #{level,jdbcType=VARCHAR},
+    update_by = #{updateBy,jdbcType=VARCHAR},
+    update_date = #{updateDate,jdbcType=TIMESTAMP}
+    </set>
+    where
+     id = #{id,jdbcType=VARCHAR} 
+  </update>
+  <!--   用户审核列表 崔亚光-->
+   <select id="findUsersList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+   SELECT
+   *
+   From users u 
+   where u.del_flag='0' 
+   and u.examine_status='0'
+       <!--用户名-->
+    <if test="username != null and username !='' ">
+		and u.username LIKE CONCAT('%','${username}','%' )
+    </if>
+    <if test="truename != null and truename !='' ">
+		and u.truename LIKE CONCAT('%','${truename}','%' )
+    </if>
+    <!--用户类型-->
+    <if test="userSort != null and userSort !='' ">
+		and u.user_sort = #{userSort,jdbcType=VARCHAR} 
+	</if>
+	<!--手机号-->
+	<if test="phoneno != null and phoneno !='' ">
+		and u.phoneno LIKE CONCAT('%','${phoneno}','%' )
+	</if>
+ 	ORDER BY u.create_date DESC
+  </select>
+  <!-- 获取经纪人 -->
+  <select id="getAgents" resultMap="UsersMap" parameterType="java.lang.String">
+  	select t.*,a.*
+  	from users t
+  	left join agents a on t.id=a.userid
+  	where t.id=#{id}
+  </select>
+  
+   <!-- 查询经纪人列表 文帅 -->
+  <select id="findAgentsList" resultMap="BaseResultMap" parameterType="map">
+	SELECT
+		t.*,
+		t1.company_name AS companyName,
+		t1.id AS agentId
+	FROM
+		users t,
+		agents t1
+	WHERE
+		t.id = t1.userid
+	AND t.user_sort = "2"
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	LIMIT #{currentPage},#{pageSize}	
+  </select>
+  <!-- 根据经纪人ID查询经纪人信息 文帅 -->
+  <select id="findAgentByAgentId" resultMap="BaseResultMap" parameterType="java.lang.String">
+	SELECT
+		t.*,
+		t1.is_truecommpany AS isTruecommpany,
+		t1.business_license_face_img AS businessLicenseFaceImg,
+		t1.business_license_other_img AS businessLicense_otherImg,
+		t1.id AS agentId
+	FROM
+		users t,
+		agents t1
+	WHERE
+		t.id = t1.userid
+	AND t1.id=#{agentId,jdbcType=VARCHAR}
+	AND t.user_sort = "2"
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+  </select>
+  
+  <!--   用户审核通过的用户列表 pcx-->
+   <select id="findPassUsersList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Users" >
+   SELECT
+   *
+   From users u 
+   where u.del_flag='0' 
+   and u.examine_status='1'
+       <!--用户名-->
+    <if test="username != null and username !='' ">
+		and u.username LIKE CONCAT('%','${username}','%' )
+    </if>
+    <if test="truename != null and truename !='' ">
+		and u.truename LIKE CONCAT('%','${truename}','%' )
+    </if>
+    <!--用户类型-->
+    <if test="userSort != null and userSort !='' ">
+		and u.user_sort = #{userSort,jdbcType=VARCHAR} 
+	</if>
+	<!--手机号-->
+	<if test="phoneno != null and phoneno !='' ">
+		and u.phoneno LIKE CONCAT('%','${phoneno}','%' )
+	</if>
+ 	ORDER BY u.create_date DESC
+  </select>
+  <!-- 根据用户ID查询最近联系人列表 文帅 -->
+  <select id="findRecentPersonList" resultMap="recentPersonInfoMap" parameterType="map">
+  	SELECT
+		*
+	FROM
+		(
+			SELECT
+				t.id,
+				t.user_order_id AS goodsownerOrderId,
+				u.truename,
+				u.head_img,
+				u.user_sort,
+				u.id AS userId,
+				g1.user_id AS currentUserId
+			FROM
+				drive_order t,
+				drivers t1,
+				users u,
+				goodsowner_order g,
+				goodsowners g1
+			WHERE
+				t.drivers_id = t1.id
+			AND t1.userid = u.id
+			AND g.goodsowners_id = g1.id
+			AND g.id = t.user_order_id
+			UNION
+				SELECT
+					t2.id,
+					t2.goodsowner_orderid AS goodsownerOrderId,
+					u.truename,
+					u.head_img,
+					u.user_sort,
+					u.id AS userId,
+					g1.user_id AS currentUserId
+				FROM
+					agent_order t2,
+					agents t3,
+					users u,
+					goodsowner_order g,
+					goodsowners g1
+				WHERE
+					t2.agents_id = t3.id
+				AND t3.userid = u.id
+				AND g.goodsowners_id = g1.id
+				AND g.id = t2.goodsowner_orderid
+		) AS union_table
+	WHERE
+		union_table.currentUserId = #{userId,jdbcType=VARCHAR}
+	LIMIT #{currentPage},#{pageSize}	
+  </select>
+  <!-- 根据货主ID查询user -->
+  <select id="findUserByGoodsownersId" resultMap="BaseResultMap" parameterType="string">
+  	SELECT
+		u.*
+	FROM
+		users u,
+		goodsowners g
+	WHERE
+		u.id = g.user_id
+	AND g.id = #{goodsownersId,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,135 @@
+package com.thinkgem.jeesite.modules.finance.web;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.thinkgem.jeesite.common.entity.UserWithdrawCash;
+import com.thinkgem.jeesite.common.entity.Users;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.utils.excel.ExportExcel;
+import com.thinkgem.jeesite.modules.finance.entity.ExportApplication;
+import com.thinkgem.jeesite.modules.finance.entity.ExportUsersWallet;
+import com.thinkgem.jeesite.modules.finance.service.ApplicationService;
+import com.thinkgem.jeesite.modules.sys.entity.Dict;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+
+/**
+ * @description	提现申请审核
+ * @author 文帅
+ * @date 2017年8月7日 下午2:43:48
+ */
+@Controller
+@RequestMapping(value="${adminPath}/finance/application")
+public class ApplicationController {
+	@Autowired
+	private ApplicationService applicationService;
+	/**
+	 * @description	跳转到提现申请审核列表页面
+	 * @author 文帅
+	 * @date 2017年8月7日 下午2:18:10
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"list", ""})
+	public String list(UserWithdrawCash userWithdrawCash,Model model,HttpServletRequest request,HttpServletResponse response) {
+		Page<UserWithdrawCash> page = applicationService.findWithdrawCashList(new Page<UserWithdrawCash>(request, response), userWithdrawCash);
+		model.addAttribute("page", page);
+		for(UserWithdrawCash u:page.getList()){
+			u.setUserSort(DictUtils.getDictLabel(u.getUserSort(),"users_user_sort",u.getUserSort()));
+			u.setIsPass(DictUtils.getDictLabel(u.getIsPass(),"check_status",u.getIsPass()));
+		}
+		List<Dict> userSortList=DictUtils.getDictList("users_user_sort");
+		//model.addAttribute("userWithdrawCash", userWithdrawCash);
+		model.addAttribute("userSortList", userSortList);
+		return "modules/finance/applicationList";
+	}
+	
+	/**
+	 * @description	跳转到审核页面
+	 * @author 文帅
+	 * @date 2017年8月7日 下午4:55:17
+	 * @param request
+	 * @param id 提现记录ID
+	 * @return
+	 */
+	@RequestMapping(value = {"goApplicationCheck", ""})
+	public String goApplicationCheck(HttpServletRequest request,Model model,String id,String checkOut) {
+		UserWithdrawCash userWithdrawCash=applicationService.findWithdrawCashById(id);
+		Users users=applicationService.findUserById(userWithdrawCash.getUserid());
+		users.setUserSort(DictUtils.getDictLabel(users.getUserSort(),"users_user_sort",users.getUserSort()));
+		model.addAttribute("userWithdrawCash", userWithdrawCash);
+		model.addAttribute("user", users);
+		model.addAttribute("checkOut", checkOut);
+		return "modules/finance/applicationCheck";
+	}
+	
+	/**
+	 * @description	审核通过
+	 * @author 文帅
+	 * @date 2017年8月8日 下午5:49:48
+	 * @param id
+	 * @param status 审核状态（1-通过，2-驳回）
+	 * @return
+	 */
+	@RequestMapping(value="checkAgreeOrReturn",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil check(UserWithdrawCash userWithdrawCash,String status){
+		if(StringUtils.isNotEmpty(userWithdrawCash.getRemarks())){
+			if(userWithdrawCash.getRemarks().length()>254){
+				return new AjaxBeanUtil("审核意见字数过多。", false);
+			}
+		}
+		return applicationService.check(userWithdrawCash,status);
+	}
+	/**
+	 * @description	提现申请审核列表导出
+	 * @author 王瀚
+	 * @param users
+	 * @param response
+	 * @param request
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "/export")
+	public String export(UserWithdrawCash userWithdrawCash,HttpServletResponse response,HttpServletRequest request, RedirectAttributes redirectAttributes){
+		List<UserWithdrawCash> usersList= applicationService.findList(userWithdrawCash);
+		List<ExportApplication> list=new ArrayList<ExportApplication>();
+		for(UserWithdrawCash u:usersList){
+			ExportApplication exportApplication = new ExportApplication();
+			exportApplication.setUsername(u.getUsername());
+			exportApplication.setTruename(u.getTruename());
+			exportApplication.setPhoneno(u.getPhoneno());
+			exportApplication.setUserSort(DictUtils.getDictLabel(u.getUserSort(),"users_user_sort",u.getUserSort()));
+			if("0".equals(u.getIsPass())){
+				exportApplication.setIsPass("未通过");
+			}else if("1".equals(u.getIsPass())){
+				exportApplication.setIsPass("已通过");
+			}else if("2".equals(u.getIsPass())){
+				exportApplication.setIsPass("已驳回");
+			}
+			list.add(exportApplication);
+		}
+		try {
+			new ExportExcel("提现申请审核列表", ExportApplication.class, 2).setDataList(list).write(response, "提现申请审核列表.xlsx").dispose();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect: ${adminPath}/finance/application/list";
+	}
+	
+}

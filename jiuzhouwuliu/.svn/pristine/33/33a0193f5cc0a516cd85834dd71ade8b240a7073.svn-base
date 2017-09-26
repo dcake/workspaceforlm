@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.but-box {
+				margin: 20px 15px;
+			}
+			
+			.mui-input-group {
+				background: transparent;
+			}
+			
+			.mui-input-row label {
+				width: 30%;
+				line-height: 28px;
+			}
+			
+			.mui-input-row label~input {
+				width: 54%;
+				height: 50px;
+				float: left;
+			}
+			
+			.date,
+			.sender,
+			.receiver,
+			.goods,
+			.count,
+			.insurance {
+				margin-top: 10px;
+			}
+			
+			.calender,
+			.time {
+				height: 40px;
+				line-height: 40px;
+				margin-top: 10px;
+				display: -moz-inline-box;
+				display: inline-block;
+				width: 50%;
+				border: 1px solid #ddd;
+				border-radius: 3px;
+			}
+			
+			.calender input {
+				padding: 0px 11px;
+				height: 30px;
+			}
+			
+			.time {
+				margin-left: 30%;
+				margin-top: 4px;
+			}
+			
+			.mui-input-group:after {
+				height: 0;
+			}
+			
+			.t {
+				padding: 0px 10px 0px 10px;
+			}
+			
+			.btn {
+				height: 38px;
+				width: 20px;
+				padding: 2px;
+				float: right;
+				border-left: 1px solid #ddd;
+				border-radius: 3px;
+			}
+			
+			.add,
+			.address {
+				margin: 13px 10px auto 0px;
+			}
+			
+			.icon-tianjia:before {
+				font-size: 23px;
+				color: #ff7800;
+			}
+			
+			.icon-weizhi:before {
+				font-size: 26px;
+				color: #0084ff;
+			}
+			
+			.image-cont {
+				font-size: 15px;
+				background: #FFFFFF;
+				padding: 10px 15px 0;
+			}
+			
+			.image-cont ul {
+				overflow: hidden;
+				padding: 0;
+				margin: 0px;
+			}
+			
+			.image-cont li {
+				width: 25%;
+				float: left;
+				padding: 5px;
+			}
+			
+			.image-cont img {
+				width: 100%;
+			}
+			
+			.measure {
+				line-height: 40px;
+				font-size: 14px;
+				color: #0084ff;
+				margin-right: 10px;
+			}
+			
+			.select {
+				line-height: 40px;
+				font-size: 14px;
+				color: #666;
+				margin-right: 10px;
+			}
+			
+			.mui-icon-arrowright {
+				font-size: 20px;
+				margin-top: 10px;
+			}
+			
+			.mui-radio label {
+				padding-right: 0px;
+			}
+			
+			.insurance {
+				padding: 10px 10px 5px 10px;
+			}
+			
+			.insurance span {
+				font-size: 15px;
+				line-height: 30px;
+			}
+			
+			.cankao {
+				color: #F40909;
+				margin-left: 20px;
+			}
+			
+			.beizhu {
+				background: #FFFFFF;
+				margin: 0px;
+				padding: 0px 10px 5px 10px;
+				font-size: 13px;
+				color: #1dacf9;
+			}
+			
+			.mui-input-group .date {
+				height: 110px;
+				line-height: 50px;
+			}
+			
+			.mui-navigate-right:after,
+			.mui-push-right:after {
+				font-size: 20px;
+			}
+			/*tan*/
+			
+			.popupbox .popup {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				top: 40px;
+				bottom: 0;
+			}
+			
+			.popupbox .mui-popup-title {
+				/*padding-top: 10px;*/
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 10px;
+				/*margin-bottom: 10px;*/
+			}
+			
+			.popupbox .mui-popup-cont {
+				padding: 10px;
+			}
+			
+			.popupbox .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 34px;
+			}
+			
+			.popupbox .mui-popup-buttons {
+				border-top: 1px solid #ddd;
+			}
+			/*弹框选择车型*/
+			
+			.mui-poppicker-btn-cancel {
+				background-color: #DDDDDD;
+				color: #555555;
+			}
+			
+			.popupbox .mui-popup-cont {
+				padding: 10px;
+				/*margin-bottom: 10px;*/
+			}
+			
+			.popupbox .mui-popup-cont button {
+				width: 28%;
+				margin: 2%;
+				height: 30px;
+			}
+			
+			.popupbox .mui-popup-title {
+				padding-top: 2px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 5px;
+			}
+			
+			.popupbox .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 30px;
+			}
+			
+			.popup-class button {
+				margin: 2%;
+				width: 27%;
+				font-size: 12px;
+			}
+			
+			.mui-popup-button:first-child:last-child {
+				border-radius: 6px 6px 6px 6px;
+				margin: 0 20px;
+			}
+			
+			.popupbox .mui-popup-buttons {
+				border-top: 0px solid #ddd;
+				margin-bottom: 11px;
+			}
+			
+			.mui-popup-button {
+				font-size: 17px;
+				line-height: 44px;
+				position: relative;
+				width: 100%;
+				height: 44px;
+				padding: 0 5px;
+				text-align: center;
+				color: #f7f7f7;
+				background: #1dacf9;
+			}
+			
+			.select-size {
+				font-size: 15px;
+			}
+			
+			.mui-btn {
+				background-color: #efeff4;
+				color: #333;
+			}
+			
+			.popupbox .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 29px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加货物</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row date">
+					<label>装车时间</label>
+					<span class="calender"><input type="text" placeholder="2017-08-05" /></span>
+					<span class="mui-icon iconfont icon-xuanzeriqi" style="margin-left: 5px;"></span>
+					<span class="time">
+	        <span class="t">00:00-03:00</span><button class="mui-icon iconfont icon-xialakuang-copy btn"></button>
+					</span><span style="margin-left: 8px;">点</span>
+				</div>
+			</form>
+		</div>
+		<div class="mui-input-row  sender" id='showUserPicker'>
+			<label>发货人</label>
+			<span class="mui-pull-right mui-icon iconfont icon-tianjia add"></span>
+			<input id='userResult' class="ui-alert" type="text" placeholder="请填写发货人名称">
+		</div>
+		<div class="mui-input-row">
+			<label>联系方式</label>
+			<input type="text" class="" placeholder="请填写发货号码" />
+		</div>
+		<div class="mui-input-row mui-navigate-right" id='showCityPicker3'>
+			<label>发货地址</label>
+			<input id='cityResult3' class="" type="text" placeholder="请选择发货地" readonly="true" />
+		</div>
+		<div class="mui-input-row">
+			<label>详细地址</label>
+			<span class="mui-pull-right mui-icon iconfont icon-weizhi address"></span>
+			<input type="text" class="" placeholder="请填写详细地址" />
+		</div>
+
+		<div class="mui-input-row  receiver">
+			<label>收货人</label>
+			<span class="mui-pull-right mui-icon iconfont icon-tianjia add"></span>
+			<input type="text" placeholder="请填写收货人名称">
+		</div>
+		<div class="mui-input-row">
+			<label>联系方式</label>
+			<input type="text" class="" placeholder="请填写收货号码" />
+		</div>
+		<div class="mui-input-row mui-navigate-right" id='showCityPicker4'>
+			<label>发货地址</label>
+			<input id='cityResult4' type="text" placeholder="请选择收货地" readonly="true" />
+			<!--<span class="mui-pull-right">请选择收货地</span>-->
+		</div>
+		<div class="mui-input-row">
+			<label>详细地址</label>
+			<span class="mui-pull-right mui-icon iconfont icon-weizhi address"></span>
+			<input type="text" class="" placeholder="请填写详细地址" />
+		</div>
+
+		<div class="mui-input-row goods">
+			<label>需求车型</label>
+			<span class="mui-pull-right select">选择<span class="mui-pull-right mui-icon mui-icon-arrowright"></span></span>
+			<!--<input type="text" class="" placeholder="" />-->
+		</div>
+		<div class="mui-input-row ">
+			<label>货物类型</label>
+			<span class="mui-pull-right select">选择<span class="mui-pull-right mui-icon mui-icon-arrowright"></span></span>
+			<!--<input type="text" class="" placeholder="" />-->
+		</div>
+		<div class="image-cont">
+			<label style="width:40%; font-size: 17px;">点击上传货物图片:</label>
+			<ul>
+				<li><img src="../img/ck-img.jpg"></li>
+				<li><img src="../img/ck-img.jpg"></li>
+				<li><img src="../img/ck-img.jpg"></li>
+				<li><img src="../img/iconfont-tianjia.png"></li>
+			</ul>
+		</div>
+		<div class="mui-input-row">
+			<label>货物单位</label>
+			<span class="mui-pull-right select">选择<span class="mui-pull-right mui-icon mui-icon-arrowright"></span></span>
+			<!--<input type="text" class="" placeholder="" />-->
+		</div>
+		<div class="mui-input-row  insurance">
+			<span style="width:42%">是否投递保险</span>
+			<span class="cankao">参考</span>
+			<!--<input name="radio1" type="radio" style="width:10%">-->
+			<!--<span class="mui-icon iconfont icon-xuanzhong" id="check"></span>-->
+		</div>
+		<p class="beizhu mui-ellipsis">请评估货物价值后选择保险额度，超过XX元系统会进行审核</p>
+		<div class="mui-input-row">
+			<label>保险公司</label>
+			<span class="block-container">
+	    <span class="block" id='userResult2'>人寿保险</span><button class="mui-icon iconfont icon-xialakuang-copy mui-pull-right btn2" id='showUserPicker2'></button>
+			</span>
+		</div>
+		<div class="mui-input-row">
+			<label>保险类别</label>
+			<span class="block-container">
+	    <span class="block" id='userResult3'>易碎品</span><button class="mui-icon iconfont icon-xialakuang-copy btn2" id='showUserPicker3'></button>
+			</span>
+		</div>
+		<div class="mui-input-row">
+			<label>保额</label>
+			<span class="block-container">
+	    <input class="block"  value="10000">
+	    </span>&nbsp元
+		</div>
+		<div class="mui-input-row">
+			<label>保费</label>
+			<span class="block-container unedit-block">800</span>
+		</div>
+		<div class="mui-input-row" style="padding-bottom: 10px;">
+			<label>备注</label>
+			<span class="block-container">
+      <input class="block">
+      </span>
+		</div>
+		<!--</form>-->
+		<div class="but-box ">
+			<button class="queren tz" type="button" id="save-success.html">保存</button>
+		</div>
+		<!--</div>-->
+		<!--弹窗-需求车型-->
+		<div class="popupbox mui-backdrop">
+			<div class="popup">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title">车长</div>
+					<div class="popup-class" style="padding-bottom: 2px;">
+						<button type="button" class="mui-btn-primary">全部</button>
+						<button type="button" class="mui-btn">4.2米</button>
+						<button type="button" class="mui-btn">4.5米</button>
+						<button type="button" class="mui-btn">5米</button>
+						<button type="button" class="mui-btn">6.2米</button>
+						<button type="button" class="mui-btn">6.8米</button>
+						<button type="button" class="mui-btn">7.2米</button>
+						<button type="button" class="mui-btn">7.7米</button>
+						<button type="button" class="mui-btn">7.8米</button>
+						<button type="button" class="mui-btn">8.2米</button>
+						<button type="button" class="mui-btn">8.6米</button>
+						<button type="button" class="mui-btn">9.6米</button>
+						<button type="button" class="mui-btn">12.5米</button>
+						<button type="button" class="mui-btn">13米</button>
+						<button type="button" class="mui-btn">13.5米</button>
+						<button type="button" class="mui-btn">14.6米</button>
+						<button type="button" class="mui-btn">16米</button>
+						<button type="button" class="mui-btn">17.5米</button>
+						<button type="button" class="mui-btn">其他</button>
+					</div>
+					<div class="mui-popup-title">车宽</div>
+					<div class="popup-class" style="padding-bottom: 2px;">
+						<button type="button" class="mui-btn-primary">全部</button>
+						<button type="button" class="mui-btn">2.1米</button>
+						<button type="button" class="mui-btn">2.2米</button>
+						<button type="button" class="mui-btn">2.3米</button>
+						<button type="button" class="mui-btn">2.4米</button>
+						<button type="button" class="mui-btn">2.8米</button>
+						<button type="button" class="mui-btn">3.0米</button>
+						<button type="button" class="mui-btn">其他</button>
+					</div>
+					<div class="mui-popup-title">车型</div>
+					<div class="popup-class">
+						<button type="button" class="mui-btn-primary">全部</button>
+						<button type="button" class="mui-btn">高栏车</button>
+						<button type="button" class="mui-btn">罐式车</button>
+						<button type="button" class="mui-btn">平板车</button>
+						<button type="button" class="mui-btn">箱式车</button>
+						<button type="button" class="mui-btn">冷藏车</button>
+						<button type="button" class="mui-btn">低栏车</button>
+						<button type="button" class="mui-btn">高地板车</button>
+						<button type="button" class="mui-btn">其他</button>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<!--<span class="mui-popup-button">取消</span>-->
+					<span class="mui-popup-button mui-popup-button-bold">确定</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		//选择需求车型
+		//点击弹出选择属性界面
+		$(".popupbox").hide();
+		$(".goods").click(
+			function() {
+				$(".popupbox").show();
+				//	body.style.height = oH+'px';
+				body.style.overflow = 'hidden';
+			}
+		);
+		//    结束
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox").hide();
+			}
+		)
+		//选择班级
+		$('.mui-popup-cont .mui-btn').click(function() {
+			$(this).addClass('mui-btn-primary').removeClass('mui-btn').siblings().removeClass('mui-btn-primary').addClass('mui-btn');
+		})
+
+		mui("body").on("tap", ".tz", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});
+
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
+				//普通示例
+				var userPicker = new $.PopPicker();
+				userPicker.setData([{
+					value: 'ywj',
+					text: '叶文洁'
+				}, {
+					value: 'aaa',
+					text: '艾叶叶'
+				}, {
+					value: 'lj',
+					text: '罗辑'
+				}, {
+					value: 'ymt',
+					text: '云天明'
+				}, {
+					value: 'shq',
+					text: '史强'
+				}, {
+					value: 'zhbh',
+					text: '章北海'
+				}, {
+					value: 'zhy',
+					text: '庄颜'
+				}, {
+					value: 'gyf',
+					text: '关一帆'
+				}, {
+					value: 'zhz',
+					text: '智子'
+				}, {
+					value: 'gezh',
+					text: '歌妍'
+				}]);
+				var showUserPickerButton = doc.getElementById('showUserPicker');
+				var userResult = doc.getElementById('userResult');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					userPicker.show(function(items) {
+						userResult.value = JSON.stringify(items[0]);
+						userResult.value = (items[0].text);
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+				//-----------------------------------------
+				var userPicker = new $.PopPicker();
+				userPicker.setData([{
+					value: 'ywj',
+					text: '叶文洁'
+				}, {
+					value: 'aaa',
+					text: '艾叶叶'
+				}, {
+					value: 'lj',
+					text: '罗辑'
+				}, {
+					value: 'ymt',
+					text: '云天明'
+				}, {
+					value: 'shq',
+					text: '史强'
+				}, {
+					value: 'zhbh',
+					text: '章北海'
+				}, {
+					value: 'zhy',
+					text: '庄颜'
+				}, {
+					value: 'gyf',
+					text: '关一帆'
+				}, {
+					value: 'zhz',
+					text: '智子'
+				}, {
+					value: 'gezh',
+					text: '歌妍'
+				}]);
+				var showUserPickerButton = doc.getElementById('showUserPicker');
+				var userResult = doc.getElementById('userResult');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					userPicker.show(function(items) {
+						userResult.innerText = JSON.stringify(items[0]);
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+				//	级联示例
+				var cityPicker3 = new $.PopPicker({
+					layer: 3
+				});
+				cityPicker3.setData(cityData3);
+				var showCityPickerButton = doc.getElementById('showCityPicker3');
+				var cityResult3 = doc.getElementById('cityResult3');
+				showCityPickerButton.addEventListener('tap', function(event) {
+					cityPicker3.show(function(items) {
+						//							cityResult3.innerText = "你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+						cityResult3.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+
+				//4-级联示例
+				var cityPicker4 = new $.PopPicker({
+					layer: 3
+				});
+				cityPicker4.setData(cityData3);
+				var showCityPickerButton = doc.getElementById('showCityPicker4');
+				var cityResult4 = doc.getElementById('cityResult4');
+				showCityPickerButton.addEventListener('tap', function(event) {
+					cityPicker4.show(function(items) {
+						//							cityResult3.innerText = "你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+						cityResult4.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+					});
+				}, false);
+			});
+		})(mui, document);
+	</script>
+
+</html>

@@ -1,0 +1,163 @@
+package com.thinkgem.jeesite.mobile.driver.service;
+
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.DriveOrderMapper;
+import com.thinkgem.jeesite.common.dao.DriversMapper;
+import com.thinkgem.jeesite.common.dao.UsersCollectMapper;
+import com.thinkgem.jeesite.common.entity.Drivers;
+import com.thinkgem.jeesite.common.entity.UsersCollect;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+
+/** 
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月7日 下午4:18:29 
+ * 类说明: 车辆管理service
+ */
+@Service
+@Transactional
+public class MobileDriversManagerService {
+	@Autowired
+	private DriversMapper driversMapper;
+	@Autowired
+	private DriveOrderMapper driveOrderMapper;
+	@Autowired
+	private UsersCollectMapper usersCollectMapper;
+
+	/**
+	 * 车辆管理列表
+	 * 崔亚光
+	 * 2017-09-06
+	 * @return
+	 */
+	public AjaxBeanUtil getList(String userid) {
+		Drivers drivers=driversMapper.selectByPrimaryKey(userid);
+		if(StringUtils.isNotBlank(drivers.getDriveFleetId())){
+			List<Drivers> list=driversMapper.findDriversList(drivers.getDriveFleetId());
+		return new AjaxBeanUtil("查询成功",true,list);
+		}else{
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+
+	/**
+	 * 添加车辆
+	 * 崔亚光
+	 * 2017-09-08
+	 */
+	public AjaxBeanUtil addCar(Drivers record) {
+		try{
+		record.setIsHasCar("1");
+		record.preUpdate();
+		driversMapper.addCar(record);
+		return new AjaxBeanUtil("添加成功",true);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+
+	/**
+	 * 邀请队员
+	 * 崔亚光
+	 * 2017-09-09
+	 * @return
+	 */
+	public AjaxBeanUtil invite(String userid) {
+		try{
+			List<Drivers> list=driversMapper.findInviteList(userid);
+			for(Drivers d:list){
+				d.setCount(driveOrderMapper.findCountByDriverId(d.getId()));
+			}
+			return new AjaxBeanUtil("查询成功",true,list);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+	/**
+	 * 退出车队
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	public AjaxBeanUtil exitDriveFleet(Drivers record) {
+		try{
+			record.setDriveFleetId(null);
+			driversMapper.exitDriveFleet(record);
+			return new AjaxBeanUtil("退出成功",true);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+	/**
+	 * 取消收藏
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	public AjaxBeanUtil backCollect(String collectUserid) {
+		try{
+			usersCollectMapper.backCollect(collectUserid);
+			return new AjaxBeanUtil("取消收藏成功",true);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+	/**
+	 * 转让身份车队人员列表
+	 * 崔亚光
+	 * 2017-09-11
+	 * @return
+	 */
+	public AjaxBeanUtil changeBodyList(String driveFleetId) {
+		try{
+			driversMapper.changeBodyList(driveFleetId);
+			return new AjaxBeanUtil("查询成功",true);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+
+	/**
+	 * 转让身份
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	public AjaxBeanUtil changeBody(String id) {
+		try{
+			Drivers d=driversMapper.selectByPrimaryKey(id);
+			if(d.getIsHasCar().equals("1")){
+				driversMapper.changeBody(id);
+				return new AjaxBeanUtil("转让成功",true);
+			}else{
+				return new AjaxBeanUtil("请先进行车辆认证",true);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+	/**
+	 * 线路记录
+	 * 崔亚光
+	 * 2017-09-12
+	 */
+	public AjaxBeanUtil driveLine(String id) {
+		try{
+			driversMapper.driveLine(id);
+			return new AjaxBeanUtil("查询成功",true);
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常",false);
+		}
+	}
+
+}

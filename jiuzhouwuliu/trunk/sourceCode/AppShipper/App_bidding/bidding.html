@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-badge {
+				position: relative;
+				margin-left: -10px;
+				margin-top: 5px;
+				z-index: 9999;
+				background: #f40909;
+				color: #fff;
+				font-size: 11px;
+				padding: 1px 4px;
+			}
+			
+			.save-cg {
+				margin-top: 10px;
+				padding: 15px 15px 10px 15px;
+				background: #fff;
+				width: 100%;
+				border-bottom: 1px solid #efefef;
+				/*left: 15px;*/
+				display: inline-block;
+			}
+			
+			.save-cg img {
+				float: left;
+				width: 30%;
+				height: 100%;
+				width: 95px;
+				border: 1px solid #F2EFEF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" id="addBox">
+			<a class="mui-icon iconfont icon-tongzhi mui-pull-left" @click="getmessage"></a>
+			<span class="mui-badge mui-pull-left">2</span>
+			<h1 class="mui-title">竞价</h1>
+		</header>
+		<script src="../js/mui.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				subpages: [{
+				url: 'bidding_sub.html',
+				id: 'bidding_sub.html',
+				styles: {
+					top: '45px',
+					bottom: '0px',
+				}
+			}]
+			})
+			var add = new Vue({
+				el: '#addBox',
+				data: {
+				},
+				mounted: function() {
+					
+				},
+				methods: {
+					/**
+					 * 熊世齐
+					 * 2017-09-13
+					 * 跳转到消息页面
+					 */
+					getmessage: function() {
+						mui.openWindow({
+							url: "../App_my_center/message.html",
+							id: "../App_my_center/message.html"
+						});
+					},
+				}
+			})
+		</script>
+	</body>
+
+</html>

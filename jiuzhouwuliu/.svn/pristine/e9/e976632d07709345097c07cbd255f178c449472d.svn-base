@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en" class="feedback">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		<style>
+			.popupbox .popup,
+			.popupbox1 .popup,
+			.popupbox2 .popup {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				bottom: 0;
+			}
+			
+			.popupbox .mui-popup-title,
+			.popupbox1 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.popupbox2 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+			}
+			
+			.popupbox .mui-popup-cont button,
+			.popupbox1 .mui-popup-cont button,
+			.popupbox2 .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 34px;
+			}
+			
+			.mui-btn {
+				background-color: #efeff4;
+				color: #333;
+			}
+			
+			.mui-popup-button:first-child:last-child {
+				border-radius: 6px 6px 6px 6px;
+				margin: 0 20px;
+			}
+			
+			.mui-popup-button {
+				font-size: 17px;
+				line-height: 44px;
+				position: relative;
+				width: 100%;
+				height: 44px;
+				padding: 0 5px;
+				text-align: center;
+				color: #f7f7f7;
+				background: #1dacf9;
+			}
+			
+			.popupbox .mui-popup-buttons,
+			.popupbox1 .mui-popup-buttons,
+			.popupbox2 .mui-popup-buttons {
+				border-top: 0px solid #ddd;
+				margin-bottom: 11px;
+				clear: both;
+			}
+			
+			.popupbox .mui-popup-cont,
+			.popupbox1 .mui-popup-cont {
+				padding: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.mui-btn-primary:enabled:active {
+				color: #fff;
+				border: 1px solid #1dacf9;
+				background-color: #1dacf9;
+			}
+			
+			.mui-btn:enabled:active {
+				color: #fff;
+				border: 1px solid #1dacf9;
+				background-color: #1dacf9;
+			}
+			
+			label.bx-bt p {
+				font-size: 16px;
+				color: #333;
+			}
+			
+			label.bx-bt span {
+				color: #f99f1d;
+			}
+			
+			.mui-radio label,
+			.mui-checkbox label {
+				padding-right: 0;
+			}
+			
+			.input-hw {
+				padding: 15px;
+				padding-left: 0;
+			}
+			
+			.input-hw label {
+				float: left;
+				width: 25%;
+				text-align: left;
+			}
+			
+			.input-hw .input-hw-time select {
+				float: left;
+				width: 67%;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.input-hw .mui-icon {
+				line-height: 0;
+			}
+			
+			.input-hw-time input {
+				width: 20%;
+				height: 30px;
+				margin-right: 10px;
+				margin-bottom: 0;
+				padding-left: 5px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: #fff;
+			}
+			
+			.tk-p {
+				padding-top: 15px;
+				padding-left: 15px;
+				color: #000;
+				font-size: 16px;
+			}
+			
+			.add-xz .xlk {
+				float: right;
+				width: 42px;
+			}
+			
+			.add-time .zc-time {
+				width: 37%;
+			}
+			
+			.add-time .xz-time select {
+				width: 90px;
+			}
+			
+			.ui-alert {
+				height: 30px;
+				border: 1px solid #ccc;
+				line-height: 28px;
+				text-align: left;
+				padding-left: 5px;
+				position: absolute;
+				width: 34%;
+			}
+			
+			.zc-time span.btn {
+				position: relative;
+			}
+			
+			.addressInfoColor {
+				color: black;
+			}
+			
+			.feedback p {
+				padding: 0 15px;
+				line-height: 24px;
+			}
+			
+			.address ul li a span.add-right {
+				position: absolute;
+				right: 15px;
+				top: 50%;
+				margin-top: -12px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加货物</h1>
+		</header>
+		<div id="add_hw" class="mui-content">
+			<div class="address">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="add-fh" id="add-hw-fh.html">
+							<span class="mui-icon mui-icon-compose add-right yellow"></span>
+							<p>
+								<span v-if="sendDefaultFlag">请输入发货信息</span>
+								<span v-if="sendInfoFlag">
+									<span class="addressInfoColor">{{sendProvince}}</span><span class="addressInfoColor" style="margin-left: 10px;">{{sendCity}}</span><br/>
+								<span class="addressInfoColor">{{sendName}}</span><span class="addressInfoColor" style="margin-left: 10px;">{{sendPhone}}</span>
+								</span>
+							</p>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a id="add-hw-sh.html">
+							<span class="mui-icon mui-icon-compose add-right green"></span>
+							<p>
+								<span id="inputReceiveInfo" v-if="receiveDefaultFlag">请输入收货信息</span>
+								<span v-if="receiveInfoFlag">
+									<span class="addressInfoColor">{{receiveProvince}}</span><span class="addressInfoColor" style="margin-left: 10px;">{{receiveCity}}</span><br/>
+								<span class="addressInfoColor">{{receiveName}}</span><span class="addressInfoColor" style="margin-left: 10px;">{{receivePhone}}</span>
+								</span>
+							</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="add-con">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell goods">
+						<a class="mui-navigate-right">
+							<span v-if="needCarTypeFlag">选择</span>
+							<span v-if="needCarTypeTextFlag">车长:{{carLong}}/车宽:{{carWidth}}/车型:{{carType}}</span>需求车型
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="add-xz">
+							<label>货物单位</label>
+							<input id="goodsNumber" type="number" placeholder="请输入" />
+							<div class="xlk">
+								<select id="selectUnit">
+									<option>吨</option>
+									<option>方</option>
+									<option>件</option>
+								</select>
+								<span class="mui-icon mui-icon-arrowdown"></span>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="add-time">
+							<label>装车时间</label>
+							<div class="zc-time">
+								<div id='dateResult' class="ui-alert"></div>
+								<span id='demo2' data-options='{"type":"date","beginYear":2017,"endYear":4000}' class="btn mui-icon-extra mui-icon-extra-calendar"></span>
+							</div>
+							<div class="xz-time">
+								<select id="selectTime">
+									<option>00:00-06:00</option>
+									<option>06:00-12:00</option>
+									<option>12:00-18:00</option>
+									<option>18:00-24:00</option>
+								</select>
+								<span class="mui-icon mui-icon-arrowdown"></span>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell goods-1">
+						<a class="mui-navigate-right">
+							<span>{{goodsType}}</span>货物类型
+						</a>
+					</li>
+					<li class="mui-table-view-cell goods-2">
+						<a class="mui-navigate-right">
+							<span>选择</span>保险
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="bz">
+							<label>备注</label>
+							<input id="remarks" type="text" placeholder="备注信息" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="upload-pic">
+				<p>上传货物图片</p>
+				<div id='image-list' class="row image-list"></div>
+			</div>
+			<div class="but-box">
+				<button class="queren" @click="save" type="button">保存</button>
+			</div>
+		</div>
+		<!--弹窗-需求车型 -->
+		<div id="carType" class="popupbox mui-backdrop">
+			<div class="popup" style="overflow: auto;">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title">车长</div>
+					<div class="popup-class" style="border-bottom: 1px solid #EFEFF4;padding-bottom: 10px;">
+						<button v-for="(val,index) in carLengthData" @click="selectCarLength(index)" name="carLong" type="button" class="mui-btn">{{val.label}}</button>
+					</div>
+					<div class="mui-popup-title">车宽</div>
+					<div class="popup-class" style="border-bottom: 1px solid #EFEFF4;padding-bottom: 10px;">
+						<button v-for="(val,index) in carWidthData" @click="selectCarWidth(index)" name="carWidth" type="button" class="mui-btn">{{val.label}}</button>
+					</div>
+					<div class="mui-popup-title">车型</div>
+					<div class="popup-class">
+						<button v-for="(val,index) in carTypeData" @click="selectCarType(index)" name="carType" type="button" class="mui-btn">{{val.label}}</button>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span @click="getSelectCarType" class="mui-popup-button mui-popup-button-bold">确定</span>
+				</div>
+			</div>
+		</div>
+		<!---->
+		<!--弹窗-货物类型 -->
+		<div id="goodsType" class="popupbox1 mui-backdrop">
+			<div class="popup">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title">货物类型</div>
+					<div class="popup-class" style="border-bottom: 1px solid #EFEFF4;padding-bottom: 10px;">
+						<button v-for="(val,index) in goodsTypeData" @click="selectGoodsType(index)" name="goodsType" type="button" class="mui-btn goodsType">{{val.label}}</button>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span @click="getSelectGoodsType" class="mui-popup-button mui-popup-button-bold">确定</span>
+				</div>
+			</div>
+		</div>
+		<!--弹窗-选择保险 -->
+		<div class="popupbox2 mui-backdrop">
+			<div class="popup">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title" style="border-bottom: 1px solid #F1F1F1;">
+						<div class="mui-input-row mui-checkbox">
+							<input name="checkbox1" type="checkbox">
+							<p class="tk-p">是否投递保险
+								<a class="tz" id="reference.html">参考</a>
+							</p>
+							<label class="bx-bt">
+								<span>请评估货物价值后选择保险额度，超过100元系统会进行审核</span>
+							</label>
+						</div>
+					</div>
+					<div class="popup-class">
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保险公司：</label>
+							<div class="input-hw-time">
+								<select>
+									<option>人寿保险</option>
+									<option>平安保险</option>
+								</select>
+								<span class="mui-icon mui-icon-arrowdown"></span>
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保险类别：</label>
+							<div class="input-hw-time">
+								<select>
+									<option>易碎品</option>
+									<option>钢材</option>
+								</select>
+								<span class="mui-icon mui-icon-arrowdown"></span>
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保额：</label>
+							<div class="input-hw-time">
+								<input type="text" placeholder="100" />元
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保费：</label>
+							<div class="input-hw-time">
+								<input type="text" />
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>备注：</label>
+							<div class="input-hw-time">
+								<input type="text" placeholder="如需备注请填写" style="border: none; width: 70%;" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span class="mui-popup-button mui-popup-button-bold">确定</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/mui.picker.min.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+		var addHw = new Vue({
+			el: '#add_hw',
+			data: {
+				userInfo: getUser().userInfo,
+				sendDefaultFlag: true,
+				sendInfoFlag: false,
+				receiveDefaultFlag: true,
+				receiveInfoFlag: false,
+				sendCityAddress: '',
+				receiveCityAddress: '',
+				sendProvince: '',
+				sendCity: '',
+				sendName: '',
+				sendPhone: '',
+				sendDetaileAddress: '',
+				receiveProvince: '',
+				receiveCity: '',
+				receiveName: '',
+				receivePhone: '',
+				receiveDetaileAddress: '',
+				goodsType: '选择',
+				needCarTypeFlag: true,
+				needCarTypeTextFlag: false,
+				carLong: '',
+				carWidth: '',
+				carType: '',
+				goodsImgData: [], //存储货物图片path
+				files: []
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					//添加发货信息自定义事件监听
+					window.addEventListener('oftenAddress', function(event) {
+						var addressInfo = event.detail.addressInfo;
+						printlog("接收常发货源信息==" + JSON.stringify(addressInfo));
+					});
+					//添加发货信息自定义事件监听
+					window.addEventListener('addSendInfo', function(event) {
+						//获得事件参数
+						var sendAddressInfo = event.detail.sendAddressInfo;
+						printlog("添加的发货人信息==" + JSON.stringify(sendAddressInfo));
+						addHw.sendCityAddress = sendAddressInfo.cityAddress;
+						var cityAddressArray = addHw.sendCityAddress.split("-");
+						printlog("分割地址==" + cityAddressArray);
+						addHw.sendDefaultFlag = false; //隐藏默认提示
+						addHw.sendInfoFlag = true;
+						addHw.sendProvince = cityAddressArray[0];
+						addHw.sendCity = cityAddressArray[1] + cityAddressArray[2];
+						addHw.sendName = sendAddressInfo.name;
+						addHw.sendPhone = sendAddressInfo.phoneNum;
+						addHw.sendDetaileAddress = sendAddressInfo.detaileAddress
+
+					});
+					//添加收货信息自定义事件监听
+					window.addEventListener('addReceiveInfo', function(event) {
+						//获得事件参数
+						var receiveAddressInfo = event.detail.receiveAddressInfo;
+						printlog("添加的收货人信息==" + JSON.stringify(receiveAddressInfo));
+						addHw.receiveCityAddress = receiveAddressInfo.cityAddress;
+						var cityAddressArray = addHw.receiveCityAddress.split("-");
+						printlog("分割地址==" + cityAddressArray);
+						addHw.receiveDefaultFlag = false; //隐藏默认提示
+						addHw.receiveInfoFlag = true;
+						addHw.receiveProvince = cityAddressArray[0];
+						addHw.receiveCity = cityAddressArray[1] + cityAddressArray[2];
+						addHw.receiveName = receiveAddressInfo.name;
+						addHw.receivePhone = receiveAddressInfo.phoneNum;
+						addHw.receiveDetaileAddress = receiveAddressInfo.detaileAddress;
+					});
+				})
+				this.uploadPhoto();
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 保存添加货物
+				 */
+				save: function() {
+					if(addHw.sendDefaultFlag) {
+						mui.toast('请填写发货信息');
+						return;
+					}
+					if(addHw.receiveDefaultFlag) {
+						mui.toast('请填写收货信息');
+						return;
+					}
+					if(addHw.needCarTypeFlag) {
+						mui.toast('请选择需求车型');
+						return;
+					}
+					var goodsNumber = document.getElementById("goodsNumber").value.trim(); //货物数量
+					if(goodsNumber == "") {
+						mui.toast('请填写货物数量');
+						return;
+					}
+					var selectUnit = document.getElementById("selectUnit"); //单位select标签
+					var unit = selectUnit.options[selectUnit.selectedIndex].value //单位
+					var dateResult = document.getElementById("dateResult").innerHTML.trim(); //日期
+					if(dateResult == "") {
+						mui.toast('请选择发货日期');
+						return;
+					}
+					var selectTime = document.getElementById("selectTime"); //时间段select标签
+					var time = selectTime.options[selectTime.selectedIndex].value //时间段
+					if(addHw.goodsType == "选择") {
+						mui.toast('请选择货物类型');
+						return;
+					}
+					var remarks = document.getElementById("remarks").value.trim(); //备注
+					//上传货物图片
+					plus.nativeUI.showWaiting();
+					var url = ServerHost + 'mobileShip/addGoods'; //上传图片url
+					var task = plus.uploader.createUpload(url, {
+						method: 'POST'
+					}, function(upload, status) {
+						printlog("添加结果==" + JSON.stringify(upload))
+						plus.nativeUI.closeWaiting()
+						if(status == 200) {
+							mui.toast('添加成功');
+							var result = eval('(' + upload.responseText + ')');;
+							//触发发货列表页
+							mui.fire(plus.webview.getWebviewById("deliver_sub.html"), 'publicBidding');
+							mui.openWindow({
+								url: "save-success.html",
+								id: "save-success.html",
+								extras: {
+									addOrder: {
+										zcYmd: result.data.zcYmd, //装车日期
+										goodsType: result.data.goodsType, //货物类型
+										goodsId: result.data.id, //货物id
+										goodsOrderId: result.data.goodsownerOrderId, //订单id
+										goodsNum: result.data.goodsNum, //货物数量
+										goodsUnit: result.data.goodsUnit, //货物单位
+										needTruckType: result.data.needTruckType ////车型
+									}
+								}
+							});
+						} else {
+							alert("网络错误,请从新上传");
+						}
+					});
+					//添加上传文件
+					mui.each(addHw.files, function(index, element) {
+						var f = addHw.files[index];
+						task.addFile(f.path, {
+							key: f.name
+						});
+					});
+
+					//添加上传参数
+					task.addData('userId', getUser().userInfo.id);
+					task.addData('shipperName', addHw.sendName);
+					task.addData('shipperArea', addHw.sendCityAddress);
+					task.addData('shipperTel', addHw.sendPhone);
+					task.addData('shipperAreaDetail', addHw.sendDetaileAddress);
+					task.addData('reciverName', addHw.receiveName);
+					task.addData('reciverTel', addHw.receivePhone);
+					task.addData('reciverArea', addHw.receiveCityAddress);
+					task.addData('reciverAreaDetail', addHw.receiveDetaileAddress);
+					task.addData('needTruckWidth', addHw.carWidth);
+					task.addData('needTruckLength', addHw.carLong);
+					task.addData('needTruckType', addHw.carType);
+					task.addData('goodsNum', goodsNumber);
+					task.addData('goodsUnit', unit);
+					task.addData('zcYmd', dateResult);
+					task.addData('zcSf', time);
+					task.addData('goodsType', addHw.goodsType);
+					task.addData('remarks', remarks);
+					//开始上传任务
+					task.start();
+				},
+				/**
+				 * 李留新
+				 * 2017-09-12
+				 * 选择图片上传
+				 */
+				uploadPhoto: function() {
+					var index = 1;
+					var size = null;
+					var imageIndexIdNum = 0;
+					var feedback = {
+						imageList: document.getElementById('image-list')
+					};
+					var url = ServerHost + 'mobileShip/addGoods';
+
+					feedback.getFileInputArray = function() {
+						return [].slice.call(feedback.imageList.querySelectorAll('.file'));
+					};
+					feedback.addFile = function(path) {
+						printlog("选择图片路径==" + path);
+						addHw.files.push({
+							name: "images" + index,
+							path: path,
+							id: "img-" + index
+						});
+						index++;
+					};
+					/**
+					 * 初始化图片域占位
+					 */
+					feedback.newPlaceholder = function() {
+						var fileInputArray = feedback.getFileInputArray();
+						if(fileInputArray &&
+							fileInputArray.length > 0 &&
+							fileInputArray[fileInputArray.length - 1].parentNode.classList.contains('space')) {
+							return;
+						};
+						imageIndexIdNum++;
+						var placeholder = document.createElement('div');
+						placeholder.setAttribute('class', 'image-item space');
+						var up = document.createElement("div");
+						up.setAttribute('class', 'image-up')
+						//删除图片
+						var closeButton = document.createElement('div');
+						closeButton.setAttribute('class', 'image-close');
+						closeButton.innerHTML = 'X';
+						closeButton.id = "img-" + index;
+						//删除图片点击事件
+						closeButton.addEventListener('tap', function(event) {
+							setTimeout(function() {
+								for(var temp = 0; temp < addHw.files.length; temp++) {
+									if(addHw.files[temp].id == closeButton.id) {
+										addHw.files.splice(temp, 1);
+										addHw.goodsImgData.splice(temp, 1);
+									}
+								}
+								feedback.imageList.removeChild(placeholder);
+							}, 0);
+							return false;
+						}, false);
+
+						var fileInput = document.createElement('div');
+						fileInput.setAttribute('class', 'file');
+						fileInput.setAttribute('id', 'image-' + imageIndexIdNum);
+						fileInput.addEventListener('tap', function(event) {
+							var self = this;
+							var index = (this.id).substr(-1);
+							//从相册选择图片
+							plus.gallery.pick(function(path) {
+								//获取图片名称
+								var name = path.substr(path.lastIndexOf('/') + 1);
+								var zipPath = '_doc/' + name;
+								plus.zip.compressImage({
+									src: path,
+									dst: zipPath,
+									overwrite: true,
+									quality: 50
+								}, function(zip) {
+									//加号
+									placeholder.classList.remove('space');
+									feedback.addFile(zip.target);
+									if(addHw.goodsImgData.length == 8) {} else {
+										feedback.newPlaceholder();
+									}
+									up.classList.remove('image-up');
+									placeholder.style.backgroundImage = 'url(' + zip.target + ')';
+								}, function(zipe) {
+									//压缩失败,上传原图
+									placeholder.classList.remove('space');
+									feedback.addFile(path);
+									feedback.newPlaceholder();
+								});
+							});
+						}, false);
+						placeholder.appendChild(closeButton);
+						placeholder.appendChild(up);
+						placeholder.appendChild(fileInput);
+						feedback.imageList.appendChild(placeholder);
+					};
+					//调用初始化图片域占位
+					feedback.newPlaceholder();
+				}
+
+			}
+		})
+		var vue_goodsType = new Vue({
+			el: '#goodsType',
+			data: {
+				goodsTypeData: []
+			},
+			mounted: function() {
+				this.getGoodsType();
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 选择货物类型
+				 */
+				selectGoodsType: function(index) {
+					var goodsTypeBtnArray = document.getElementsByName("goodsType");
+					for(var i = 0; i < goodsTypeBtnArray.length; i++) {
+						if(i == index) {
+							goodsTypeBtnArray[index].className = 'mui-btn-primary';
+						} else {
+							goodsTypeBtnArray[i].className = 'mui-btn';
+						}
+					}
+				},
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 获取后台配置货物类型
+				 */
+				getGoodsType: function() {
+					var param = {
+						type: "goods_type"
+					}
+					AjaxSend('mobileShip/findDictList', param, 'POST', function(result) {
+						printlog("货物类型结果==" + JSON.stringify(result));
+						if(result.status) {
+							vue_goodsType.goodsTypeData = result.data;
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 207-09-08
+				 * 获取选择货物类型
+				 */
+				getSelectGoodsType: function() {
+					var goodsTypeArray = document.getElementsByName("goodsType");
+					for(var i = 0; i < goodsTypeArray.length; i++) {
+						if(goodsTypeArray[i].className == 'mui-btn-primary') {
+							addHw.goodsType = goodsTypeArray[i].innerHTML.trim();
+						}
+
+					}
+				}
+			}
+		})
+		var vue_carType = new Vue({
+			el: '#carType',
+			data: {
+				carWidthData: [],
+				carLengthData: [],
+				carTypeData: []
+			},
+			mounted: function() {
+				this.getNeedCarLength();
+				this.getNeedCarWidth();
+				this.getNeedCarType();
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 选择车长
+				 */
+				selectCarLength: function(index) {
+					var carLongArray = document.getElementsByName("carLong");
+					for(var i = 0; i < carLongArray.length; i++) {
+						if(i == index) {
+							carLongArray[index].className = 'mui-btn-primary';
+						} else {
+							carLongArray[i].className = 'mui-btn';
+						}
+					}
+				},
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 选择车宽
+				 */
+				selectCarWidth: function(index) {
+					var carWidthArray = document.getElementsByName("carWidth");
+					for(var i = 0; i < carWidthArray.length; i++) {
+						if(i == index) {
+							carWidthArray[index].className = 'mui-btn-primary';
+						} else {
+							carWidthArray[i].className = 'mui-btn';
+						}
+					}
+				},
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 选择车型
+				 */
+				selectCarType: function(index) {
+					var carTypeArray = document.getElementsByName("carType");
+					for(var i = 0; i < carTypeArray.length; i++) {
+						if(i == index) {
+							carTypeArray[index].className = 'mui-btn-primary';
+						} else {
+							carTypeArray[i].className = 'mui-btn';
+						}
+					}
+				},
+				/**
+				 * 李留新
+				 * 2017-09-12
+				 * 获取后台配置需求车长
+				 */
+				getNeedCarLength: function() {
+					var param = {
+						type: "truck_length"
+					}
+					AjaxSend('mobileShip/findDictList', param, 'POST', function(result) {
+						printlog("需求车长查询结果==" + JSON.stringify(result));
+						if(result.status) {
+							vue_carType.carLengthData = result.data;
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 2017-09-12
+				 * 获取后台配置需求车宽
+				 */
+				getNeedCarWidth: function() {
+					var param = {
+						type: "truck_width"
+					}
+					AjaxSend('mobileShip/findDictList', param, 'POST', function(result) {
+						printlog("需求车宽查询结果==" + JSON.stringify(result));
+						if(result.status) {
+							vue_carType.carWidthData = result.data;
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 2017-09-12
+				 * 获取后台配置需求车型
+				 */
+				getNeedCarType: function() {
+					var param = {
+						type: "truck_type"
+					}
+					AjaxSend('mobileShip/findDictList', param, 'POST', function(result) {
+						printlog("需求车型查询结果==" + JSON.stringify(result));
+						if(result.status) {
+							vue_carType.carTypeData = result.data;
+						}
+					})
+				},
+				getSelectCarType: function() {
+					addHw.needCarTypeFlag = false;
+					addHw.needCarTypeTextFlag = true;
+					//获取车长
+					var carLongArray = document.getElementsByName("carLong");
+					if(carLongArray) {
+						for(var i = 0; i < carLongArray.length; i++) {
+							if(carLongArray[i].className == "mui-btn-primary") {
+								addHw.carLong = carLongArray[i].innerHTML.trim();
+							}
+						}
+					}
+					//获取车宽
+					var carWidthArray = document.getElementsByName("carWidth");
+					if(carWidthArray) {
+						for(var i = 0; i < carWidthArray.length; i++) {
+							if(carWidthArray[i].className == "mui-btn-primary") {
+								addHw.carWidth = carWidthArray[i].innerHTML.trim();
+							}
+						}
+					}
+					//获取车型
+					var carTypeArray = document.getElementsByName("carType");
+					if(carTypeArray) {
+						for(var i = 0; i < carTypeArray.length; i++) {
+							if(carTypeArray[i].className == "mui-btn-primary") {
+								addHw.carType = carTypeArray[i].innerHTML.trim();
+							}
+						}
+					}
+
+				}
+			}
+		})
+		var body = document.body;
+		var oH = screen.height - 10 + 'px';
+		$(".popup").css("height", oH)
+		//选择需求车型
+		//点击弹出选择属性界面
+		$(".popupbox").hide();
+		var carTypeFlag = 0;
+		$(".goods").click(
+			function() {
+				if(carTypeFlag == 0) {
+					var carLongArray = document.getElementsByName("carLong");
+					if(carLongArray[0]) {
+						carLongArray[0].className = 'mui-btn-primary';
+					}
+					var carWidthArray = document.getElementsByName("carWidth");
+					if(carWidthArray[0]) {
+						carWidthArray[0].className = 'mui-btn-primary';
+					}
+					var carTypeArray = document.getElementsByName("carType");
+					if(carTypeArray[0]) {
+						carTypeArray[0].className = 'mui-btn-primary';
+					}
+					++carTypeFlag;
+				}
+				$(".popupbox").show();
+				body.style.overflow = 'hidden';
+			}
+		);
+		//结束
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox").hide();
+				body.style.overflow = 'auto';
+			}
+		)
+		var goodsTypeFlag = 0;
+		//选择货物类型
+		$(".popupbox1").hide();
+		$(".goods-1").click(
+			function() {
+				if(goodsTypeFlag == 0) {
+					var goodsTypeBtnArray = document.getElementsByName("goodsType");
+					if(goodsTypeBtnArray) {
+						goodsTypeBtnArray[0].className = 'mui-btn-primary';
+					}
+					++goodsTypeFlag;
+				}
+				$(".popupbox1").show();
+				body.style.overflow = 'hidden';
+			}
+		);
+		//确定
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox1").hide();
+				body.style.overflow = 'auto';
+			}
+		)
+
+		//选择保险
+		//点击弹出选择属性界面
+		$(".popupbox2").hide();
+		$(".goods-2").click(
+			function() {
+				$(".popupbox2").show();
+				body.style.overflow = 'hidden';
+			}
+		);
+		//结束
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox2").hide();
+				body.style.overflow = 'auto';
+			}
+		)
+		//选择保险
+		$('.mui-popup-cont .mui-btn').click(function() {
+			$(this).addClass('mui-btn-primary').removeClass('mui-btn').siblings().removeClass('mui-btn-primary').addClass('mui-btn');
+		})
+
+		mui(".popupbox2").on("tap", ".tz", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});
+		mui(".address").on("tap", ".mui-table-view-cell>a", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});
+		(function($) {
+			$.init();
+			var dateResult = $('#dateResult')[0];
+			var btns = $('.btn');
+			btns.each(function(i, btn) {
+				btn.addEventListener('tap', function() {
+					var optionsJson = this.getAttribute('data-options') || '{}';
+					var options = JSON.parse(optionsJson);
+					var id = this.getAttribute('id');
+					/*
+					 * 首次显示时实例化组件
+					 * 示例为了简洁，将 options 放在了按钮的 dom 上
+					 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+					 */
+					var picker = new $.DtPicker(options);
+					picker.show(function(rs) {
+						/*
+						 * rs.value 拼合后的 value
+						 * rs.text 拼合后的 text
+						 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+						 * rs.m 月，用法同年
+						 * rs.d 日，用法同年
+						 * rs.h 时，用法同年
+						 * rs.i 分（minutes 的第二个字母），用法同年
+						 */
+						dateResult.innerText = '' + rs.text;
+
+						picker.dispose();
+					});
+				}, false);
+			});
+		})(mui);
+	</script>
+
+</html>

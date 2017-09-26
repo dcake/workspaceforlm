@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			.blue{
+				font-size: 28px;
+			}
+			.mui-content h2{
+				padding-left: 15px;
+				padding-top: 5px;
+				font-weight: normal;
+				font-size: 16px;
+				color: #666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">积分</h1>
+		</header>
+		<div class="mui-content">
+          <div class="wallet">
+          	<div class="wallet-zh">
+          		<p>我的积分</p>
+          		<p><span>{{currentPoint}}</span></p>
+          	</div>
+            <h2>明细</h2>
+            <div style="overflow:scroll; height:350px;overflow-x:hidden;" id="pullrefresh" class="wallet-con">
+	           <ul class="mui-table-view">
+					<li v-for="(item,index) in items" class="mui-table-view-cell">	
+						<b>+{{item.integralScore}}</b>
+						<div class="his-text">
+							<p>{{item.integralDescribe}}</p>
+							<span>{{item.createDate}}</span>
+						</div>					
+					</li>
+				</ul>
+            </div>
+        </div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+		
+			new Vue({
+				el:'.mui-content',
+				data:{
+					items:[],
+					currentPoint:'0',//当前积分
+					currentPage:"0",
+					dataTag:false	//是否有更多数据标识，false--有，true--没有
+				},
+				mounted:function(){
+					mui.init({
+						swipeBack:true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '#pullrefresh',
+							up: {
+								auto:true,
+								contentrefresh: '正在加载...',
+		      					contentnomore:'无更多数据',
+								callback: this.pullupRefresh
+							}
+						}
+					}); 
+				},
+				methods:{
+					pullupRefresh:function(){
+						var self = this;
+						setTimeout(function() {
+							self.getDataList();
+							self.currentPage++;
+						}, 1500);
+					},
+					//获取列表
+					getDataList:function(){
+						var self = this;
+						var param = {
+							userId:getUser().userInfo.id,
+							currentPage:self.currentPage
+						} 
+						AjaxSend("mobileIntegral/findInseranceList",param,"post",function(result){
+							//console.log(JSON.stringify(result))
+							if(result.status){
+								self.currentPoint = result.data.currentPoint;
+								if(self.items.length == 0){
+									self.items = result.data.list;
+								}else{
+									self.items.push.apply(self.items,result.data.list);
+								}
+								if(self.items.length < result.data.pageSize){ 
+									self.dataTag = true;
+								}
+							}else{
+								self.dataTag = true;
+							}
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(self.dataTag); //参数为true代表没有更多数据了。
+						}) 
+					}
+				} 
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>发布竞价</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-table-view {
+				padding: 0px 10px;
+			}
+			
+			.but-box {
+				margin: 35px 15px 0px;
+			}
+			
+			img {
+				height: 80px;
+				border: 1px solid #F2EFEF;
+			}
+			
+			p {
+				line-height: 28px;
+				height: 28px;
+			}
+			
+			.leibie {
+				font-size: 17px;
+				color: #000;
+			}
+			
+			.date {
+				font-size: 15px;
+				color: #1dacf9;
+			}
+			
+			.detail {
+				width: 70%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jingjia {
+				margin: 10px 5px 0;
+				overflow: hidden;
+			}
+			
+			.jingjia p {
+				margin: 10px 0;
+				height: 40px;
+				line-height: 40px;
+			}
+			
+			.jingjia p span {
+				font-size: 16px;
+				color: #000000;
+			}
+			
+			.jingjia .renxuan {
+				left: 10px;
+				width: 128px;
+			}
+			
+			.xianzhi {
+				height: 35px;
+				line-height: 35px;
+				border: 1px solid #ddd;
+				border-radius: 3px;
+				margin-top: 5px;
+			}
+			
+			.wenzi {
+				padding: 0px 15px 0px 10px;
+			}
+			
+			.icon-xialakuang-copy:before {
+				font-size: 10px;
+			}
+			
+			.btn {
+				height: 33px;
+				border-left: 1px solid #ddd;
+				border-radius: 3px;
+			}
+			
+			.mui-pull-right .price {
+				width: 80px;
+				height: 37px;
+				color: #333;
+				border: 1px solid #ddd;
+				border-radius: 3px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-size: 25px;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				margin-right: 3px;
+			}
+			
+			a {
+				color: #555555;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">发布竞价</h1>
+		</header>
+
+		<div id="publicBidding" class="mui-content">
+			<ul class="mui-table-view shopping">
+				<li class="mui-table-view-cell mui-media" style="padding-left: 5px;padding-right: 5px;">
+					<img class="mui-media-object mui-pull-left" :src="goodsImgUrl" onerror="this.src='../img/deliver_list_img01.png'">
+					<div class="mui-media-body mui-ellipsis">
+						<span class="leibie">{{goodsName}}</span>
+						<p class="mui-ellipsis date">{{biddingDate}}出发</p>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">{{param}}</span>
+						</p>
+					</div>
+					<div class="jingjia">
+						<p>
+							<span class="mui-pull-left renxuan">是否限制竞价人选</span>
+							<span class="xianzhi mui-pull-right">
+		                		<a class="wenzi" id="info">不限制</a>
+								<a class="mui-pull-right mui-icon iconfont icon-xialakuang-copy btn" href="#txjy"></a>
+							</span>
+						</p>
+						<p><span class="mui-pull-left">推荐竞价区间</span>
+							<span class="mui-pull-right">
+								<input id="minPrice" class="price" type="number" onKeypress="return (/[\d.]/.test(String.fromCharCode(event.keyCode)))" oninput="if(value.length>6)value=value.slice(0,6)">
+								&nbsp;—&nbsp;
+								<input id="maxPrice" class="price" type="number" onKeypress="return (/[\d.]/.test(String.fromCharCode(event.keyCode)))" oninput="if(value.length>6)value=value.slice(0,6)">
+								&nbsp;元
+							</span>
+						</p>
+					</div>
+				</li>
+			</ul>
+			<div class="but-box ">
+				<button @click.stop="publicBidding1" class="queren" type="button">发布竞价</button>
+			</div>
+			<div id="txjy" class="mui-popover mui-popover-action mui-popover-bottom">
+				<ul class="mui-table-view">
+					<li @click="limitType(2)" class="mui-table-view-cell">
+						<a>不限制</a>
+					</li>
+					<li @click="limitType(1)" class="mui-table-view-cell">
+						<a>只有经纪人</a>
+					</li>
+					<li @click="limitType(0)" class="mui-table-view-cell">
+						<a>只有车主</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var publicBidding = new Vue({
+			el: '#publicBidding',
+			data: {
+				goodsName: '蔬菜',
+				biddingDate: '2017-06-30',
+				param: '食品/10吨/纤袋/高栏车',
+				goodsInfo: '',
+				limitTypeData: 2,
+				goodsImgUrl: "../img/deliver_list_img01.png"
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					publicBidding.goodsInfo = plus.webview.currentWebview().newsId;
+					if(publicBidding.goodsInfo.add) {
+						publicBidding.goodsImgUrl = ServerHost + publicBidding.goodsInfo.goodsImgUrl
+					} else {
+						publicBidding.goodsImgUrl = publicBidding.goodsInfo.goodsImgUrl
+					}
+					publicBidding.goodsName = publicBidding.goodsInfo.goodsType;
+					publicBidding.biddingDate = publicBidding.goodsInfo.zcYmd;
+					publicBidding.param = publicBidding.goodsInfo.goodsNum + publicBidding.goodsInfo.goodsUnit + "/" + publicBidding.goodsInfo.needTruckType;
+				});
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 限制人选选择
+				 */
+				limitType: function(type) {
+					publicBidding.limitTypeData = type;
+					var limitText = document.getElementById("info");
+					if(0 == type) {
+						limitText.innerHTML = "只有车主"
+					} else if(1 == type) {
+						limitText.innerHTML = "只有经纪人"
+					} else {
+						limitText.innerHTML = "不限制"
+					}
+					$("#txjy").hide();
+					$(".mui-backdrop").hide()
+				},
+				/**
+				 * 李留新
+				 * 2017-09-01
+				 * 发布竞价
+				 */
+				publicBidding1: function() {
+					var minPrice = document.getElementById("minPrice").value.trim();
+					var maxPrice = document.getElementById("maxPrice").value.trim();
+					var param = {
+						id: publicBidding.goodsInfo.goodsOrderId, //货物订单id
+						priceMin: minPrice,
+						publicSel: publicBidding.limitTypeData,
+						priceMax: maxPrice,
+						userId: getUser().userInfo.id
+					};
+					printlog("发布竞价参数==" + JSON.stringify(param));
+					AjaxSend('mobileShip/publishBid', param, 'POST', function(result) {
+						printlog("发布竞价结果==" + JSON.stringify(result));
+						if(result.status) {
+							mui.toast('发布成功');
+							//发布竞价成功触发竞价列表页
+							var biddingPage = plus.webview.getWebviewById("bidding_sub.html");
+							printlog("biddingPage==" + JSON.stringify(biddingPage))
+							mui.fire(biddingPage, "publiSuccess");
+
+							mui.fire(plus.webview.getWebviewById("deliver_sub.html"), 'publicBidding');
+							//打开竞价页面
+							mui.fire(plus.webview.getWebviewById("index-main.html"), "go_bidding", {});
+							//关闭之前打开页面
+							plus.webview.currentWebview().close();
+							plus.webview.getWebviewById("save-success.html").close();
+							if(publicBidding.goodsInfo.add == "add") {
+								plus.webview.getWebviewById("add-hw.html").close();
+							}
+						}
+					})
+
+				}
+			}
+		});
+	</script>
+
+</html>

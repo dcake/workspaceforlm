@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script src="../js/jquery-1.7.2.min.js.js"></script>
+
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			
+			.mui-table-view-cell {
+				padding: 8px 15px;
+			}
+			
+			.mui-ellipsis {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				font-weight: inherit;
+				line-height: 30px;
+			}
+			
+			.mui-table-view:after {
+				background-color: #c8c7cc;
+			}
+			
+			.mui-input-row label {
+				padding: 11px 0;
+			}
+			
+			h4 {
+				font-weight: inherit;
+				color: #333;
+			}
+			
+			.mui-table-view-cell p {
+				font-size: 16px;
+				line-height: 30px;
+			}
+			
+			.mui-table-view-cell span {
+				font-size: 16px;
+				line-height: 30px;
+			}
+			
+			.mui-table-view-cell i {
+				font-style: normal;
+				color: #ff0600;
+			}
+			
+			.mui-table-view-cell>a:not(.mui-btn) {
+				font-size: 16px;
+				color: #1dacf9;
+			}
+			
+			.b_btn {
+				margin: 30px 2%;
+				width: 96%;
+				height: 48px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.mui-table-view:before {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view:after {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view-cell:after {
+				background-color: #DDDDDD;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">提现</h1>
+		</header>
+
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right tz" id="detail.html">
+						<h4>中国工商银行</h4>
+						<p>储蓄卡 **********8335</p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-input-row">
+						<label>提现金额</label>
+						<input type="text" placeholder="请输入提现金额">
+					</div>
+				</li>
+
+			</ul>
+			<!--<div class="mui-table-view-cell">
+				<span class="gray mui-pull-left">余额   <i>200.00</i></span>
+				<a class="mui-pull-right blue">全部提现</a>
+			</div>-->
+		</div>
+		<button type="button" class="b_btn tz" id="wallet.html">24小时内到账，立即提取</button>
+
+	</body>
+	<script src="../js/mui.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+
+		mui("body").on("tap", ".tz", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});
+
+		//获得选中数据
+		//		var info = document.getElementById("info");
+		//		document.querySelector('.mui-table-view.mui-table-view-radio').addEventListener('selected',function(e){
+		//			info.innerHTML = "当前选中的为："+e.detail.el.innerText;
+		//		});
+
+		(mui, document);
+	</script>
+
+</html>

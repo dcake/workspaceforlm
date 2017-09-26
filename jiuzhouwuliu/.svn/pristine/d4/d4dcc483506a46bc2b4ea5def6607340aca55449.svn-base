@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<script src="js/mui.js"></script>
+		<style>
+			body {
+				background: #f1f1f1;
+			}
+			
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-control-content {
+				height: 150px;
+			}
+			
+			.mui-badge {
+				position: relative;
+				margin-left: -10px;
+				margin-top: 5px;
+				z-index: 9999;
+				background: #f40909;
+				color: #fff;
+				font-size: 11px;
+				padding: 1px 4px;
+			}
+			
+			.mui-table-view {
+				background: transparent;
+			}
+			
+			.mui-table-view-cell {
+				padding: 10px;
+				margin-top: 10px;
+				background: #fff;
+			}
+			
+			img {
+				height: 90px;
+			}
+			
+			p {
+				line-height: 28px;
+			}
+			
+			.leibie {
+				font-size: 17px;
+				color: #000;
+			}
+			
+			.weijj {
+				font-size: 14px;
+				color: #1dacf9;
+			}
+			
+			.shenhez {
+				font-size: 13px;
+				color: #ff3600;
+			}
+			
+			.date {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.detail {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.list_bg {
+				background-color: #fff;
+			}
+			
+			.list_d {
+				line-height: 36px;
+				padding: 10px;
+				display: block;
+				overflow: hidden;
+			}
+			
+			.mui-scroll-wrapper {
+				position: inherit;
+			}
+			
+			.mui-segmented-control {
+				font-size: 16px;
+				line-height: 56px;
+				background-color: #fff;
+				border: 0;
+				border-radius: 0;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				border-left: none;
+				color: #333;
+				line-height: 56px;
+			}
+			
+			.mui-segmented-control .mui-control-item.mui-active {
+				background-color: #fff;
+				border-bottom: 2px solid #1dacf9;
+				color: #1dacf9;
+			}
+			
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+				;
+			}
+			
+			.money {
+				color: #ff3c00;
+				font-size: 18px;
+			}
+			
+			.ord-btn {
+				padding: 6px 20px;
+				font-size: 16px;
+				border: 2px solid #1dacf9;
+				border-radius: 6px;
+				color: #1dacf9;
+			}
+			.gray-btn {
+				padding: 6px 20px;
+				font-size: 16px;
+				border: 2px solid #bbb;
+				border-radius: 6px;
+				color: #333;
+				margin-left: 10px;
+			}
+			.y_tip {
+				font-size: 14px;
+				margin-left: 10px;
+				padding: 0 6px;
+				border: 1px solid #ff7800;
+				border-radius: 6px;
+				color: #ff7800;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-tongzhi mui-pull-left"></a>
+			<h1 class="mui-title">订单</h1>
+		</header>
+
+		<div class="mui-content">
+
+			<div id="segmentedControl" class="mui-segmented-control">
+				<a class="mui-control-item mui-active" href="#item1">当前订单</a>
+				<a class="mui-control-item" href="#item2">历史订单</a>
+				<a class="mui-control-item" href="#item3">全部订单</a>
+			</div>
+
+			<div id="item1" class="mui-control-content mui-active">
+				<div class="mui-content mui-scroll-wrapper">
+					<ul class="mui-table-view shopping">
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="orange mui-pull-right">待装载</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">提醒装载</button>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜<label class="y_tip">委托单</label></span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="orange mui-pull-right">待装载</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">查看订单</button>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="yellow mui-pull-right">待装载</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">查看订单</button>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="green mui-pull-right">待确认</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">查看订单</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="item2" class="mui-control-content">
+				<div class="mui-content mui-scroll-wrapper">
+					<ul class="mui-table-view shopping">
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="green mui-pull-right">已完成</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="gray-btn mui-pull-right ">立即评价</button>
+								<button type="button" class="ord-btn mui-pull-right">查看回执</button>
+								
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜<label class="y_tip">委托单</label></span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="green mui-pull-right">已完成</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="green mui-pull-right">已完成</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			<div id="item3" class="mui-control-content">
+				<div class="mui-content mui-scroll-wrapper">
+					<ul class="mui-table-view shopping">
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="green mui-pull-right">运输中</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">查看订单</button>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜<label class="y_tip">委托单</label></span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="orange mui-pull-right">待装载</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">查看订单</button>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="yellow mui-pull-right">待收货</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="gray-btn mui-pull-right ">订单申诉</button>
+								<button type="button" class="ord-btn mui-pull-right">确认送达</button>
+							</div>
+						</li>
+						<li class="list_bg">
+							<div class="mui-table-view-cell mui-media">
+								<img class="mui-media-object mui-pull-left" src="img/shopping.png">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="leibie">蔬菜</span>
+										<span class="money mui-pull-right">￥1000</span>
+									</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis detail">食品/10吨/纤袋/高栏车</span>
+										<span class="gray mui-pull-right">已完成</span>
+									</p>
+								</div>
+							</div>
+							<div class="list_d">
+								<label class="mui-ellipsis date">2017-06-30    出发</label>
+								<button type="button" class="ord-btn mui-pull-right">立即评价</button>
+							</div>
+						</li>
+
+					</ul>
+
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>

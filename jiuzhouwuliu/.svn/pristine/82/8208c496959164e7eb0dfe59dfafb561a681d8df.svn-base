@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.DriveLineMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.DriveLine" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="driver_id" property="driverId" jdbcType="VARCHAR" />
+    <result column="from_area" property="fromArea" jdbcType="VARCHAR" />
+    <result column="to_area" property="toArea" jdbcType="VARCHAR" />
+    <result column="go_time" property="goTime" jdbcType="TIMESTAMP" />
+    <result column="public_status" property="publicStatus" jdbcType="VARCHAR" />
+    <result column="aviable_days" property="aviableDays" jdbcType="INTEGER" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, driver_id, from_area, to_area, go_time, public_status, aviable_days, del_flag, 
+    remarks, update_date, update_by, create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from drive_line
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from drive_line
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.DriveLine" >
+    insert into drive_line (id, driver_id, from_area, 
+      to_area, go_time, public_status, 
+      aviable_days, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{driverId,jdbcType=VARCHAR}, #{fromArea,jdbcType=VARCHAR}, 
+      #{toArea,jdbcType=VARCHAR}, #{goTime,jdbcType=TIMESTAMP}, #{publicStatus,jdbcType=VARCHAR}, 
+      #{aviableDays,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.DriveLine" >
+    insert into drive_line
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="driverId != null" >
+        driver_id,
+      </if>
+      <if test="fromArea != null" >
+        from_area,
+      </if>
+      <if test="toArea != null" >
+        to_area,
+      </if>
+      <if test="goTime != null" >
+        go_time,
+      </if>
+      <if test="publicStatus != null" >
+        public_status,
+      </if>
+      <if test="aviableDays != null" >
+        aviable_days,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="driverId != null" >
+        #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromArea != null" >
+        #{fromArea,jdbcType=VARCHAR},
+      </if>
+      <if test="toArea != null" >
+        #{toArea,jdbcType=VARCHAR},
+      </if>
+      <if test="goTime != null" >
+        #{goTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicStatus != null" >
+        #{publicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="aviableDays != null" >
+        #{aviableDays,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.DriveLine" >
+    update drive_line
+    <set >
+      <if test="driverId != null" >
+        driver_id = #{driverId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromArea != null" >
+        from_area = #{fromArea,jdbcType=VARCHAR},
+      </if>
+      <if test="toArea != null" >
+        to_area = #{toArea,jdbcType=VARCHAR},
+      </if>
+      <if test="goTime != null" >
+        go_time = #{goTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publicStatus != null" >
+        public_status = #{publicStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="aviableDays != null" >
+        aviable_days = #{aviableDays,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.DriveLine" >
+    update drive_line
+    set driver_id = #{driverId,jdbcType=VARCHAR},
+      from_area = #{fromArea,jdbcType=VARCHAR},
+      to_area = #{toArea,jdbcType=VARCHAR},
+      go_time = #{goTime,jdbcType=TIMESTAMP},
+      public_status = #{publicStatus,jdbcType=VARCHAR},
+      aviable_days = #{aviableDays,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 根据车主ID查询历史路线 文帅 -->
+  <select id="findDriveLineList" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		*
+	FROM
+		drive_line
+	WHERE
+		driver_id = #{driversId,jdbcType=VARCHAR}
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+  <!-- 根据车主id获取历史线路   崔亚光 -->
+  <select id="findLineList" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List" />
+    from drive_line
+   WHERE
+		driver_id = #{driverId,jdbcType=VARCHAR}
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+</mapper>

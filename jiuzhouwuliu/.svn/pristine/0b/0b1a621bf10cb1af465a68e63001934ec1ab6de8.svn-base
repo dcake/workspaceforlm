@@ -1,0 +1,52 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+
+import com.thinkgem.jeesite.common.entity.DriveFleet;
+import com.thinkgem.jeesite.common.entity.Drivers;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+@MyBatisDao
+public interface DriveFleetMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(DriveFleet record);
+
+    int insertSelective(DriveFleet record);
+
+    DriveFleet selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(DriveFleet record);
+
+    int updateByPrimaryKey(DriveFleet record);
+    
+    List<DriveFleet> findDriveFleetList(DriveFleet driveFleet);
+    
+    //查询车队列表
+    List<Drivers>findList(Drivers Drivers);
+    
+    DriveFleet selectByPrimaryKeyId(String id);
+
+	/**
+	 * @description	：通过车队id查询该车队的所有成员
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 上午9:59:09
+	 * @return List<Drivers>
+	 */
+	List<Drivers> findFleetMemberListById(DriveFleet driverFleet);
+	
+	/**
+	 * @description	：删除所有的车队员
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:20:24
+	 * @return int
+	 */
+	int deleteAllFleetMember(Drivers Drivers);
+
+	/**
+	 * @description	：删除车队下某个成员
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:25:53
+	 * @return void
+	 */
+	int deleteFleetMemberByID(Drivers drivers);
+}

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.popupbox .popup,
+			.popupbox1 .popup,
+			.popupbox2 .popup {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				bottom: 0;
+			}
+			
+			.popupbox1 .popup {
+				height: 100%;
+				overflow: auto;
+			}
+			
+			.popupbox .mui-popup-title,
+			.popupbox1 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.popupbox2 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+			}
+			
+			.popupbox .mui-popup-cont button,
+			.popupbox1 .mui-popup-cont button,
+			.popupbox2 .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 34px;
+			}
+			
+			.mui-btn {
+				background-color: #efeff4;
+				color: #333;
+			}
+			
+			.mui-popup-button:first-child:last-child {
+				border-radius: 6px 6px 6px 6px;
+				margin: 0 20px;
+			}
+			
+			.mui-popup-button {
+				font-size: 17px;
+				line-height: 44px;
+				position: relative;
+				width: 100%;
+				height: 44px;
+				padding: 0 5px;
+				text-align: center;
+				color: #f7f7f7;
+				background: #1dacf9;
+			}
+			
+			.popupbox .mui-popup-buttons,
+			.popupbox1 .mui-popup-buttons,
+			.popupbox2 .mui-popup-buttons {
+				border-top: 0px solid #ddd;
+				margin-bottom: 11px;
+				clear: both;
+			}
+			
+			.popupbox .mui-popup-cont,
+			.popupbox1 .mui-popup-cont {
+				padding: 10px;
+				overflow-y: scroll;
+				height: auto;
+			}
+			
+			.mui-btn-primary:enabled:active {
+				color: #fff;
+				border: 1px solid #1dacf9;
+				background-color: #1dacf9;
+			}
+			
+			.mui-btn:enabled:active {
+				color: #fff;
+				border: 1px solid #1dacf9;
+				background-color: #1dacf9;
+			}
+			
+			.mui-table-view .mui-media-object{
+				line-height: 80px;
+				max-width: 80px;
+				height: 80px;
+				margin-right: 10px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				height: 50px;
+				background: #FFFFFF;
+				border-bottom: 1px solid #EFEFEF;
+				line-height: 50px;
+				margin-bottom: 7px;
+			}
+			
+			.mui-content {
+				margin-top: 40px;
+			}
+			
+			.ad-selector li {
+				text-align: center;
+				float: left;
+				width: 33.333%;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				margin-top: 5px;
+			}
+			
+			.mui-badge {
+				position: relative;
+				margin-left: -10px;
+				margin-top: 5px;
+				z-index: 9999;
+				background: #f40909;
+				color: #fff;
+				font-size: 11px;
+				padding: 1px 4px;
+			}
+			
+			ul {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.mui-table-view-cell {
+				padding: 15px 15px;
+			}
+			
+			.icon-xing1:before {
+				content: "\e601";
+				color: #999;
+			}
+			
+			.icon-star1 {
+				color: #F0AD4E;
+			}
+			
+			.mui-table-view-cell p {
+				margin-bottom: 7px;
+			}
+			
+			.leibie {
+				font-size: 16px;
+				font-weight: 400;
+			}
+			
+			.address {
+				font-weight: 400;
+				font-size: 16px;
+				color: #000;
+			}
+			
+			.mui-content {
+				margin-top: 55px;
+			}
+			/*地址弹出框*/
+			
+			#city {
+				max-width: 80%;
+				display: inline-block;
+				overflow: hidden;
+				word-break: keep-all;
+				/*不换行*/
+				white-space: nowrap;
+				/*不换行*/
+			}
+			
+			._citys {
+				background: #fff;
+				position: relative;
+			}
+			
+			._citys0 {
+				margin: 0;
+				padding: 0;
+				border-bottom: 2px solid #1dacf9;
+			}
+			
+			._citys0 li {
+				width: 30%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 16px;
+				display: inline-block;
+				text-align: center;
+			}
+			
+			._citys0 .citySel {
+				background: #1dacf9;
+				color: #fff;
+			}
+			
+			#cColse {
+				width: 18px;
+				height: 18px;
+				text-align: center;
+				line-height: 14px;
+				color: #1dacf9;
+				position: absolute;
+				right: 10px;
+				top: 12px;
+				border: 1px solid #1dacf9;
+				border-radius: 4px;
+			}
+			
+			._citys1 {
+				overflow: hidden;
+				padding-bottom: 10px;
+			}
+			
+			._citys1 a {
+				width: 23%;
+				height: 35px;
+				float: left;
+				background-color: #f5f5f5;
+				color: #666;
+				margin: 5px 1% 0;
+				line-height: 35px;
+				text-align: center;
+				cursor: pointer;
+				font-size: 15px;
+				overflow: hidden;
+			}
+			
+			.mui-btn1 {
+				background: #1DACF9;
+				color: #fff;
+			}
+			
+			.leibie {
+				color: #1dacf9;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-tongzhi mui-pull-left tz" id="../App_my_center/message.html"></a>
+			<h1 id="title" class="mui-title">找车</h1>
+		</header>
+		<div class="mui-content" style="margin-bottom: 10px;">
+			<div class="ad-selector">
+				<ul>
+					<li id="distance" class="nearby"><span id="distanceVal" class="ui-alert select-size">3公里</span>
+						<a class="mui-icon mui-icon-arrowdown" style=""></a>
+					</li>
+					<li id="city" style="height: 50px;overflow: hidden;"><span id='cityVal' class="ui-alert select-size">选择地区</span>
+						<a class="mui-icon mui-icon-arrowdown" style="vertical-align:top;margin-top: 12px;"></a>
+					</li>
+					<li class="moreclass"><span class="select-size" id="vehicle">车型</span>
+						<a class="mui-icon mui-icon-arrowdown" style=""></a>
+					</li>
+				</ul>
+			</div>
+			<ul class="mui-table-view shopping">
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img10.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">武汉江夏—长沙雨花</span><span class="mui-icon iconfont icon-star1 mui-pull-right"></span></p>
+						<p><span class="leibie">黄飞鸿</span></p>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+						</p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img08.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">哈尔滨江北—郑州金水</span></p>
+						<p><span class="leibie">于文月</span>
+							<p class="mui-ellipsis">
+								<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+
+							</p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img09.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">哈尔滨江北—郑州金水</span></p>
+						<p><span class="leibie">于文月</span>
+							<p class="mui-ellipsis">
+								<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+
+							</p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img05.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">武汉江夏—长沙雨花</span></p>
+						<p><span class="leibie">黄飞鸿</span></p>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/city.data-3.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var VM = new Vue({
+			el:'.mui-content',
+			data:{
+				distanceTag:false,//控制距离选择显示
+				ranges:'3',	//范围
+				areaCode:'',//区域
+				
+			},
+			mounted:function(){
+				var self = this;
+				mui.init();
+				var cityVal = document.getElementById("cityVal");
+				//获取用户当前未知
+				mui.plusReady(function(){ 
+					plus.geolocation.getCurrentPosition(function(p){
+						var localtion = p.address;
+						self.areaCode = localtion.province+","+localtion.city+","+localtion.district;
+						cityVal.innerHTML = localtion.district;
+					}, function(e){
+						console.log('Geolocation error: ' + e.message);
+					});
+				})
+				/*选择范围 start*/
+				var userPicker = new mui.PopPicker();
+				userPicker.setData([
+					{
+						value: '3',
+						text: '3公里'
+					},{
+						value: '5',
+						text: '5公里'
+					},{
+						value: '10',
+						text: '10公里'
+					},{
+						value: '20',
+						text: '20公里'
+					}]);
+					var distance = document.getElementById("distance");
+					distance.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							document.getElementById("distanceVal").innerHTML = items[0].text;
+							self.ranges = items[0].value;
+						});
+					}, false);
+				/*选择范围 end*/
+				/*选择地区 start*/
+				/**
+				 * 获取对象属性的值
+				 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+				 * @param {Object} obj 对象
+				 * @param {String} param 属性名
+				 */
+				var _getParam = function(obj, param) {
+					return obj[param] || '';
+				};
+				var cityPicker = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker.setData(cityData3);  
+				var city = document.getElementById("city");
+				city.addEventListener('tap', function(event) {
+					cityPicker.show(function(items) {
+						cityVal.innerHTML = _getParam(items[2], 'text');
+						self.areaCode = _getParam(items[0], 'text') + "," + _getParam(items[1], 'text') + "," + _getParam(items[2], 'text');
+					});
+				}, false);
+				/*选择地区 end*/ 
+			},
+			methods:{
+				
+			}
+		})
+		document.getElementById("vehicle").addEventListener("tap",function(){
+				mui.openWindow({
+					url:'carParam.html',
+					id:'carParam.html',
+					styles:{
+				        top:"0",//子页面顶部位置
+				        bottom:"0px",//子页面底部位置
+				   	},
+				   	show:{
+				   		autoShow:false,//页面loaded事件发生后自动显示，默认为true
+				      	aniShow:"slide-in-bottom",//页面显示动画，默认为”slide-in-right“；
+				    },
+				})
+		})
+	
+	</script>
+
+</html>

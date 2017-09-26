@@ -1,0 +1,51 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.thinkgem.jeesite.common.entity.ComplainRecord;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+
+@MyBatisDao
+public interface ComplainRecordMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(ComplainRecord record);
+
+    int insertSelective(ComplainRecord record);
+
+    ComplainRecord selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(ComplainRecord record);
+
+    int updateByPrimaryKey(ComplainRecord record);
+    
+    /**
+     * @desc 查询申诉列表
+     * @author yaotengfei
+     * @date 2017年8月16日下午4:34:25
+     * @param complainRecord
+     * @return
+     */
+    List<ComplainRecord> findComplainRecordListForPage(@Param("complainRecord")ComplainRecord complainRecord);
+    
+    /**
+     * @desc 根据申诉id查询详情
+     * @author yaotengfei
+     * @date 2017年8月16日下午4:35:07
+     * @param id
+     * @return
+     */
+    ComplainRecord findDetail(String id);
+    
+    /**
+     * 根据订单id获取申诉
+     *   
+     * @author 张彦学
+     * 日期 2017年9月1日
+     * @param id
+     * @return
+     */
+    ComplainRecord findComplainRecordByGoodsownerOrder(String id);
+}

@@ -1,0 +1,195 @@
+package com.thinkgem.jeesite.modules.driver.web;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.thinkgem.jeesite.common.entity.DriveFleet;
+import com.thinkgem.jeesite.common.entity.Drivers;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.driver.service.DriveFleetService;
+import com.thinkgem.jeesite.modules.driver.service.DriversServce;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+/**
+ * 王涛	
+ * 车队管理
+ * 
+ */
+@Controller
+@RequestMapping(value = "${adminPath}/driver/driveFleetList")
+public class DriveFleetController extends BaseController {
+	@Autowired
+	private DriveFleetService  driveFleetService;
+	@Autowired
+	private DriversServce  drivesService;
+	
+	/**
+	 * @description	：加载车队信息
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午2:39:50
+	 * @return String
+	 */
+	@RequestMapping(value ="list")
+	public String list(Drivers drivers, HttpServletRequest request, HttpServletResponse response, Model model) {
+		Page<Drivers> page = driveFleetService.findPage(new Page<Drivers>(request, response), drivers); 
+		//页面显示数据 非数据库字段字符串
+		for(Drivers s:page.getList()){
+			s.setIsOrgDriver(DictUtils.getDictLabel(s.getIsOrgDriver(), "drivers_is_org_driver", s.getIsOrgDriver()));
+		}
+		model.addAttribute("drivers", drivers);
+		model.addAttribute("page", page);
+		return "modules/driver/driveFleetList";
+	}
+
+	/**
+	 * @description	：添加车队
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午6:30:22
+	 * @return String
+	 */
+	@RequestMapping(value = "add")
+	public String add(DriveFleet driveFleet,HttpServletRequest request, HttpServletResponse response, Model model) {
+			return "modules/driver/infoDriveFleet";
+	}
+	/**
+	 * @description	：编辑车队
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午6:29:54
+	 * @return String
+	 */
+	@RequestMapping(value = "edit")
+	public String edit(DriveFleet driverFleet,Model model) {
+		List<Drivers> list = this.driveFleetService.findFleetMemberListById(driverFleet);
+		Drivers master = null;
+		for(Drivers d:list){
+			d.setIsOrgDriver(DictUtils.getDictLabel(d.getIsOrgDriver(), "drivers_is_org_driver", d.getIsOrgDriver()));
+			if("2".equals(d.getDriverType())){
+				master = d;
+			}
+		}
+		if(null!=master){
+			model.addAttribute("drivers", master);
+			list.remove(master);
+		}
+		model.addAttribute("ds", list);
+		return "modules/driver/editDriveFleet";
+	}
+	
+	/**
+	 * @description	：车队详情
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午6:29:54
+	 * @return String
+	 */
+	@RequestMapping(value = "info")
+	public String info(DriveFleet driverFleet,Model model) {
+		List<Drivers> list = this.driveFleetService.findFleetMemberListById(driverFleet);
+		Drivers master = null;
+		for(Drivers d:list){
+			d.setIsOrgDriver(DictUtils.getDictLabel(d.getIsOrgDriver(), "drivers_is_org_driver", d.getIsOrgDriver()));
+			if("2".equals(d.getDriverType())){
+				master = d;
+			}
+		}
+		if(null!=master){
+			model.addAttribute("drivers", master);
+			list.remove(master);
+		}
+		model.addAttribute("ds", list);
+		return "modules/driver/showDriveFleet";
+	}
+	
+	/**
+	 * @description	：更新车队
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:07:46
+	 * @return AjaxBeanUtil
+	 */
+	@RequestMapping(value = "updateFleet")
+    @ResponseBody
+	public AjaxBeanUtil updateFleet(Drivers drivers,String ids){
+		String[] idArr = {};
+		if(ids.length()>0){
+			idArr = ids.split(",");
+		}
+		driveFleetService.updateFleet(drivers,idArr);
+		return new AjaxBeanUtil("更新车队成功！",true);
+	}
+	
+	
+	/**
+	 * @description	：保存车队
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午4:27:51
+	 * @return AjaxBeanUtil
+	 */
+	@RequestMapping(value = "saveFleet")
+    @ResponseBody
+	public AjaxBeanUtil saveFleet(Drivers drivers,String ids){
+		String[] idArr = {};
+		if(ids.length()>0){
+			idArr = ids.split(",");
+		}
+		driveFleetService.saveFleet(drivers,idArr);
+		return new AjaxBeanUtil("添加车队成功！",true);
+	}
+	
+	
+	/**
+	 * @description	：根据车主id获取车主
+	 * @author pangchengxiang
+	 * @date 2017年8月23日 下午4:57:31
+	 * @return AjaxBeanUtil
+	 */
+	@RequestMapping(value = "findDriverById")
+    @ResponseBody
+	public AjaxBeanUtil findDriverById(Drivers drivers){
+		Drivers d = drivesService.findDriverByUserno(drivers);
+		if(null==d){
+			return new  AjaxBeanUtil("未找到该用户!", false);
+		}else{
+			if("2".equals(d.getDriverType())){
+				return new  AjaxBeanUtil("该用户已经是车队长!", false);
+			}else{
+				d.setIsOrgDriver(DictUtils.getDictLabel(d.getIsOrgDriver(), "drivers_is_org_driver", d.getIsOrgDriver()));
+				return new  AjaxBeanUtil("查找成功!", true,d);
+			}
+		}
+	}
+	/**
+	 * @description	：删除车队
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:09:03
+	 * @return AjaxBeanUtil
+	 */
+	@RequestMapping(value = "deleteFleet")
+	@ResponseBody
+	public AjaxBeanUtil deleteAllFleetMember(Drivers drivers){
+		this.driveFleetService.deleteAllFleetMember(drivers);
+		return new AjaxBeanUtil("删除车队成功！",true);
+	}
+	
+	/**
+	 * @description	：删除车队员
+	 * @author pangchengxiang
+	 * @date 2017年8月24日 下午3:39:00
+	 * @return AjaxBeanUtil
+	 */
+	@RequestMapping(value = "deleteMember")
+	@ResponseBody
+	public AjaxBeanUtil deleteFleetMemberByID(Drivers drivers){
+		this.driveFleetService.deleteFleetMemberByID(drivers);
+		return new AjaxBeanUtil("删除成功！",true);
+	}
+	
+	
+}

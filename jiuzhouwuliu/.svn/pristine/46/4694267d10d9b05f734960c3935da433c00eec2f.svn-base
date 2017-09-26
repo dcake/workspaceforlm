@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			.blue{
+				font-size: 28px;
+			}
+			.mui-content h2{
+				padding-left: 15px;
+				padding-top: 5px;
+				font-weight: normal;
+				font-size: 16px;
+				color: #666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">积分</h1>
+		</header>
+		<div class="mui-content">
+          <div class="wallet">
+          	<div class="wallet-zh">
+          		<p>我的积分</p>
+          		<p><span>200</span></p>
+          	</div>
+            <h2>明细</h2>         	
+            <div class="wallet-con">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">	
+						<b>+5</b>
+						<div class="his-text">
+							<p>评价完成</p>
+							<span>2017-07-22 18:30</span>
+						</div>					
+					</li>
+					<li class="mui-table-view-cell">	
+						<b>+10</b>
+						<div class="his-text">
+							<p>每日登陆</p>
+							<span>2017-07-22 18:30</span>
+						</div>					
+					</li>
+					<li class="mui-table-view-cell">	
+						<b>+15</b>
+						<div class="his-text">
+							<p>订单-支付</p>
+							<span>2017-07-22 18:30</span>
+						</div>					
+					</li>					
+	            </ul>
+            </div>
+          
+          </div>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			
+			mui.init({
+			   swipeBack:true //启用右滑关闭功能
+			  });
+			
+//			 mui(".mui-table-view").on("tap","li",function(){
+//			  var url = "detail.html";
+//			  mui.openWindow({
+//			   url:url,
+//			   id:url
+//			  });
+//			 });
+		</script>
+	</body>
+
+</html>

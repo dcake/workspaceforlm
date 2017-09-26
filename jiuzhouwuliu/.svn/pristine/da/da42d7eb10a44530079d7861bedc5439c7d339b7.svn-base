@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">查看订单</h1>
+		</header>
+		<div class="mui-content">
+			<div class="ck-dd">
+				<div class="order-con">
+					<h1>经纪人信息</h1>
+					<div class="order-1">
+						<p> <span>经纪人名称</span>{{detailData.agents.truename}}</p>
+						<a v-if="detailData.agents.isTrueName == 1">实名认证</a>
+						<a v-if="detailData.agents.isTruecommpany == 1">企业认证</a>
+						<p> <span>手机号</span>{{detailData.agents.phoneno}}</p>
+					</div>
+					<h1>车主信息</h1>
+					<ul class="order-1">
+						<li v-for="(item,index) in detailData.driverList">
+							<p> <span>车主名称</span>{{item.truename}}</p>
+							<a v-if="item.isTrueName == 1">实名认证</a>
+							<a v-if="item.isTrueDrive == 1">驾照证</a>
+							<a v-if="item.isTrueMove == 1">行驶证</a>
+							<p> <span>手机号</span>{{item.phoneno}}</p>
+							<p><i @tap="positionList()">查看位置</i> <span>车牌号</span>{{item.truckNo}}</p>
+							<div v-if="index != detailData.driverList.length-1" class="line"></div>
+						</li>
+					</ul>
+					<h1>货主信息</h1>
+					<div class="order-1">
+						<p> <span>货主名称</span>{{detailData.goodsownerOrder.goodsownersName}}</p>
+						<p> <span>手机号</span>{{detailData.goodsownerOrder.goodsownersPhone}}</p>
+						<p> <span>货物类型</span>{{detailData.goodsownerOrder.goodsType}}</p>
+						<p> <span>发货地</span>{{detailData.goodsownerOrder.shipperAreaDetail}}</p>
+						<p> <span>收货地</span>{{detailData.goodsownerOrder.reciverAreaDetail}}</p>
+					</div>
+					<div class="order-1 order-jg">
+						<p>成交价<b>￥{{detailData.goodsownerOrder.dealMoney}}</b></p>
+					</div>
+					<div class="order-1 or-bz" style="margin-bottom: 30px;">
+						<p> 订单编号：{{detailData.goodsownerOrder.orderNo}} </p>
+						<p> 创建时间：{{detailData.goodsownerOrder.createDate}}</p>
+						<p style="margin-bottom: 0;"> 付款时间：{{detailData.goodsownerOrder.settleAccountsDate}}</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			var detailVM = new Vue({
+				el:'.mui-content',
+				data:{
+					detailData:{}
+				},
+				mounted:function(){
+					var self = this;
+					mui.init();
+					//order.html自定义函数
+					window.addEventListener("getDetailData",function(event){
+						var orderId = event.detail.orderId;
+						var type = event.detail.type;
+						self.getDetailData(orderId,type);
+					})
+				},
+				methods:{
+					getDetailData:function(orderId,type){
+						var self = this;
+						var param = {
+							orderId:orderId,
+							type:type
+						}
+						AjaxSend("mobileShipperOrder/checkOrder",param,"post",function(result){
+							if(result.status){
+								self.detailData = result.data;
+							}
+						})
+					},
+					positionList:function(){
+						var self = this;
+						mui.openWindow({
+							url:'logistics.html',
+							id:'logistics.html',
+							extras:{
+								positionList: self.detailData.position
+							}
+						})
+					}
+				}
+			})
+			//重写返回逻辑，返回时隐藏详情页webview
+			mui.back = function() {
+			    plus.webview.currentWebview().hide("auto", 300);
+			}
+			//窗口隐藏时，重置页面数据
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    self.addEventListener("hide",function (e) {
+			        window.scrollTo(0, 0);//重置滚动条位置
+			        //detailVM.resetData();//重置页面数据
+			    },false);
+			})
+		</script>
+	</body>
+
+</html>

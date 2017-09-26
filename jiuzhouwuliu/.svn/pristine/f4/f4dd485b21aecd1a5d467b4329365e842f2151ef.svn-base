@@ -1,0 +1,185 @@
+package com.thinkgem.jeesite.common.entity;
+
+import java.util.Date;
+
+import com.thinkgem.jeesite.common.persistence.CommonEntity;
+
+public class AgentOrder extends CommonEntity<AgentOrder>{
+    //
+	private static final long serialVersionUID = 1L;
+
+	private String id;
+
+    private String goodsId;
+
+    private String agentsId;
+    
+    private String goodCurrStatus;
+    
+    private String weituoOrFabu;
+
+    private Double priceMin;
+
+    private Double priceMax;
+
+    private String fabuOrZhiding;
+
+    private Double entrustPrice;
+
+    private Integer competePriceViewCount;
+
+    private Date publicCompetePriceTime;
+
+    private String goodsownerOrderid;
+    //非数据库字段
+    private String companyName;//企业名称
+    private String truename;//经纪人姓名
+    private String headImg;//经纪人头像
+    private String userSort;//用户类型
+    private String userId;//经纪人用户ID
+    private String isCollect;//是否收藏（0-否，1-是）
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId == null ? null : goodsId.trim();
+    }
+
+    public String getAgentsId() {
+        return agentsId;
+    }
+
+    public void setAgentsId(String agentsId) {
+        this.agentsId = agentsId == null ? null : agentsId.trim();
+    }
+    
+    public String getGoodCurrStatus() {
+        return goodCurrStatus;
+    }
+
+    public void setGoodCurrStatus(String goodCurrStatus) {
+        this.goodCurrStatus = goodCurrStatus == null ? null : goodCurrStatus.trim();
+    }
+    
+    public String getWeituoOrFabu() {
+        return weituoOrFabu;
+    }
+
+    public void setWeituoOrFabu(String weituoOrFabu) {
+        this.weituoOrFabu = weituoOrFabu == null ? null : weituoOrFabu.trim();
+    }
+
+    public Double getPriceMin() {
+        return priceMin;
+    }
+
+    public void setPriceMin(Double priceMin) {
+        this.priceMin = priceMin;
+    }
+
+    public Double getPriceMax() {
+        return priceMax;
+    }
+
+    public void setPriceMax(Double priceMax) {
+        this.priceMax = priceMax;
+    }
+
+    public String getFabuOrZhiding() {
+        return fabuOrZhiding;
+    }
+
+    public void setFabuOrZhiding(String fabuOrZhiding) {
+        this.fabuOrZhiding = fabuOrZhiding == null ? null : fabuOrZhiding.trim();
+    }
+
+    public Double getEntrustPrice() {
+        return entrustPrice;
+    }
+
+    public void setEntrustPrice(Double entrustPrice) {
+        this.entrustPrice = entrustPrice;
+    }
+
+    public Integer getCompetePriceViewCount() {
+        return competePriceViewCount;
+    }
+
+    public void setCompetePriceViewCount(Integer competePriceViewCount) {
+        this.competePriceViewCount = competePriceViewCount;
+    }
+
+    public Date getPublicCompetePriceTime() {
+        return publicCompetePriceTime;
+    }
+
+    public void setPublicCompetePriceTime(Date publicCompetePriceTime) {
+        this.publicCompetePriceTime = publicCompetePriceTime;
+    }
+
+    public String getGoodsownerOrderid() {
+        return goodsownerOrderid;
+    }
+
+    public void setGoodsownerOrderid(String goodsownerOrderid) {
+        this.goodsownerOrderid = goodsownerOrderid == null ? null : goodsownerOrderid.trim();
+    }
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getTruename() {
+		return truename;
+	}
+
+	public void setTruename(String truename) {
+		this.truename = truename;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+
+	public String getUserSort() {
+		return userSort;
+	}
+
+	public void setUserSort(String userSort) {
+		this.userSort = userSort;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getIsCollect() {
+		return isCollect;
+	}
+
+	public void setIsCollect(String isCollect) {
+		this.isCollect = isCollect;
+	}
+	
+}

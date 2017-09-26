@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.GoodsownerAgentJingjiaMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="jingjia_status" property="jingjiaStatus" jdbcType="VARCHAR" />
+    <result column="jingjia_price" property="jingjiaPrice" jdbcType="DOUBLE" />
+    <result column="jingjia_remark" property="jingjiaRemark" jdbcType="VARCHAR" />
+    <result column="is_pass" property="isPass" jdbcType="VARCHAR" />
+    <result column="jingjia_type" property="jingjiaType" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, user_id, jingjia_status, jingjia_price, jingjia_remark, is_pass, jingjia_type, 
+    update_date, update_by, create_date, create_by, del_flag, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsowner_agent_jingjia
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodsowner_agent_jingjia
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia" >
+    insert into goodsowner_agent_jingjia (id, order_id, user_id, 
+      jingjia_status, jingjia_price, jingjia_remark, 
+      is_pass, jingjia_type, update_date, 
+      update_by, create_date, create_by, 
+      del_flag, remarks)
+    values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{jingjiaStatus,jdbcType=VARCHAR}, #{jingjiaPrice,jdbcType=DOUBLE}, #{jingjiaRemark,jdbcType=VARCHAR}, 
+      #{isPass,jdbcType=VARCHAR}, #{jingjiaType,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia" >
+    insert into goodsowner_agent_jingjia
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="jingjiaStatus != null" >
+        jingjia_status,
+      </if>
+      <if test="jingjiaPrice != null" >
+        jingjia_price,
+      </if>
+      <if test="jingjiaRemark != null" >
+        jingjia_remark,
+      </if>
+      <if test="isPass != null" >
+        is_pass,
+      </if>
+      <if test="jingjiaType != null" >
+        jingjia_type,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaStatus != null" >
+        #{jingjiaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaPrice != null" >
+        #{jingjiaPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jingjiaRemark != null" >
+        #{jingjiaRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isPass != null" >
+        #{isPass,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaType != null" >
+        #{jingjiaType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia" >
+    update goodsowner_agent_jingjia
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaStatus != null" >
+        jingjia_status = #{jingjiaStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaPrice != null" >
+        jingjia_price = #{jingjiaPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jingjiaRemark != null" >
+        jingjia_remark = #{jingjiaRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isPass != null" >
+        is_pass = #{isPass,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaType != null" >
+        jingjia_type = #{jingjiaType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia" >
+    update goodsowner_agent_jingjia
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      jingjia_status = #{jingjiaStatus,jdbcType=VARCHAR},
+      jingjia_price = #{jingjiaPrice,jdbcType=DOUBLE},
+      jingjia_remark = #{jingjiaRemark,jdbcType=VARCHAR},
+      is_pass = #{isPass,jdbcType=VARCHAR},
+      jingjia_type = #{jingjiaType,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 通过订单ID查询竞价列表 -->
+  <select id="findJingjiaList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia">
+  	SELECT
+		t.*, t1.truename AS truename,
+		t1.head_img AS headImg,
+		t1.user_sort AS userSort
+	FROM
+		goodsowner_agent_jingjia t,
+		users t1
+	WHERE
+		t.user_id = t1.id
+	AND t.jingjia_status in("0","1")
+  </select>
+  <!-- 根据竞价人ID和货主订单ID修改竞价状态 文帅  Type 用于判断是确认还是取消（1-确认，0-取消）-->
+  <update id="updateByOrderIdAndJJRId" parameterType="string">
+  	UPDATE goodsowner_agent_jingjia
+  	<set>
+  		<if test='type=="0"'>
+  			jingjia_status = "0",
+  		</if>
+  		<if test='type=="1"'>
+  			jingjia_status = "1",
+  		</if>
+  	</set>	
+	WHERE
+		order_id = #{orderId,jdbcType=VARCHAR}
+	AND user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <!-- 根据订单ID查询竞价记录 文帅 -->
+  <delete id="deleteByOrderId" parameterType="java.lang.String" >
+  	DELETE
+	FROM
+		goodsowner_agent_jingjia
+	WHERE
+		order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <!-- 根据订单ID和竞价人ID查询竞价记录 文帅 -->
+  <select id="findByOrderIdAndJJRId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	SELECT
+		*
+	FROM
+		goodsowner_agent_jingjia
+	WHERE
+		order_id = #{orderId,jdbcType=VARCHAR}
+	AND user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <!-- 交易成功之后根据竞价人ID和货主订单ID修改竞价状态 文帅  Type 用于判断是确认还是取消（1-失败，0-成功） -->
+  <update id="updateJingJiaStatus">
+  	UPDATE goodsowner_agent_jingjia
+  	<set>
+  		<if test='type=="0"'>
+  			jingjia_status = "1",
+  		</if>
+  		<if test='type=="1"'>
+  			jingjia_status = "2",
+  		</if>
+  	</set>	
+	WHERE
+		order_id = #{orderId,jdbcType=VARCHAR}
+		<if test='type=="0"'>
+  			AND user_id = #{userId,jdbcType=VARCHAR}
+  		</if>
+  		<if test='type=="1"'>
+  			AND user_id != #{userId,jdbcType=VARCHAR}
+  		</if>
+  </update>
+  <!-- 根据用户ID查询该用户参与的竞价列表 文帅 -->
+  <select id="findListByUserId" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		*
+	FROM
+		goodsowner_agent_jingjia
+	WHERE
+		user_id = #{userId,jdbcType=VARCHAR}
+	LIMIT #{currentPage},#{pageSize}	
+  </select>
+</mapper>

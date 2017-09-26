@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<style type="text/css">
+			.mui-content>.mui-table-view:first-child {
+				margin-top: -1px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">历史记录</h1>
+			<a id="createNew" class="mui-btn mui-pull-right">新 建</a>
+		</header>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li v-for="(item,index) in items" @tap="getDetail(item.id)" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<div class="his-text">
+							<p class="mui-ellipsis">{{item.suggestionContent}}</p>
+							<span>{{item.createDate}}</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script>
+			
+			var suggestVM = new Vue({
+				el:'#pullrefresh',
+				data:{
+					items:[],
+					currentPage:"1",
+					dataTag:false	//是否有更多数据标识，false--有，true--没有
+				},
+				mounted:function(){
+					mui.init({
+						swipeBack:true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '#pullrefresh',
+							up: {
+								auto:true,
+								contentrefresh: '正在加载...',
+		      					contentnomore:'无更多数据',
+								callback: this.pullupRefresh
+							}
+						}
+					}); 
+				},
+				methods:{
+					pullupRefresh:function(){
+						var self = this;
+						setTimeout(function() {
+							self.getDataList();
+							self.currentPage++;
+						}, 1000);
+					},
+					//获取列表
+					getDataList:function(){
+						var self = this;
+						var param = {
+							userId:getUser().userInfo.id,
+							currentPage:self.currentPage
+						}
+						AjaxSend("MobileCommonSuggest/getSuggestList",param,"post",function(result){
+							console.log(JSON.stringify(result))
+							if(result.status){
+								if(self.items.length == 0){
+									self.items = result.data.suggestionList;
+								}else{
+									self.items.push.apply(self.items,result.data.suggestionList);
+								}
+								if(self.items.length < result.data.pageSize){
+									self.dataTag = true;
+								}
+							}else{
+								self.dataTag = true;
+								
+							}
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(self.dataTag); //参数为true代表没有更多数据了。
+						})
+					},
+					//获取详情
+					getDetail:function(index){
+						var self = this;
+						mui.openWindow({
+							url: 'ck-view.html',
+							id: 'ck-view.html',
+							show:{
+						      aniShow:'pop-in'
+						   	},
+						    extras:{
+						        suggestId:index  //扩展参数
+						    }
+						});
+					}
+				} 
+			})
+			
+			window.addEventListener('updateList',function(){
+				suggestVM.currentPage = '1',
+				suggestVM.pullupRefresh();
+			})
+			
+			document.getElementById("createNew").addEventListener("tap",function(){
+				mui.openWindow({
+					url: 'advice.html',
+					id: 'advice.html',
+					show:{
+				      aniShow:'pop-in'
+				   	}
+				});
+			})
+		</script>
+	</body>
+</html>

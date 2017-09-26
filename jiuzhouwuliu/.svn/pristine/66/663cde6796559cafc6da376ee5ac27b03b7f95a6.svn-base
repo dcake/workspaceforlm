@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.head {
+				height: 44px;
+				font-size: 18px;
+				font-weight: normal;
+				text-align: center;
+				position: relative;
+				z-index: 1;
+				background: no-repeat;
+				color: #FFFFFF;
+				line-height: 44px;
+			}
+			
+			.mui-bar {
+				-webkit-box-shadow: 0 0 0;
+				box-shadow: 0 0 0;
+			}
+			
+			.mui-bar-nav {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+				text-align: center;
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			
+			.mui-title {
+				color: #FFFFFF;
+			}
+			
+			.icon-shezhi:before {
+				font-size: 20px;
+				color: #FFFFFF;
+			}
+			.title {
+				text-align: center;
+				position: relative;
+				margin: -44px 0 -25px;
+				/*height: 350px;*/
+			}
+			
+			.title .info {
+				width: 100%;
+				position: absolute;
+				top: 55px;
+				background: transparent;
+				color: #FFFFFF;
+				padding: 0px 10px 0px 30px;
+			}
+			
+			.title .bg {
+				width: 100%;
+				height: 150px;
+				position: relative;
+				top: -10px;
+				left: 0;
+			}
+			
+			.center-list {
+				overflow: hidden;
+				background: #fff;
+			}
+			
+			.mui-table-view-cell>a:not(.mui-btn) {
+				margin: 0px;
+			}
+			
+			.mui-table-view .mui-media-object {
+				border-radius: 50%;
+				border: 3px solid #fff;
+				width: 78px;
+			}
+			
+			.mui-table-view .mui-media-object.mui-pull-left {
+				margin-right: 20px;
+			}
+			
+			.id {
+				color: #FFFFFF;
+				font-size: 16px;
+			}
+			
+			.mui-btn {
+				background-color: transparent;
+				color: #FFFFFF;
+				border: 1px solid #FFFFFF;
+				margin-top: 20px;
+			}
+			
+			.mui-navigate-right:after,
+			.mui-push-right:after {
+				font-size: 20px;
+				color: #FFFFFF;
+			}
+			
+			.renzheng {
+				position: absolute;
+				top: 40%;
+				right: 40px;
+				font-size: 15px;
+			}
+			
+			ul {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.center-list li {
+				position: relative;
+				float: left;
+				width: 26%;
+				text-align: center;
+				color: #333;
+				font-size: 14px;
+				padding: 10px 0;
+			}
+			
+			.center-list li .mui-icon {
+				display: block;
+				font-size: 30px;
+				color: #F6624D;
+				margin: 10px 0;
+			}
+			
+			.center-list {
+				margin: 20px 10px;
+				border: 1px solid #feaa8f;
+				border-radius: 2px;
+			}
+			
+			.first {
+				color: #FFFFFF;
+			}
+			
+			.qb {
+				background: #feaa8f;
+			}
+			
+			.dd {
+				background: #1DACF9;
+			}
+			
+			.qt {
+				background: #ac9cfa;
+			}
+			.mui-table-view-cell > a:not(.mui-btn).mui-active
+			{
+			    background-color: transparent;
+			}
+            .mui-table-view-cell.mui-table-view-cell.mui-active
+			{
+			    background-color: transparent;
+			}
+			.mui-table-view:before{
+				height: 0px;
+			}
+			.icon-qita:before {
+			    font-size: 42px;
+			}
+			.icon-icon:before{
+				font-size: 44px;
+			}
+			.icon-luxian:before{
+				font-size: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav head" style="background: #1dabf8;">
+			<h1 class="mui-title">我的</h1>
+			<a class="mui-icon iconfont icon-shezhi mui-pull-right tz" id="../App_set/setting.html"></a>
+		</header>
+
+		<div class="mui-content">
+			<div class="title">
+				<img class="bg" src="../img/wode-bg.png" />
+				<ul class="mui-table-view mui-table-view-chevron info">
+					<li class="mui-table-view-cell mui-media">
+						<img v-if='imgTag' class="mui-media-object mui-pull-left" style="height: 60px;width: 60px;" v-bind:src="ServerHost+userInfo.headImg">
+						<img v-else class="mui-media-object mui-pull-left" src="../img/touxiang2.png">
+						<div class="mui-media-body">
+							<p class="mui-text-left id">ID:{{userInfo.userno}}</p>
+							<div> 
+								<button type="button" class="mui-btn mui-pull-left tz" id="personal_detail.html">个人资料</button>
+								<span v-if="userInfo.examineStatus == 1 " class="renzheng">
+									已认证
+								</span>
+								<span v-if="userInfo.examineStatus == 0 " class="renzheng">
+									审核中
+								</span>
+								<span v-if="userInfo.examineStatus == 2 " @tap="toApprove()" class="renzheng">
+									审核未通过
+								</span>
+								<span  v-if="!userInfo.examineStatus" @tap="toApprove()" class="renzheng">
+									去认证 
+								</span>
+								<span v-if="userInfo.isTruename == 0 || sortInfo.isTruecommpany == 0" class="mui-navigate-right mui-pull-right"></span>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="center-list">
+				<ul>
+					<li class="qb tz" style="width: 20%;">
+						<span class="mui-icon iconfont icon-qianbao" style="color:#FFFFFF"></span>
+						<span class="first">钱包</span>
+					</li>
+					<li class="tz" id="wallet.html">
+						<span class="mui-icon iconfont icon-yue" style="color:#ff8463;margin-left:12px"></span>余额
+					</li>
+					<li class="tz" id="bank_cards.html">
+						<span class="mui-icon iconfont icon-icon" style="color:#9092fd;margin-bottom:4px;margin-top: 3px;"></span>银行卡
+					</li>
+					<li class="tz" id="integral.html">
+						<span class="mui-icon iconfont icon-shangchengicon14" style="color:#1dacf9"></span>积分
+					</li>
+				</ul>
+			</div>
+			<div class="center-list" style="border: 1px solid #1DACF9; margin-top: -10px;">
+				<ul>
+					<li class="dd" style="width: 20%;" >
+						<span class="mui-icon iconfont icon-dingdan" style="color:#FFFFFF"></span>
+						<span class="first">订单</span>
+					</li>
+					<li class="tz" id="order.html">
+						<span class="mui-icon iconfont icon-dingdan2" style="color:#1dacf9"></span>当前订单
+					</li>
+					<li class="tz" id="order.html">
+						<span class="mui-icon iconfont icon-dingdan3" style="color:#ec992d;"></span>历史订单
+					</li>
+					<li class="tz" id="order.html">
+						<span class="mui-icon iconfont icon-ziyuan" style="color:#ff7f74"></span>全部订单
+					</li>
+				</ul>
+			</div>
+			<div class="center-list" style="border: 1px solid #ac9cfa;margin-top: -10px;">
+				<ul>
+					<li class="qt" style="width: 20%;">
+						<span class="mui-icon iconfont icon-qita" style="color:#FFFFFF"></span>
+						<span class="first">其他</span>
+					</li>
+					<li class="tz" id="my_collect.html">
+						<span class="mui-icon iconfont icon-wodeshoucang" style="color:#8b81ff;font-size: 28px;padding-top: 2px;"></span>我的收藏
+					</li>
+					<li class="tz" id="line_record.html">
+						<span class="mui-icon iconfont icon-luxian" style="color:#16ca6f;margin-bottom:5px;margin-top: 5px;"></span>线路记录
+					</li>
+					<li class="tz" id="recent_contact.html">
+						<span class="mui-icon iconfont icon-lianxi" style="color:#d0a921"></span>最近联系
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="../css/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script>
+			mui.init();
+			var vm = new Vue({
+				el:'.mui-content',
+				data:{
+					userInfo:{},
+					sortInfo:{},
+					imgTag:false
+				},
+				mounted:function(){
+					var self = this;
+					var user = getUser();
+					self.userInfo = user.userInfo;
+					self.sortInfo = user.sortInfo;
+					if(self.userInfo.headImg){
+						self.imgTag = true;
+					}
+					console.log(JSON.stringify(self.userInfo))
+				},
+				methods:{
+					//认证跳转
+					toApprove:function(){
+						mui.openWindow({
+							url: 'identity_authentication.html',
+							id: 'identity_authentication.html',
+							show:{
+						      aniShow:'pop-in'
+						    }
+						});
+					}
+				}
+			})
+			
+			//personal_detail.html页面自定义函数，更新头像
+			window.addEventListener("updateHeadImg",function(event){
+				var user = getUser();
+				vm.userInfo = user.userInfo;
+				if(vm.userInfo.headImg){
+					vm.imgTag = true;
+				}
+			})
+
+			mui("body").on("tap", ".tz", function() {
+				var url = this.getAttribute('id');
+				mui.openWindow({
+					url: url,
+					id: url
+				});
+			});
+			
+		</script>
+	</body>
+
+</html>

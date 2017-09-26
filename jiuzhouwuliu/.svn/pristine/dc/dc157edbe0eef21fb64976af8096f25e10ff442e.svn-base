@@ -1,0 +1,165 @@
+package com.thinkgem.jeesite.mobile.collection.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.AgentOrderMapper;
+import com.thinkgem.jeesite.common.dao.DriveOrderMapper;
+import com.thinkgem.jeesite.common.dao.GoodsownerOrderMapper;
+import com.thinkgem.jeesite.common.dao.UsersCollectMapper;
+import com.thinkgem.jeesite.common.entity.UsersCollect;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.mobile.utils.PageParam;
+
+/** 
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月4日 上午10:49:22 
+ * 类说明: 
+ */
+@Service
+@Transactional
+public class MobileUsersCollectService {
+	@Autowired
+	private UsersCollectMapper usersCollectMapper;
+	@Autowired
+	private GoodsownerOrderMapper goodsownerOrderMapper;
+	@Autowired
+	private DriveOrderMapper driveOrderMapper;
+	@Autowired
+	private AgentOrderMapper agentOrderMapper;
+	
+	/**
+	 * 我的收藏列表
+	 * 崔亚光
+	 * 2017-09-04
+	 * @return
+	 */
+	public AjaxBeanUtil getList(String pageNo,String userid) {
+		
+		try{
+			int currentPage = Integer.parseInt(pageNo)*PageParam.DEFAULT_PAGESIZE;
+			int pageSize = PageParam.DEFAULT_PAGESIZE;
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			paramMap.put("userid", userid);
+			paramMap.put("currentPage", currentPage);
+			paramMap.put("pageSize", pageSize);
+		List<UsersCollect> list = usersCollectMapper.getList(paramMap);
+		if(list.size()==0){
+			return new AjaxBeanUtil("暂无数据", false);
+		}else{
+		for(UsersCollect u:list){
+			u.setCount(0);
+			if(u.getUserSort().equals("0")){//货主交易数
+				u.setCount(goodsownerOrderMapper.findCount(u.getUserid()));
+			}
+			if(u.getUserSort().equals("1")){//车主交易数
+				u.setCount(driveOrderMapper.findCountByDriverId(u.getUserid()));
+			}
+			if(u.getUserSort().equals("2")){//经纪人交易数
+				u.setCount(agentOrderMapper.findCount(u.getUserid()));
+			}
+			u.setIsCollect("0");
+		}
+			return new AjaxBeanUtil("查询成功", true, list);
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+	}
+	/**
+	 * 根据用户id查询收藏
+	 * 崔亚光
+	 * 2017-09-15
+	 * @param collectUserid
+	 * @return
+	 */
+	public AjaxBeanUtil getUserCollect(String userid,String collectUserid){
+		try{
+			UsersCollect user=usersCollectMapper.getUserCollect(userid,collectUserid);
+			if(user==null){
+				return new AjaxBeanUtil("未查到相关数据", false);
+			}else{
+				user.setCount(0);
+				if(user.getUserSort().equals("0")){//货主交易数
+					user.setCount(goodsownerOrderMapper.findCount(user.getUserid()));
+				}
+				if(user.getUserSort().equals("1")){//车主交易数
+					user.setCount(driveOrderMapper.findCountByDriverId(user.getUserid()));
+				}
+				if(user.getUserSort().equals("2")){//经纪人交易数
+					user.setCount(agentOrderMapper.findCount(user.getUserid()));
+				}
+				user.setIsCollect("0");
+				return new AjaxBeanUtil("查询成功", true,user);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+	}
+	/**
+	 * 添加收藏
+	 * 崔亚光
+	 * 2017-09-14
+	 */
+	public AjaxBeanUtil addCollect(UsersCollect record) {
+		try{
+		if(record.getIsCollect().equals("0")){
+		record.preInsert();
+		record.setCreateBy(record.getUserid());
+		record.setUpdateBy(record.getUserid());
+		usersCollectMapper.insert(record);
+		return new AjaxBeanUtil("收藏成功", true);
+		}else{
+			usersCollectMapper.deleteByUserId(record.getUserid(),record.getCollectUserid());
+			return new AjaxBeanUtil("取消收藏成功", true);
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+	}
+	/**
+	 * 添加收藏列表
+	 * 崔亚光
+	 * 2017-09-14
+	 */
+	public AjaxBeanUtil addCollectList(String pageNo, String userid,String areaCode) {
+		try{
+			int currentPage = Integer.parseInt(pageNo)*PageParam.DEFAULT_PAGESIZE;
+			int pageSize = PageParam.DEFAULT_PAGESIZE;
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			paramMap.put("userid", userid);
+			paramMap.put("currentPage", currentPage);
+			paramMap.put("pageSize", pageSize);
+			paramMap.put("areaCode",areaCode);
+		List<UsersCollect> list = usersCollectMapper.addCollectList(paramMap);
+		if(list.size()==0){
+			return new AjaxBeanUtil("暂无数据", false);
+		}else{
+		for(UsersCollect u:list){
+			u.setCount(0);
+			if(u.getUserSort().equals("0")){//货主交易数
+				u.setCount(goodsownerOrderMapper.findCount(u.getUserid()));
+			}
+			if(u.getUserSort().equals("1")){//车主交易数
+				u.setCount(driveOrderMapper.findCountByDriverId(u.getUserid()));
+			}
+			if(u.getUserSort().equals("2")){//经纪人交易数
+				u.setCount(agentOrderMapper.findCount(u.getUserid()));
+			}
+		}
+			return new AjaxBeanUtil("查询成功", true, list);
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+	}
+}

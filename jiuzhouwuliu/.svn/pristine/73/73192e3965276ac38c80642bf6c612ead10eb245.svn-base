@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Hello MUI</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../css/mui.css">
+	<link rel="stylesheet" type="text/css" href="../css/style.css" />
+	<style>
+		.mui-bar~.mui-content .mui-fullscreen {
+			top: 44px;
+			height: auto;
+		}
+		.mui-pull-top-tips.mui-transitioning {
+			-webkit-transition-duration: 200ms;
+			transition-duration: 200ms;
+		}
+		.mui-pull-bottom-tips {
+			text-align: center;
+			background-color: #efeff4;
+			font-size: 15px;
+			line-height: 40px;
+			color: #777;
+		}
+		.mui-pull-top-canvas {
+			overflow: hidden;
+			background-color: #fafafa;
+			border-radius: 40px;
+			box-shadow: 0 4px 10px #bbb;
+			width: 40px;
+			height: 40px;
+			margin: 0 auto;
+		}
+		.mui-pull-top-canvas canvas {
+			width: 40px;
+		}
+		.mui-table-view {
+			background: transparent;
+			margin-top: 10px;
+		}
+		.mui-table-view-cell.mui-active {
+			background-color: transparent;
+		}
+		.mui-table-view-cell {
+			padding: 10px;
+			margin-top: 10px;
+			background: #fff;
+		}
+		p {
+			line-height: 28px;
+		}
+		.leibie {
+			font-size: 17px;
+			color: #000;
+		}
+		.weijj {
+			font-size: 14px;
+			color: #1dacf9;
+		}
+		.shenhez {
+			font-size: 13px;
+			color: #ff3600;
+		}
+		.date {
+			font-size: 15px;
+			color: #666;
+		}
+		.detail {
+			width: 66%;
+			font-size: 15px;
+			color: #666;
+		}
+		.list_bg {
+			background-color: #fff;
+		}
+		.list_d {
+			line-height: 33px;
+			padding: 10px;
+			display: block;
+			overflow: hidden;
+		}
+		.money {
+			color: #666;
+			font-size: 16px;
+		}
+		.ord-btn {
+			padding: 6px 8px;
+			font-size: 14px;
+			margin: 0 5px;
+			border: 1px solid #1dacf9;
+			border-radius: 6px;
+			color: #fff;
+			background-color: #1dacf9;
+		}
+		.gray-btn {
+			padding: 6px 9px;
+			font-size: 14px;
+			border: 1px solid #bbb;
+			border-radius: 6px;
+			color: #333;
+			margin-right: 10px;
+		}
+		.y_tip {
+			font-size: 14px;
+			margin-left: 10px;
+			padding: 3px 6px;
+			border: 1px solid #ff7800;
+			border-radius: 6px;
+			color: #ff7800;
+			text-align: center;
+		}
+		.mui-popup-text span {
+			display: block;
+			line-height: 32px;
+		}
+		.mui-popup.mui-popup-in {
+			display: none;
+		}
+		.mui-popup-backdrop.mui-active {
+			display: none;
+		}
+		.red {
+			font-size: 14px;
+			color: #ff0600;
+		}
+		.green {
+			font-size: 14px;
+		}
+		.yellow {
+			font-size: 14px;
+		}
+		.gray {
+			font-size: 14px;
+		}
+		.orange {
+			color: #ff7800;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">订单</h1>
+	</header>
+	<div class="mui-content">
+		<div id="slider" class="mui-slider mui-fullscreen">
+			<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#item1mobile">
+					当前订单
+				</a>
+				<a class="mui-control-item" href="#item2mobile">
+					历史订单
+				</a>
+				<a class="mui-control-item" href="#item3mobile">
+					全部订单
+				</a>
+			</div>
+			<div class="mui-slider-group">
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div id="scroll1" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view shopping">
+								<li v-for="(item,index) in curOrders" class="list_bg">
+									<div class="mui-table-view-cell mui-media">
+										<img style="height: 90px;width: 90px;" class="mui-media-object mui-pull-left" v-bind:src="ServerHost+item.goodsImg1">
+										<div class="mui-media-body mui-ellipsis">
+											<p>
+												<span class="leibie">{{item.goodsTypeStr}}
+													<label v-if="item.jingjiaOrWeituo == 1" class="y_tip">委托单</label>
+												</span>
+												<span class="red mui-pull-right">{{item.goodCurrStatusStr}}</span>
+											</p>
+											<p class="mui-ellipsis">
+												<span class="mui-pull-left mui-ellipsis detail">{{item.goodsNum + item.goodsUnit + '/' + item.needTruckTypeStr}}</span>
+											</p>
+											<p>
+												<span class="money mui-pull-left">￥{{item.dealMoney}}</span>
+											</p>
+										</div>
+									</div>
+									<div class="list_d"> 
+										<label class="mui-ellipsis date">{{item.zcYmd}} 出发</label>
+										<button v-if="item.goodCurrStatus == 3" @tap="reminderToLoad(item.goodsownerOrderId)" type="button" class="ord-btn mui-pull-right">提醒装载</button>
+										<button v-if="item.goodCurrStatus == 11" @tap="confirmDelivery(item.goodsownerOrderId,index)" type="button" class="ord-btn mui-pull-right">确认送达</button>
+										<button v-if="item.goodCurrStatus == 11" @tap="complainOrder(item)" type="button" class="ord-btn mui-pull-right">订单申述</button>
+										<button @tap="checkOrder(item.goodsownerOrderId,item.jingjiaOrWeituo)" type="button" class="ord-btn mui-pull-right">查看订单</button>
+									</div> 
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item2mobile" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll"> 
+							<ul class="mui-table-view">
+								<li v-for="(item,index) in preOrders" class="list_bg">
+									<div class="mui-table-view-cell mui-media">
+										<img style="height: 90px;width: 90px;" class="mui-media-object mui-pull-left" v-bind:src="ServerHost+item.goodsImg1">
+										<div class="mui-media-body mui-ellipsis">
+											<p>
+												<span class="leibie">{{item.goodsTypeStr}}
+													<label v-if="item.jingjiaOrWeituo == 1" class="y_tip">委托单</label>
+												</span>
+												<span class="red mui-pull-right">{{item.goodCurrStatusStr}}</span>
+											</p>
+											<p class="mui-ellipsis">
+												<span class="mui-pull-left mui-ellipsis detail">{{item.goodsNum + item.goodsUnit + '/' + item.needTruckTypeStr}}</span>
+											</p>
+											<p>
+												<span class="money mui-pull-left">￥{{item.dealMoney}}</span>
+											</p>
+										</div>
+									</div>
+									<div class="list_d">
+										<label class="mui-ellipsis date">{{item.zcYmd}} 出发</label>
+										<!--<button @tap="getReturnReceipt(item.id)" type="button" class="ord-btn mui-pull-right">查看回执</button>-->
+										<button @tap="complainOrder(item)" type="button" class="ord-btn mui-pull-right">订单申述</button>
+										<!--<button @tap="checkOrder(item.goodsownerOrderId,item.jingjiaOrWeituo)" type="button" class="ord-btn mui-pull-right">查看订单</button>-->
+										<button v-if="item.goodCurrStatus == 5 && item.isComment == 0" @tap="evaluation(item)" type="button" class="gray-btn mui-pull-right tz">立即评价</button>
+									</div>
+									<!--弹框--> 
+									<div v-if="isShowReturn" class="mui-popup mui-popup-in">
+										<div class="mui-popup-inner">
+											<div class="mui-popup-title">回执单</div>
+											<div class="mui-popup-text">
+												<span>快递单号    {{returnReceipt.express_no}}</span>
+												<span><img v-bind:src="ServerHost+returnReceipt.back_img1"></span>
+												<span>收货人    {{returnReceipt.recive_goods_name}}</span>
+												<span>车主   {{returnReceipt.send_drive_name}}</span>
+											</div>
+										</div>
+										<div class="mui-popup-buttons">
+											<span @tap="closeReturn()" class="mui-popup-button mui-popup-button-bold">确定</span>
+										</div>
+									</div>
+									<div class="mui-popup-backdrop mui-active"></div>
+									<div id="info" style="display: none;"></div>
+									<!--end-->
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div id="item3mobile" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<li v-for="(item,index) in allOrders" class="list_bg">
+									<div class="mui-table-view-cell mui-media">
+										<img style="height: 90px;width: 90px;" class="mui-media-object mui-pull-left" v-bind:src="ServerHost+item.goodsImg1">
+										<div class="mui-media-body mui-ellipsis">
+											<p>
+												<span class="leibie">{{item.goodsTypeStr}}
+													<label v-if="item.jingjiaOrWeituo == 1" class="y_tip">委托单</label>
+												</span>
+												<span class="red mui-pull-right">{{item.goodCurrStatusStr}}</span>
+											</p>
+											<p class="mui-ellipsis">
+												<span class="mui-pull-left mui-ellipsis detail">{{item.goodsNum + item.goodsUnit + '/' + item.needTruckTypeStr}}</span>
+											</p>
+											<p>
+												<span class="money mui-pull-left">￥{{item.dealMoney}}</span>
+											</p>
+										</div>
+									</div>
+									<div class="list_d">
+										<label class="mui-ellipsis date">{{item.zcYmd}} 出发</label>
+										<!--<button v-if="item.goodCurrStatus == 11" @tap="complainOrder(item)" type="button" class="ord-btn mui-pull-right">订单申述</button>-->
+										<button  @tap="checkOrder(item.goodsownerOrderId,item.jingjiaOrWeituo)" type="button" class="ord-btn mui-pull-right">查看订单</button>
+										<button v-if="item.goodCurrStatus == 5 && item.isComment == 0" @tap="evaluation(item)" type="button" class="gray-btn mui-pull-right tz">立即评价</button>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.pullToRefresh.js"></script>
+	<script src="../js/mui.pullToRefresh.material.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script>
+		var orderVM = new Vue({
+			el:'.mui-content',
+			data:{
+				userInfo:getUser().userInfo,
+				curOrders:{},	//当前订单数据
+				preOrders:{},	//历史订单数据
+				allOrders:{},	//全部订单数据
+				curPageNum:0,	//当前订单页数
+				prePageNum:0,	//历史订单页数
+				allPageNum:0,	//全部订单页数
+				curMoreData:false,	//当前订单数据更多数据标识
+				preMoreData:false,	//历史订单数据更多数据标识
+				allMoreData:false,	//全部订单数据更多数据标识
+				detailPage_0:null,	//非委托单详情页对象
+				detailPage_1:null,	//委托单详情页对象
+				returnReceipt:{},	//回执单信息
+				isShowReturn:false	//是否显示回执单
+			},
+			mounted:function(){
+				var self = this;
+				mui.init({
+					preloadPages:[{
+				      	url:'ck-order.html',
+				      	id:'ck-order.html',
+				   	},{
+				   		url:'ck-order-d.html',
+				   		id:'ck-order-d.html',
+				   	}]
+				});
+				mui.plusReady(function(){
+					self.detailPage_0 = plus.webview.getWebviewById('ck-order.html');
+					self.detailPage_1 = plus.webview.getWebviewById('ck-order-d.html');
+				})
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				mui('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				mui.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							up: {
+								callback: function() {
+									var curEle = this; 
+									setTimeout(function() { 
+										if(index == '0'){
+											self.getOrderList('0',self.curPageNum);
+											curEle.endPullUpToRefresh(self.curMoreData);
+										}else if(index == '1'){	//历史订单
+											self.getOrderList('1',self.prePageNum);
+											curEle.endPullUpToRefresh(self.preMoreData);
+										}else{
+											self.getOrderList('2',self.allPageNum);
+											curEle.endPullUpToRefresh(self.allMoreData);
+										}
+									}, 1000);
+								}
+							}
+						});
+					});
+				});
+				self.getOrderList('0',self.curPageNum);
+				self.getOrderList('1',self.prePageNum);
+				self.getOrderList('2',self.allPageNum);
+			}, 
+			methods:{
+				/**
+				 * 获取订单
+				 * @param {Object} type
+				 * @param {Object} currentPage
+				 */
+				getOrderList:function(orderType,currentPage){
+					var self = this;
+					var param = {
+						userId:self.userInfo.id,
+						type:orderType,//（当前订单--0，历史订单--1，全部订单--2）
+						currentPage:currentPage
+					} 
+					AjaxSend("mobileShipperOrder/shipperOrderList",param,"post",function(result){
+						if(result.status && result.data.list != null){
+							if(param.type == '0'){
+								self.curOrders = result.data.list;
+							}else if(param.type == '1'){
+								self.preOrders = result.data.list;
+							}else{
+								self.allOrders = result.data.list;
+							}
+						}
+						//设置是否有更多数据
+						if(result.data.list.length < result.data.pageSize){
+							if(param.type == '0'){
+								self.curMoreData = true;
+							}else if(param.type == '1'){
+								self.preMoreData = true;
+							}else{
+								self.allMoreData = true;
+							}
+						}else{ 
+							if(param.type == '0'){
+								self.curPageNum++;
+							}else if(param.type == '1'){
+								self.prePageNum++;
+							}else{
+								self.allPageNum++;
+							}
+						}
+					})
+				},
+				/**
+				 * 提醒装载
+				 * @param {Object} orderId 订单id
+				 */
+				reminderToLoad:function(orderId){
+					var self = this;
+					var param  = {
+						orderId:orderId,
+						userId:self.userInfo.id
+					}
+					AjaxSend("mobileShipperOrder/reminderToLoad",param,"post",function(result){
+						if(result.status){
+							mui.toast(result.msg);
+							self.curOrders
+						}
+					})
+				},
+				/**
+				 * 查看订单
+				 * @param {Object} orderId 订单id
+				 * @param {Object} type	是否为委托单(0--不是，1--是)
+				 */
+				checkOrder:function(orderId,type){
+					var self = this;
+					if(type == '0'){
+						//非委托单
+						if(self.detailPage_0 == null){
+							self.detailPage = plus.webview.getWebviewById('ck-order.html');
+						}
+						mui.fire(self.detailPage_0,'getDetailData',{
+							orderId:orderId,
+							type:type
+						});
+						mui.openWindow({
+							url:'ck-order.html',
+							id:'ck-order.html'
+						})
+					}else{
+						//委托单
+						if(self.detailPage_1 == null){
+							self.detailPage_1 = plus.webview.getWebviewById('ck-order-d.html');
+						}
+						mui.fire(self.detailPage_1,'getDetailData',{
+							orderId:orderId,
+							type:type
+						});
+						mui.openWindow({
+							url:'ck-order-d.html',
+							id:'ck-order-d.html'
+						})
+					}
+					
+				},
+				/**
+				 * 确认送达
+				 * @param {Object} orderId 订单id
+				 */
+				confirmDelivery:function(orderId,index){
+					var self = this;
+					var param = {
+						goodsownerOrderId:orderId,
+						userId:self.userInfo.id
+					}
+					AjaxSend("mobileShipperOrder/confirmDelivery",param,"post",function(result){
+						if(result.status){
+							mui.toast(result.msg);
+							self.getOrderList('0',0);
+							self.getOrderList('1',0);
+							self.getOrderList('2',0);
+						}
+					})
+				},
+				/**
+				 * 评价
+				 * @param {Object} orderId 订单id
+				 */
+				evaluation:function(order){
+					mui.openWindow({
+						url:'evaluation.html',
+						id:'evaluation.html',
+						extras:{
+							order:order
+						}
+					})
+				},
+				/**
+				 * 订单申述
+				 * @param {Object} orderId 订单id
+				 */
+				complainOrder:function(order){
+					mui.openWindow({
+						url:'complaint.html',
+						id:'complaint.html',
+						extras:{
+							order:order
+						}
+					})
+				},
+				/**
+				 * 查看回执单
+				 * @param {Object} goodsId 货物id
+				 */
+				getReturnReceipt:function(goodsId){
+					var self = this;
+					AjaxSend("mobileShipperOrder/getReturnReceiptByGoodsId",{goodsId:goodsId},"post",function(result){
+						if(result.status){
+							if(!result.data.send_drive_name){
+								mui.toast("暂无回执单");
+							}else{
+								self.returnReceipt = result.data
+								self.isShowReturn = true;
+							}
+						}else{
+							mui.toast(result.msg);
+						}
+					})
+				},
+				/**
+				 * 关闭回执单
+				 */
+				closeReturn:function(){
+					var self = this;
+					self.isShowReturn = false;
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.OrderRemarkMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.OrderRemark" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="star_count" property="starCount" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.OrderRemark" >
+    insert into order_remark (id, order_id, star_count, 
+      content, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{starCount,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.OrderRemark" >
+    insert into order_remark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="starCount != null" >
+        star_count,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="starCount != null" >
+        #{starCount,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 根据经纪人ID查询经纪人评价 -->
+  <select id="findEvaluationList" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		t.*, t6.username AS username,
+		t6.head_img AS headImg
+	FROM
+		order_remark t,
+		agents t1,
+		agent_order t2,
+		goods t3,
+		goodsowner_order t4,
+		goodsowners t5,
+		users t6
+	WHERE
+		t1.id = #{agentId,jdbcType=VARCHAR} 
+	AND t1.id = t2.agents_id
+	AND t2.goods_id = t3.id
+	AND t2.id = t.order_id
+	AND t3.id = t4.goods_id
+	AND t4.goodsowners_id = t5.id
+	AND t5.user_id = t6.id
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	AND t2.del_flag = "0"
+	AND t3.del_flag = "0"
+	AND t4.del_flag = "0"
+	AND t5.del_flag = "0"
+	AND t6.del_flag = "0"
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+  <!-- 根据经纪人ID查询该经纪人评价总数量 文帅 -->
+   <select id="findEvaluationCount" resultType="int" parameterType="map">
+  	SELECT
+		COUNT(*)
+	FROM
+		order_remark t,
+		agents t1,
+		agent_order t2,
+		goods t3,
+		goodsowner_order t4,
+		goodsowners t5,
+		users t6
+	WHERE
+		t1.id = #{agentId,jdbcType=VARCHAR} 
+	AND t1.id = t2.agents_id
+	AND t2.goods_id = t3.id
+	AND t2.id = t.order_id
+	AND t3.id = t4.goods_id
+	AND t4.goodsowners_id = t5.id
+	AND t5.user_id = t6.id
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	AND t2.del_flag = "0"
+	AND t3.del_flag = "0"
+	AND t4.del_flag = "0"
+	AND t5.del_flag = "0"
+	AND t6.del_flag = "0"
+  </select>
+  <!-- 根据车主ID查询车主评价 -->
+  <select id="findDriverEvaluationList" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		t.*, t6.username AS username,
+		t6.head_img AS headImg
+	FROM
+		order_remark t,
+		drivers t1,
+		drive_order t2,
+		goods t3,
+		goodsowner_order t4,
+		goodsowners t5,
+		users t6
+	WHERE
+		t1.id = #{driversId,jdbcType=VARCHAR} 
+	AND t1.id = t2.drivers_id
+	AND t2.goods_id = t3.id
+	AND t2.id = t.order_id
+	AND t3.id = t4.goods_id
+	AND t4.goodsowners_id = t5.id
+	AND t5.user_id = t6.id
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	AND t2.del_flag = "0"
+	AND t3.del_flag = "0"
+	AND t4.del_flag = "0"
+	AND t5.del_flag = "0"
+	AND t6.del_flag = "0"
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+  
+  <!-- 根据订单获取评价信息   张彦学 -->
+  <select id="findOrderRemarkByGoodsownerOrder" parameterType="string" resultMap="BaseResultMap">
+  		SELECT * FROM order_remark WHERE order_id = #{id}
+  </select>
+</mapper>

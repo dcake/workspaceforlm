@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.GoodsownerDealMapper" >
+    <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.GoodsownerDeal" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goodsowner_order_id" property="goodsownerOrderId" jdbcType="VARCHAR" />
+    <result column="is_bill" property="isBill" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="taxpayer_no" property="taxpayerNo" jdbcType="VARCHAR" />
+    <result column="adress" property="adress" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_cardno" property="bankCardno" jdbcType="VARCHAR" />
+    <result column="bill_to_address" property="billToAddress" jdbcType="VARCHAR" />
+    <result column="pay_style" property="payStyle" jdbcType="VARCHAR" />
+    <result column="deal_money" property="dealMoney" jdbcType="DOUBLE" />
+    <result column="is_deal_ok" property="isDealOk" jdbcType="VARCHAR" />
+    <result column="carry_fee" property="carryFee" jdbcType="DOUBLE" />
+    <result column="tax_fee" property="taxFee" jdbcType="DOUBLE" />
+    <result column="pay_money" property="payMoney" jdbcType="DOUBLE" />
+    <result column="is_settle_accounts" property="isSettleAccounts" jdbcType="VARCHAR" />
+    <result column="settle_accounts_date" property="settleAccountsDate" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goodsowner_order_id, is_bill, company_name, taxpayer_no, adress, tel, bank_name, 
+    bank_cardno, bill_to_address, pay_style, deal_money, is_deal_ok, carry_fee, tax_fee, 
+    pay_money, is_settle_accounts, settle_accounts_date, del_flag, remarks, update_date, 
+    update_by, create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsowner_deal
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodsowner_deal
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerDeal" >
+    insert into goodsowner_deal (id, goodsowner_order_id, is_bill, 
+      company_name, taxpayer_no, adress, 
+      tel, bank_name, bank_cardno, 
+      bill_to_address, pay_style, deal_money, 
+      is_deal_ok, carry_fee, tax_fee, 
+      pay_money, is_settle_accounts, settle_accounts_date, 
+      del_flag, remarks, update_date, 
+      update_by, create_date, create_by
+      )
+    values (#{id,jdbcType=VARCHAR}, #{goodsownerOrderId,jdbcType=VARCHAR}, #{isBill,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{taxpayerNo,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{bankCardno,jdbcType=VARCHAR}, 
+      #{billToAddress,jdbcType=VARCHAR}, #{payStyle,jdbcType=VARCHAR}, #{dealMoney,jdbcType=DOUBLE}, 
+      #{isDealOk,jdbcType=VARCHAR}, #{carryFee,jdbcType=DOUBLE}, #{taxFee,jdbcType=DOUBLE}, 
+      #{payMoney,jdbcType=DOUBLE}, #{isSettleAccounts,jdbcType=VARCHAR}, #{settleAccountsDate,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerDeal" >
+    insert into goodsowner_deal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsownerOrderId != null" >
+        goodsowner_order_id,
+      </if>
+      <if test="isBill != null" >
+        is_bill,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="taxpayerNo != null" >
+        taxpayer_no,
+      </if>
+      <if test="adress != null" >
+        adress,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankCardno != null" >
+        bank_cardno,
+      </if>
+      <if test="billToAddress != null" >
+        bill_to_address,
+      </if>
+      <if test="payStyle != null" >
+        pay_style,
+      </if>
+      <if test="dealMoney != null" >
+        deal_money,
+      </if>
+      <if test="isDealOk != null" >
+        is_deal_ok,
+      </if>
+      <if test="carryFee != null" >
+        carry_fee,
+      </if>
+      <if test="taxFee != null" >
+        tax_fee,
+      </if>
+      <if test="payMoney != null" >
+        pay_money,
+      </if>
+      <if test="isSettleAccounts != null" >
+        is_settle_accounts,
+      </if>
+      <if test="settleAccountsDate != null" >
+        settle_accounts_date,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsownerOrderId != null" >
+        #{goodsownerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="isBill != null" >
+        #{isBill,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="taxpayerNo != null" >
+        #{taxpayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardno != null" >
+        #{bankCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="billToAddress != null" >
+        #{billToAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="payStyle != null" >
+        #{payStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="dealMoney != null" >
+        #{dealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isDealOk != null" >
+        #{isDealOk,jdbcType=VARCHAR},
+      </if>
+      <if test="carryFee != null" >
+        #{carryFee,jdbcType=DOUBLE},
+      </if>
+      <if test="taxFee != null" >
+        #{taxFee,jdbcType=DOUBLE},
+      </if>
+      <if test="payMoney != null" >
+        #{payMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isSettleAccounts != null" >
+        #{isSettleAccounts,jdbcType=VARCHAR},
+      </if>
+      <if test="settleAccountsDate != null" >
+        #{settleAccountsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerDeal" >
+    update goodsowner_deal
+    <set >
+      <if test="goodsownerOrderId != null" >
+        goodsowner_order_id = #{goodsownerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="isBill != null" >
+        is_bill = #{isBill,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="taxpayerNo != null" >
+        taxpayer_no = #{taxpayerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null" >
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardno != null" >
+        bank_cardno = #{bankCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="billToAddress != null" >
+        bill_to_address = #{billToAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="payStyle != null" >
+        pay_style = #{payStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="dealMoney != null" >
+        deal_money = #{dealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isDealOk != null" >
+        is_deal_ok = #{isDealOk,jdbcType=VARCHAR},
+      </if>
+      <if test="carryFee != null" >
+        carry_fee = #{carryFee,jdbcType=DOUBLE},
+      </if>
+      <if test="taxFee != null" >
+        tax_fee = #{taxFee,jdbcType=DOUBLE},
+      </if>
+      <if test="payMoney != null" >
+        pay_money = #{payMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="isSettleAccounts != null" >
+        is_settle_accounts = #{isSettleAccounts,jdbcType=VARCHAR},
+      </if>
+      <if test="settleAccountsDate != null" >
+        settle_accounts_date = #{settleAccountsDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerDeal" >
+    update goodsowner_deal
+    set goodsowner_order_id = #{goodsownerOrderId,jdbcType=VARCHAR},
+      is_bill = #{isBill,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      taxpayer_no = #{taxpayerNo,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_cardno = #{bankCardno,jdbcType=VARCHAR},
+      bill_to_address = #{billToAddress,jdbcType=VARCHAR},
+      pay_style = #{payStyle,jdbcType=VARCHAR},
+      deal_money = #{dealMoney,jdbcType=DOUBLE},
+      is_deal_ok = #{isDealOk,jdbcType=VARCHAR},
+      carry_fee = #{carryFee,jdbcType=DOUBLE},
+      tax_fee = #{taxFee,jdbcType=DOUBLE},
+      pay_money = #{payMoney,jdbcType=DOUBLE},
+      is_settle_accounts = #{isSettleAccounts,jdbcType=VARCHAR},
+      settle_accounts_date = #{settleAccountsDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  	<!-- 批量更新结算 文帅 -->
+  	<update id="plUpdateById" parameterType="java.util.List" >
+    	<foreach collection="list" item="list" index="index" open="" close="" separator=";">  
+                update goodsowner_deal  
+                <set>  
+					is_settle_accounts = "1",
+					update_date = #{list.updateDate,jdbcType=VARCHAR},
+					update_by= &apos;${list.updateBy}&apos;            	
+                </set>  
+                where id = &apos;${list.id}&apos;  
+         </foreach> 
+  	</update>
+</mapper>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.mui-badge {
+				position: relative;
+				margin-left: -10px;
+				margin-top: 8px;
+				z-index: 9999;
+				background: #f40909;
+				color: #fff;
+				font-size: 11px;
+				padding: 1px 4px;
+			}
+			
+			.mui-table-view {
+				background: transparent;
+			}
+			
+			.mui-table-view-cell {
+				padding: 10px;
+				margin-top: 10px;
+				background: #fff;
+			}
+			
+			img {
+				height: 80px;
+				border: 1px solid #F2EFEF;
+			}
+			
+			p {
+				line-height: 28px;
+			}
+			
+			.leibie {
+				font-size: 17px;
+				color: #000;
+			}
+			
+			.weijj {
+				font-size: 13px;
+				color: #01a501;
+			}
+			
+			.shenhez {
+				font-size: 13px;
+				color: #ff3600;
+			}
+			
+			.date {
+				font-size: 15px;
+				color: #1dacf9;
+			}
+			
+			.detail {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-btn {
+				width: 35%;
+				padding: 6px 9px;
+			}
+			
+			.bidd-jj {
+				padding-bottom: 10px;
+			}
+			
+			p {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.fbhy {
+				color: #fff;
+				line-height: 44px;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="deliver_sub" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div v-for="(val,index) in deliverData" class="bidd">
+					<div @click="lookOrderDetaile(val.id)" class="save-cg">
+						<img :src="val.goodsImg1" />
+						<div class="save-wz">
+							<h2>
+							<span v-if="val.goodCurrStatus=='0'" class="red">未竞价</span>
+							<span v-if="val.goodCurrStatus=='2'" style="color: #3f9e00;">已取消</span>
+							<span v-if="val.goodCurrStatus=='6'" class="red">审核中</span>
+							<span v-if="val.goodCurrStatus=='7'" >已驳回</span>
+							<span v-if="val.goodCurrStatus=='10'" style="color: #3f9e00;">已拒绝</span>
+							{{val.goodsType}}
+						</h2>
+							<p>{{val.createDate}} 出发</p>
+							<p>{{val.goodsNum}}{{val.goodsUnit}}/{{val.needTruckType}}</p>
+						</div>
+					</div>
+					<div class="bidd-jj">
+						<p class="mui-pull-right">
+							<button v-if="val.goodCurrStatus=='0'||val.goodCurrStatus=='2'" class="mui-btn-blue" @click="publicBidding(val.goodsId,val.id,val.goodsType,val.goodsNum,val.goodsUnit,val.needTruckType,val.zcYmd)">发布竞价</button>
+							<button v-if="val.goodCurrStatus=='6'" class="mui-btn-blue">审核中</button>
+							<button v-if="val.goodCurrStatus=='7'" class="mui-btn-blue" @click="updataOrder">修改订单</button>
+							<button v-if="val.goodCurrStatus=='10'" class="mui-btn-blue" @click="againAuthorize(val.goodsId,val.id)">重新委托</button>
+						</p>
+						<span @click="deleteOrder(val.id,index)" class="mui-icon iconfont icon-shanchu gray" style="line-height: 36px; font-size: 18px;"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		var deliver = new Vue({
+			el: '#deliver_sub',
+			data: {
+				userInfo: getUser().userInfo,
+				deliverData: [],
+				currentPage: 0,
+				pageSize: 10,
+				flag: false
+			},
+			mounted: function() {
+				mui.init({
+					pullRefresh: {
+						container: '#deliver_sub',
+						up: {
+							contentinit: ' ',
+							contentrefresh: '正在加载...',
+							contentnomore: '没有更多数据了 ',
+							callback: this.pullupRefresh
+						}
+					}
+				});
+				mui.plusReady(function() {
+					window.addEventListener('publicBidding', function(event) {
+						deliver.deliverData = [];
+						//重置上拉加载
+						deliver.getDeliverList("0");
+						mui('#deliver_sub').pullRefresh().refresh(true);
+					});
+					deliver.getDeliverList(deliver.currentPage);
+				})
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 获取发货列表
+				 */
+				getDeliverList: function(currentPageParam) {
+					var param = {
+						currentPage: currentPageParam.toString(),
+						userId: deliver.userInfo.id
+					}
+					printlog("获取发货列表参数==" + JSON.stringify(param))
+					AjaxSend('mobileShip/findShipList', param, 'POST', function(result) {
+						printlog("发货列表结果==" + JSON.stringify(result))
+						if(result.status) {
+							if(result.data.length < deliver.pageSize) {
+								deliver.flag = true;
+							}
+							//截取日期
+							for(var i = 0; i < result.data.length; i++) {
+								result.data[i].createDate = result.data[i].createDate.substring(0, 10);
+								result.data[i].goodsImg1 = ServerHost + result.data[i].goodsImg1;
+							}
+							deliver.deliverData = deliver.deliverData.concat(result.data)
+						} else {
+							deliver.flag = true;
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 发布竞价
+				 */
+				publicBidding: function(goodsId, goodsOrderId, goodsType, goodsNumber, unit, carType, zcDate) {
+					mui.openWindow({
+						url: "save-success.html",
+						id: "save-success.html",
+						extras: {
+							newsId: {
+								goodsId: goodsId,
+								goodsOrderId: goodsOrderId,
+								goodsType: goodsType,
+								goodsNum: goodsNumber,
+								goodsUnit: unit,
+								needTruckType: carType,
+								zcYmd: zcDate
+							}
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 修改订单
+				 */
+				updataOrder: function() {
+					mui.openWindow({
+						url: "add-hw.html",
+						id: "add-hw.html",
+						extras: {
+							newsId: "updataOrder"
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 重新委托
+				 */
+				againAuthorize: function(goodsId, goodsOrderId) {
+					mui.openWindow({
+						url: "authorize-agent.html",
+						id: "authorize-agent.html",
+						extras: {
+							authorize: {
+								goodsId: goodsId,
+								goodsOrderId: goodsOrderId
+							}
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 查看订单详情
+				 */
+				lookOrderDetaile: function(orderId) {
+					mui.openWindow({
+						url: "order-details.html",
+						id: "order-details.html",
+						extras: {
+							newsId: orderId
+						}
+					})
+				},
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 删除订单
+				 */
+				deleteOrder: function(goodsOrderId, orderIndex) {
+					var param = {
+						goodsownerOrderId: goodsOrderId
+					}
+					printlog("删除订单参数==" + JSON.stringify(param));
+					AjaxSend('mobileShip/delGoodsownerOrder', param, 'POST', function(result) {
+						printlog("删除发货订单结果==" + JSON.stringify(result))
+						if(result.status) {
+							mui.toast('删除订单成功');
+							deliver.deliverData.splice(orderIndex, 1); //删除指定下标数据
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-09-06
+				 * 上拉加载
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						deliver.getDeliverList(++deliver.currentPage);
+						mui('#deliver_sub').pullRefresh().endPullupToRefresh(deliver.flag);
+					}, 1000);
+				}
+			}
+		})
+	</script>
+
+</html>

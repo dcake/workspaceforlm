@@ -1,0 +1,68 @@
+package com.thinkgem.jeesite.mobile.driver.service;
+
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.DriveLineMapper;
+import com.thinkgem.jeesite.common.entity.DriveLine;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+
+/** 
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月6日 下午5:39:32 
+ * 类说明: 线路service
+ */
+@Service
+@Transactional
+public class MobileDriverLineService {
+	@Autowired
+	private DriveLineMapper driveLineMapper;
+
+	/**
+	 * 线路service
+	 * 崔亚光
+	 * 2017-09-06
+	 * @return
+	 */
+	public AjaxBeanUtil getList() {
+		try{
+		List<DriveLine> list = driveLineMapper.getList();
+		return new AjaxBeanUtil("查询成功", true, list);
+		}catch (Exception e){
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+		
+	}
+
+	/**
+	 * 新增线路
+	 * 崔亚光
+	 * 2017-09-07
+	 */
+	public AjaxBeanUtil addLine(DriveLine record) {
+		record.preInsert();
+		driveLineMapper.insert(record);
+		return new AjaxBeanUtil("保存成功", true);
+	}
+	/**
+	 * 删除线路
+	 * 崔亚光
+	 * 2017-09-07
+	 */
+	public AjaxBeanUtil deleteLine(String id) {
+		
+		if(StringUtils.isNotBlank(id)){
+			driveLineMapper.deleteByPrimaryKey(id);
+			return new AjaxBeanUtil("删除成功", true);
+		}else {
+			return new AjaxBeanUtil("系统异常", false);
+		}
+		
+	}
+
+}

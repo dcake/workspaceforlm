@@ -1,0 +1,31 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import com.thinkgem.jeesite.common.entity.DriveLine;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+@MyBatisDao
+public interface DriveLineMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(DriveLine record);
+
+    int insertSelective(DriveLine record);
+
+    DriveLine selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(DriveLine record);
+
+    int updateByPrimaryKey(DriveLine record);
+    /**
+     * @description	根据车主ID查询历史路线
+     * @author 文帅
+     * @date 2017年8月26日 上午10:54:17
+     * @param paramMap
+     * @return
+     */
+    List<DriveLine> findDriveLineList(Map<String, Object> paramMap);
+
+	List<DriveLine> getList();//获取线路列表----崔亚光
+}

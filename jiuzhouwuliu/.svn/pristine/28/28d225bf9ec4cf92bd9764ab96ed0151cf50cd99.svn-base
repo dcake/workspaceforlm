@@ -1,0 +1,158 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import com.thinkgem.jeesite.common.entity.AgentDeal;
+import com.thinkgem.jeesite.common.entity.DriverLogisticsPosition;
+import com.thinkgem.jeesite.common.entity.Goods;
+import com.thinkgem.jeesite.common.entity.GoodsBilling;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+import com.thinkgem.jeesite.modules.users.entity.OrderAgentInfo;
+import com.thinkgem.jeesite.modules.users.entity.OrderDriverInfo;
+import com.thinkgem.jeesite.modules.users.entity.OrderGoodsownerInfo;
+import com.thinkgem.jeesite.modules.users.entity.OrderManager;
+
+@MyBatisDao
+public interface GoodsMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(Goods record);
+
+    int insertSelective(Goods record);
+
+    Goods selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(Goods record);
+
+    int updateByPrimaryKey(Goods record);
+    
+    /**
+     * 查询高估值货品审核列表
+     *   
+     * @author 张彦学
+     * 日期 2017年8月9日
+     * @param goods
+     * @return
+     */
+    List<Goods> selectHighGoods(Goods goods);
+    /**
+     * @description	：订单管理列表查询
+     * @author pangchengxiang
+     * @date 2017年8月11日 上午9:23:36
+     * @return List<OrderManage>
+     */
+    List<OrderManager> findOrderListForPage(OrderManager om);
+    
+    
+    /**
+     * 发布竞价审核列表数据
+     *   
+     * @author 张彦学
+     * 日期 2017年8月14日
+     * @param goods
+     * @return
+     */
+    List<Goods> selectBidAudit(Goods goods);
+    /**
+	 * @description	：根据物品id获取订单中的货主信息
+	 * @author pangchengxiang
+	 * @date 2017年8月15日 下午3:40:50
+	 * @return OrderUserInfo
+	 */
+    List<OrderGoodsownerInfo> selectGoodsownerInfoByGoodsidForOrder(Goods goods);
+    /**
+	 * @description	：获取订单中车主信息
+	 * @author pangchengxiang
+	 * @date 2017年8月16日 下午5:09:55
+	 * @return List<OrderDriverInfo>
+	 */
+	List<OrderDriverInfo> selectDriverInfoByGoodsidForOrder(Goods goods);
+
+	/**
+	 * @description	：获取订单中经纪人信息
+	 * @author pangchengxiang
+	 * @date 2017年8月16日 下午5:38:25
+	 * @return List<OrderAgentInfo>
+	 */
+	List<OrderAgentInfo> selectAgentInfoByGoodsidForOrder(Goods goods);
+
+	/**
+	 * @description	：根据货物对象查询开票信息
+	 * @author pangchengxiang
+	 * @date 2017年8月16日 下午6:19:37
+	 * @return List<GoodsBilling>
+	 */
+	List<GoodsBilling> selectBillingByGoods(Goods goods);
+	/**
+	 * @description	：根据订单id获取车主竞价信息
+	 * @author pangchengxiang
+	 * @date 2017年8月16日 下午6:19:37
+	 * @return List<OrderDriverInfo>
+	 */
+	List<OrderDriverInfo> selectDriverCompletePrice(String id);
+	/**
+	 * @description	：根据订单id获取经纪人竞价信息
+	 * @author pangchengxiang
+	 * @date 2017年8月16日 下午6:19:37
+	 * @return List<OrderAgentInfo>
+	 */
+	List<OrderAgentInfo> selectAgentCompletePrice(String id);
+	 
+	/**
+	 * @description	：根据车主订单id查询物流信息
+	 * @author pangchengxiang
+	 * @date 2017年8月18日 下午1:55:05
+	 * @return List<DriverLogisticsPositionMapper>
+	 */
+	List<DriverLogisticsPosition> selectDriverLogistics(String id);
+	/**
+	 * @description	：根据经济人订单id，获取经纪人交易信息
+	 * @author pangchengxiang
+	 * @date 2017年8月19日 上午9:28:46
+	 * @return List<DriverLogisticsPosition>
+	 */
+	List<AgentDeal> selectAgentDealByOrderId(String id);
+	/**
+	 * @description	根据用户ID查询货物列表
+	 * @author 文帅
+	 * @date 2017年8月22日 下午3:42:50
+	 * @param userId
+	 * @return
+	 */
+	List<Goods> findGoodsList(Map<String, Object> paramMap);
+	
+	/**
+	 * @description	根据用户ID查询竞价列表
+	 * @author 文帅
+	 * @date 2017年8月24日 下午3:25:13
+	 * @param paramMap
+	 * @return
+	 */
+	List<Goods> findBidList(Map<String, Object> paramMap);
+	/**
+	 * @description	根据订单号查询货物订单
+	 * @author 文帅
+	 * @date 2017年9月2日 上午11:17:24
+	 * @param orderNo
+	 * @return
+	 */
+	Goods findGoodsByOrderNo(String orderNo);
+	/**
+	 * @description	根据用户ID查询路线列表
+	 * @author 文帅
+	 * @date 2017年9月4日 下午3:56:20
+	 * @param paramMap
+	 * @return
+	 */
+	List<Goods> findLineList(Map<String, Object> paramMap);
+	
+	/**
+	 * @description	根据车主类型查询竞价列表
+	 * @author 文帅
+	 * @date 2017年9月7日 下午4:20:29
+	 * @param paramMap
+	 * @return
+	 */
+	List<Goods> findDriverBidList(Map<String, Object> paramMap);
+}

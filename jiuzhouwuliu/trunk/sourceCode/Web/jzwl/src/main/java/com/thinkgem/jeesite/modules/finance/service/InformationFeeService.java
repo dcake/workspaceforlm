@@ -1,0 +1,46 @@
+package com.thinkgem.jeesite.modules.finance.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.DriveOrderMapper;
+import com.thinkgem.jeesite.common.entity.DriveOrder;
+import com.thinkgem.jeesite.common.persistence.Page;
+/**
+ * @description	信息费管理
+ * @author 文帅
+ * @date 2017年8月9日 下午2:45:39
+ */
+@Service
+@Transactional
+public class InformationFeeService {
+	@Autowired
+	private DriveOrderMapper driveOrderMapper; 
+	/**
+	 * @description	查询信息费分页
+	 * @author 文帅
+	 * @date 2017年8月9日 下午2:49:38
+	 * @param page
+	 * @param userWithdrawCash
+	 * @return
+	 */
+	public Page<DriveOrder> findInfoFeeList(Page<DriveOrder> page, DriveOrder  driveOrder) {
+		driveOrder.setPage(page);
+		page.setList(driveOrderMapper.findInfoFeeList(driveOrder));
+		return page;	
+	}
+	
+	/**
+	 * @description	查询信息费列表
+	 * @author 文帅
+	 * @date 2017年8月15日 上午9:24:28
+	 * @param driveOrder
+	 * @return
+	 */
+	public List<DriveOrder> findList(DriveOrder driveOrder){
+		return driveOrderMapper.findInfoFeeList(driveOrder);
+	}
+}

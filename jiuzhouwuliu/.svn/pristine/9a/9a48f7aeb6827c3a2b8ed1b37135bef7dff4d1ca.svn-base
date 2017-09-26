@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			
+			.blue {
+				font-size: 24px;
+			}
+			
+			.wallet-gn a p {
+				color: #3cb8fa;
+				font-size: 16px;
+				font-weight: 400;
+			}
+			
+			.wallet-gn {
+				width: 100%;
+				height: 75px;
+				padding-top: 5px;
+				background: #fff;
+			}
+			
+			.wallet-gn a {
+				float: left;
+				width: 50%;
+				text-align: center;
+				height: 59px;
+				line-height: 24px;
+				margin-top: 2px;
+				padding: 10px;
+			}
+			
+			.mui-table-view:before {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view:after {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view-cell:after {
+				background-color: #DDDDDD;
+			}
+			.emptyData{
+				width: 50%;
+				height: 10%;
+				margin: auto;  
+	            position: absolute;  
+	            top: 100px; left: 0; bottom: 0; right: 0; 
+	            text-align: center;
+	            font-size: larger;
+	           	color: #8F8F94;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">钱包</h1>
+		</header>
+		<div class="mui-content">
+			<div class="wallet">
+				<div class="wallet-zh">
+					<p>账户余额（元）</p>
+					<p><span>{{userInfo.accountMoney}}</span></p>
+				</div>
+				<div class="wallet-gn">
+					<a @tap="recharge()">
+						<span class="iconfont icon-chongzhi blue"></span>
+						<p>充值</p>
+					</a>
+					<a @tap="pikup()">
+						<span class="iconfont icon-tixian blue"></span>
+						<p>提现</p>
+					</a>
+				</div>
+				<div class="wallet-con">
+					<ul class="mui-table-view">
+						<li @tap="detail()" v-if="recharge.createDate" class="mui-table-view-cell">
+							<b>+{{recharge.operatMoney}}</b>
+							<div class="his-text">
+								<p>充值</p>
+								<span>{{recharge.createDate}}</span>
+							</div>
+						</li>
+						<li @tap="detail()" v-if="withdraw.createDate" class="mui-table-view-cell">
+							<b class="tx">-{{withdraw.operatMoney}}</b>
+							<div class="his-text">
+								<p>提现</p>
+								<span>{{withdraw.createDate}}</span>
+							</div> 
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			var walletVM = new Vue({
+				el:'.mui-content',
+				data:{
+					userInfo:getUser().userInfo,
+					recharge:{},	//充值记录
+					withdraw:{}	//提现记录
+				},
+				mounted:function(){
+					var self = this;
+					mui.init({   
+						swipeBack: true //启用右滑关闭功能
+				  	});
+					//获取最近充值，提现记录
+					self.getData();
+				},
+				methods:{
+					/**
+					 * 获取最近充值，提现记录
+					 */
+					getData:function(){
+						var self = this;
+						AjaxSend("MobileCommonBalance/getLateBalance",{userId:self.userInfo.id},"post",function(result){
+							if(result.status){
+								if(result.data.recharge){
+									self.recharge = result.data.recharge;
+								} 
+								if(result.data.withdraw){
+									self.withdraw = result.data.withdraw;
+								}
+							}
+						}) 
+					},
+					/**
+					 * 充值跳转
+					 */
+					recharge:function(){
+						mui.openWindow({
+							url: 'recharge.html',
+							id: 'recharge.html',
+							show:{
+						      	aniShow:'pop-in'
+						   	}
+						});
+					},
+					/**
+					 * 提现跳转
+					 */
+					pikup:function(){
+						mui.openWindow({
+							url: 'pikup_cash.html',
+							id: 'pikup_cash.html',
+							show:{
+						      	aniShow:'pop-in'
+						   	}
+						});
+					},
+					/**
+					 * 记录详情
+					 */
+					detail:function(){
+						mui.openWindow({
+							url: 'detail.html',
+							id: 'detail.html',
+							show:{
+						      	aniShow:'pop-in'
+						   	}
+						});
+					}
+				}
+			})
+			//pikup_cash.html页面自定义事件监听,更新余额
+			window.addEventListener('updataLocal',function(event){
+			  	walletVM.userInfo = getUser().userInfo;
+			  	walletVM.getData();
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			
+			.blue {
+				font-size: 24px;
+			}
+			
+			.wallet-gn a p {
+				color: #3cb8fa;
+				font-size: 16px;
+				font-weight: 400;
+			}
+			
+			.wallet-gn {
+				width: 100%;
+				height: 75px;
+				padding-top: 5px;
+				background: #fff;
+			}
+			
+			.wallet-gn a {
+				float: left;
+				width: 50%;
+				text-align: center;
+				height: 59px;
+				line-height: 24px;
+				margin-top: 2px;
+				padding: 10px;
+			}
+			
+			.mui-table-view:before {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view:after {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view-cell:after {
+				background-color: #DDDDDD;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">钱包</h1>
+		</header>
+		<div class="mui-content">
+			<div class="wallet">
+				<div class="wallet-zh">
+					<p>账户余额（元）</p>
+					<p><span>130.00</span></p>
+				</div>
+				<div class="wallet-gn">
+					<a class="tx" id="recharge.html">
+						<span class="iconfont icon-chongzhi blue"></span>
+						<p>充值</p>
+					</a>
+					<a class="have-line tx" id="pikup_cash.html">
+						<span class="iconfont icon-tixian blue"></span>
+						<p>提现</p>
+					</a>
+				</div>
+				<div class="wallet-con">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<b>+300.00</b>
+							<div class="his-text">
+								<p>充值</p>
+								<span>2017-07-22 18:30</span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<b class="tx">-100.00</b>
+							<div class="his-text">
+								<p>提现</p>
+								<span>2017-07-22 18:30</span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<b>+300.00</b>
+							<div class="his-text">
+								<p>充值</p>
+								<span>2017-07-22 18:30</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init({   swipeBack: true //启用右滑关闭功能
+				  });
+
+			mui("body").on("tap", ".tx", function() {   
+				var url = this.getAttribute('id');   
+				mui.openWindow({    url: url,    id: url    }); 
+			});
+
+			 
+			mui(".mui-table-view").on("tap", "li", function() { 
+				var url = "detail.html"; 
+				mui.openWindow({   url: url,   id: url  }); 
+			});
+		</script>
+	</body>
+
+</html>

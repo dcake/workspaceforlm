@@ -1,0 +1,71 @@
+package com.thinkgem.jeesite.mobile.collection.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.AgentOrderMapper;
+import com.thinkgem.jeesite.common.dao.DriveOrderMapper;
+import com.thinkgem.jeesite.common.dao.GoodsownerOrderMapper;
+import com.thinkgem.jeesite.common.dao.UsersCollectMapper;
+import com.thinkgem.jeesite.common.entity.UsersCollect;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+
+/** 
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月4日 上午10:49:22 
+ * 类说明: 
+ */
+@Service
+@Transactional
+public class MobileUsersCollectService {
+	@Autowired
+	private UsersCollectMapper usersCollectMapper;
+	@Autowired
+	private GoodsownerOrderMapper goodsownerOrderMapper;
+	@Autowired
+	private DriveOrderMapper driveOrderMapper;
+	@Autowired
+	private AgentOrderMapper agentOrderMapper;
+	
+	/**
+	 * 我的收藏列表（包含查找）
+	 * 崔亚光
+	 * 2017-09-04
+	 * @return
+	 */
+	public AjaxBeanUtil getList(String collectUserid) {
+		
+		try{
+		List<UsersCollect> list = usersCollectMapper.getList(collectUserid);
+		for(UsersCollect u:list){
+			u.setCount(0);
+			if(u.getUserSort().equals("0")){//货主交易数
+				u.setCount(goodsownerOrderMapper.findCount(u.getUserid()));
+			}
+			if(u.getUserSort().equals("1")){//车主交易数
+				u.setCount(driveOrderMapper.findCountByDriverId(u.getUserid()));
+			}
+			if(u.getUserSort().equals("2")){//经纪人交易数
+				u.setCount(agentOrderMapper.findCount(u.getUserid()));
+			}
+		}
+			return new AjaxBeanUtil("查询成功", true, list);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+	}
+	/**
+	 * 添加收藏
+	 * 崔亚光
+	 * 2017-09-14
+	 */
+	public AjaxBeanUtil addCollect(UsersCollect record) {
+		record.preInsert();
+		usersCollectMapper.insert(record);
+		return new AjaxBeanUtil("收藏成功", true);
+	}
+}

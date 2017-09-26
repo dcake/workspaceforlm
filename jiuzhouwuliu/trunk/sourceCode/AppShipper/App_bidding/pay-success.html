@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<script src="../js/mui.js"></script>
+		<script src="../js/iconfont.js"></script>
+		<style>
+			.icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.15em;
+				fill: currentColor;
+				overflow: hidden;
+			}
+			
+			.title {
+				background: #FFFFFF;
+				padding: 30px 20px 10px 20px;
+				text-align: center;
+				font-size: 140px;
+			}
+			
+			.notice-title {
+				margin-top: 20px;
+				font-size: 16px;
+				color: #000000;
+			}
+			
+			.notice-content {
+				margin-top: -5px;
+			}
+			
+			.but-box {
+				margin: 30px 15px 0px;
+				text-align: center;
+			}
+			.btn1 {
+			    background: #FFFFFF;
+			    width: 42%;
+			    height: 40px;
+			    font-size: 15px;
+			    color:#1dacf9;
+			    border-radius: 6px;
+			    display: inline-block;
+			    margin-right: 15px;
+			    border:1px solid #1dacf9;
+			}
+			.btn2 {
+			    background: #FFFFFF;
+			    color: #000;
+			    width: 42%;
+			    height: 40px;
+			    font-size: 15px;
+			    border-radius: 6px;
+			    display: inline-block;
+			    border:1px solid #C0C0C0;
+			}
+			img{
+				width:16px;
+				height:16px;
+				margin-right: 10px;
+				/*margin-top:5px;*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">支付成功</h1>
+		</header>
+
+		<div class="mui-content" id="box">
+			<div class="title">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#icon-zhifuchenggong"></use>
+				</svg>
+				<p class="mui-text-left notice-title"><img src="../img/note.png">注意:</p>
+				<p class="mui-text-left notice-content">已通知车主前来取货啦，订单中将展示车主联系方式装货时，请确认是否是车主本人</p>
+			</div>
+			<div class="but-box ">
+				<button class="btn1 tz" type="button" @click="order">查看订单</button>
+				<button class="btn2 tz" type="button" @click="close">返回首页</button>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="../js/base.js" ></script>
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<script>
+			var pay = new Vue({
+				el: '#box',
+				data: {
+					
+				},
+				mounted: function(){
+					mui.init();
+				},
+				methods: {
+					/**
+					 * 熊世齐
+					 * 2017-09-21
+					 * 返回首页
+					 */
+					close: function(){
+						//跳转到首页
+						mui.fire(plus.webview.getWebviewById("index-main.html"), "gohome", {});
+						//关闭页面
+						plus.webview.getWebviewById("pay-success.html").close();
+						plus.webview.getWebviewById("con_bz.html").close();
+						plus.webview.getWebviewById("ck_badding.html").close();
+					},
+					/**
+					 * 熊世齐
+					 * 2017-09-21
+					 * 查看订单
+					 */
+					order: function(){
+						var url = "../App_my_center/order.html";
+						mui.openWindow({
+							url: url,
+							id: url
+						});
+					}
+				}
+			})
+//			mui("body").on("tap", ".tz", function() {
+//				var url = this.getAttribute('id');
+//				mui.openWindow({
+//					url: url,
+//					id: url
+//				});
+//			});
+		</script>
+	</body>
+
+</html>

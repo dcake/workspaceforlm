@@ -1,0 +1,73 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.thinkgem.jeesite.common.entity.GoodsownerAgentJingjia;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+@MyBatisDao
+public interface GoodsownerAgentJingjiaMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(GoodsownerAgentJingjia record);
+
+    int insertSelective(GoodsownerAgentJingjia record);
+
+    GoodsownerAgentJingjia selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(GoodsownerAgentJingjia record);
+
+    int updateByPrimaryKey(GoodsownerAgentJingjia record);
+    /**
+     * @description	通过订单ID查询竞价
+     * @author 文帅
+     * @date 2017年8月25日 上午10:27:49
+     * @param goodsownerOrderId
+     * @return
+     */
+    List<GoodsownerAgentJingjia> findJingjiaList(String orderId);
+    /**
+     * @description	通过竞价人ID和货主订单ID更新竞价状态
+     * @author 文帅
+     * @date 2017年9月1日 下午3:53:34
+     * @param orderId
+     * @param Type 用于判断是确认还是取消（1-确认，0-取消）
+     * @return
+     */
+     void updateByOrderIdAndJJRId(@Param("orderId")String orderId,@Param("userId")String userId,@Param("type")String type);
+     /**
+      * @description 根据订单ID删除竞价记录	
+      * @author 文帅
+      * @date 2017年9月1日 下午5:06:07
+      * @param orderId
+      */
+     void deleteByOrderId(String orderId);
+     /**
+      * @description 根据订单ID和竞价人ID查询竞价记录	
+      * @author 文帅
+      * @date 2017年9月2日 上午11:38:41
+      * @param orderId
+      * @param userId
+      * @return
+      */
+     GoodsownerAgentJingjia findByOrderIdAndJJRId(@Param("orderId")String orderId,@Param("userId")String userId);
+     /**
+      * @description 交易成功之后修改竞价状态（一个竞价成功其他全部竞价失败）
+      * @author 文帅
+      * @date 2017年9月2日 上午11:58:00
+      * @param orderId
+      * @param userId
+      * @param type
+      */
+     void updateJingJiaStatus(@Param("orderId")String orderId,@Param("userId")String userId,@Param("type")String type);
+     /**
+      * @description 根据用户ID查询该用户参与的竞价列表	
+      * @author 文帅
+      * @date 2017年9月8日 上午10:57:48
+      * @param paramMap
+      * @return
+      */
+     List<GoodsownerAgentJingjia> findListByUserId(Map<String, Object> paramMap);
+}

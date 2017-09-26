@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.GoodsBillingMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.GoodsBilling" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+    <result column="billing_money" property="billingMoney" jdbcType="DOUBLE" />
+    <result column="billing_no" property="billingNo" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goodsid, billing_money, billing_no, del_flag, remarks, update_date, update_by, 
+    create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_billing
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goods_billing
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.GoodsBilling" >
+    insert into goods_billing (id, goodsid, billing_money, 
+      billing_no, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, #{billingMoney,jdbcType=DOUBLE}, 
+      #{billingNo,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsBilling" >
+    insert into goods_billing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="billingMoney != null" >
+        billing_money,
+      </if>
+      <if test="billingNo != null" >
+        billing_no,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="billingMoney != null" >
+        #{billingMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="billingNo != null" >
+        #{billingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsBilling" >
+    update goods_billing
+    <set >
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="billingMoney != null" >
+        billing_money = #{billingMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="billingNo != null" >
+        billing_no = #{billingNo,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.GoodsBilling" >
+    update goods_billing
+    set goodsid = #{goodsid,jdbcType=VARCHAR},
+      billing_money = #{billingMoney,jdbcType=DOUBLE},
+      billing_no = #{billingNo,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 查询开票列表 文帅 -->
+  <select id="findBillingList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.GoodsBilling" >
+    SELECT
+		t.*, t3.company_name AS companyName,
+		t1.order_no AS orderNo,
+		t3.pay_money AS payMoney,
+		t5.truename AS truename,
+		t1.goods_type AS goodsType,
+		t1.is_has_bill AS isHasBill,
+		t3.is_settle_accounts AS isSettleAccounts
+	FROM
+		goods_billing t,
+		goods t1,
+		goodsowner_order t2,
+		goodsowner_deal t3,
+		goodsowners t4,
+		users t5
+	WHERE
+		t.goodsid = t1.id
+	AND t1.id = t2.goods_id
+	AND t2.id = t3.goodsowner_order_id
+	AND t2.goodsowners_id = t4.id
+	AND t4.user_id = t5.id
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	AND t2.del_flag = "0"
+	AND t3.del_flag = "0"
+	AND t4.del_flag = "0"
+	AND t5.del_flag = "0"
+	<if test="isHasBill != null and isHasBill !='' ">
+		AND t1.is_has_bill = #{isHasBill,jdbcType=VARCHAR} 
+  	</if>
+  	<if test="orderNo != null and orderNo !='' ">
+		AND t1.order_no LIKE CONCAT('%','${orderNo}','%' )
+    </if>
+  	<if test="beginDate!= null and beginDate!= ''" >
+        AND DATE_FORMAT(t.create_date, '%Y-%m-%d') &gt;=#{beginDate}
+    </if>
+    <if test="endDate!= null and endDate!= ''" >
+        AND DATE_FORMAT(t.create_date, '%Y-%m-%d') &lt;=#{endDate}
+    </if>
+  </select>
+  <!-- 根据开票信息ID查询实体 文帅 -->
+  <select id="findBillingById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+		t.*, t3.company_name AS companyName,
+		t1.order_no AS orderNo,
+		t3.pay_money AS payMoney,
+		t5.truename AS truename,
+		t1.goods_type AS goodsType,
+		t1.is_has_bill AS isHasBill,
+		t5.phoneno AS phoneno,
+		t5.level AS level,
+		t3.is_settle_accounts AS isSettleAccounts
+	FROM
+		goods_billing t,
+		goods t1,
+		goodsowner_order t2,
+		goodsowner_deal t3,
+		goodsowners t4,
+		users t5
+	WHERE
+		t.goodsid = t1.id
+	AND t1.id = t2.goods_id
+	AND t2.id = t3.goodsowner_order_id
+	AND t2.goodsowners_id = t4.id
+	AND t4.user_id = t5.id
+	AND t.del_flag = "0"
+	AND t1.del_flag = "0"
+	AND t2.del_flag = "0"
+	AND t3.del_flag = "0"
+	AND t4.del_flag = "0"
+	AND t5.del_flag = "0"
+	AND t.id=#{id,jdbcType=VARCHAR}
+	order by t.create_date desc
+  </select>
+</mapper>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.ComplainRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.ComplainRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="drive_order_id" property="driveOrderId" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="complain_reason" property="complainReason" jdbcType="VARCHAR" />
+    <result column="complain_content" property="complainContent" jdbcType="VARCHAR" />
+    <result column="complain_time" property="complainTime" jdbcType="TIMESTAMP" />
+    <result column="img1" property="img1" jdbcType="VARCHAR" />
+    <result column="img2" property="img2" jdbcType="VARCHAR" />
+    <result column="img3" property="img3" jdbcType="VARCHAR" />
+    <result column="img4" property="img4" jdbcType="VARCHAR" />
+    <result column="img5" property="img5" jdbcType="VARCHAR" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="reply_person" property="replyPerson" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="phoneno" property="phoneno" jdbcType="VARCHAR" />
+    <result column="user_sort" property="userSort" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, drive_order_id, userid, complain_reason, complain_content, complain_time, img1, 
+    img2, img3, img4, img5, reply_content, reply_time, reply_person, update_date, update_by, 
+    create_date, create_by, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from complain_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from complain_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.ComplainRecord" >
+    insert into complain_record (id, drive_order_id, userid, 
+      complain_reason, complain_content, complain_time, 
+      img1, img2, img3, img4, 
+      img5, reply_content, reply_time, 
+      reply_person, update_date, update_by, 
+      create_date, create_by, remarks, 
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{driveOrderId,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{complainReason,jdbcType=VARCHAR}, #{complainContent,jdbcType=VARCHAR}, #{complainTime,jdbcType=TIMESTAMP}, 
+      #{img1,jdbcType=VARCHAR}, #{img2,jdbcType=VARCHAR}, #{img3,jdbcType=VARCHAR}, #{img4,jdbcType=VARCHAR}, 
+      #{img5,jdbcType=VARCHAR}, #{replyContent,jdbcType=VARCHAR}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{replyPerson,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.ComplainRecord" >
+    insert into complain_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="driveOrderId != null" >
+        drive_order_id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="complainReason != null" >
+        complain_reason,
+      </if>
+      <if test="complainContent != null" >
+        complain_content,
+      </if>
+      <if test="complainTime != null" >
+        complain_time,
+      </if>
+      <if test="img1 != null" >
+        img1,
+      </if>
+      <if test="img2 != null" >
+        img2,
+      </if>
+      <if test="img3 != null" >
+        img3,
+      </if>
+      <if test="img4 != null" >
+        img4,
+      </if>
+      <if test="img5 != null" >
+        img5,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+      <if test="replyTime != null" >
+        reply_time,
+      </if>
+      <if test="replyPerson != null" >
+        reply_person,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="driveOrderId != null" >
+        #{driveOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="complainReason != null" >
+        #{complainReason,jdbcType=VARCHAR},
+      </if>
+      <if test="complainContent != null" >
+        #{complainContent,jdbcType=VARCHAR},
+      </if>
+      <if test="complainTime != null" >
+        #{complainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="img1 != null" >
+        #{img1,jdbcType=VARCHAR},
+      </if>
+      <if test="img2 != null" >
+        #{img2,jdbcType=VARCHAR},
+      </if>
+      <if test="img3 != null" >
+        #{img3,jdbcType=VARCHAR},
+      </if>
+      <if test="img4 != null" >
+        #{img4,jdbcType=VARCHAR},
+      </if>
+      <if test="img5 != null" >
+        #{img5,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyPerson != null" >
+        #{replyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.ComplainRecord" >
+    update complain_record
+    <set >
+      <if test="driveOrderId != null" >
+        drive_order_id = #{driveOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="complainReason != null" >
+        complain_reason = #{complainReason,jdbcType=VARCHAR},
+      </if>
+      <if test="complainContent != null" >
+        complain_content = #{complainContent,jdbcType=VARCHAR},
+      </if>
+      <if test="complainTime != null" >
+        complain_time = #{complainTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="img1 != null" >
+        img1 = #{img1,jdbcType=VARCHAR},
+      </if>
+      <if test="img2 != null" >
+        img2 = #{img2,jdbcType=VARCHAR},
+      </if>
+      <if test="img3 != null" >
+        img3 = #{img3,jdbcType=VARCHAR},
+      </if>
+      <if test="img4 != null" >
+        img4 = #{img4,jdbcType=VARCHAR},
+      </if>
+      <if test="img5 != null" >
+        img5 = #{img5,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null" >
+        reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyPerson != null" >
+        reply_person = #{replyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.ComplainRecord" >
+    update complain_record
+    set drive_order_id = #{driveOrderId,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      complain_reason = #{complainReason,jdbcType=VARCHAR},
+      complain_content = #{complainContent,jdbcType=VARCHAR},
+      complain_time = #{complainTime,jdbcType=TIMESTAMP},
+      img1 = #{img1,jdbcType=VARCHAR},
+      img2 = #{img2,jdbcType=VARCHAR},
+      img3 = #{img3,jdbcType=VARCHAR},
+      img4 = #{img4,jdbcType=VARCHAR},
+      img5 = #{img5,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      reply_person = #{replyPerson,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="findComplainRecordListForPage" resultMap="BaseResultMap">
+  	SELECT
+		t2.truename,
+		t2.phoneno,
+		t2.user_sort,
+		t1.*,
+		DATE_FORMAT(t1.create_date,'%Y-%m-%d') as createDate
+	FROM
+		complain_record t1,
+		users t2
+	WHERE
+		t1.userid = t2.id
+	<!-- 用户类型 -->
+	<if test="complainRecord.userSort != null and complainRecord.userSort !='' ">
+		and t2.user_sort = #{complainRecord.userSort,jdbcType=VARCHAR} 
+    </if>
+    <!-- 用户名 -->
+    <if test="complainRecord.truename != null and complainRecord.truename !='' ">
+		and t2.truename LIKE CONCAT("%",#{complainRecord.truename,jdbcType=VARCHAR},"%")
+    </if>
+    <!-- 时间范围 -->
+    <if test="complainRecord.startDate != null and complainRecord.startDate !='' and complainRecord.endDate!=null and complainRecord.endDate != '' ">
+    and	DATE_FORMAT(t1.create_date,'%Y-%m-%d') >= #{complainRecord.startDate}
+    and	DATE_FORMAT(t1.create_date,'%Y-%m-%d') &lt; #{complainRecord.endDate}
+    </if>
+  </select>
+  
+  <!-- 根据申诉id查询详情 by yaotengfei -->
+  <select id="findDetail" resultMap="BaseResultMap">
+	  SELECT
+		t1.*, 
+		t2.truename,
+		t2.user_sort
+	FROM
+		complain_record t1,
+		users t2
+	WHERE
+		t1.userid = t2.id
+	AND t1.id = #{0}
+  </select>
+  
+  <!-- 根据订单获取申诉   张彦学 -->
+  <select id="findComplainRecordByGoodsownerOrder" parameterType="string" resultMap="BaseResultMap">
+  		SELECT
+			c.*
+		FROM
+			drive_order d,
+			complain_record c
+		WHERE
+			d.id = c.drive_order_id
+		AND d.user_order_id = #{id}
+  </select>
+</mapper>

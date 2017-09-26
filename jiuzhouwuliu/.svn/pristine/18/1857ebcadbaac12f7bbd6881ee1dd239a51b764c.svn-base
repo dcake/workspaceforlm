@@ -1,0 +1,108 @@
+package com.thinkgem.jeesite.modules.complaints.web;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.thinkgem.jeesite.common.dao.UsersSuggestionMapper;
+import com.thinkgem.jeesite.common.entity.UsersSuggestion;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.modules.complaints.service.UsersSuggestionService;
+import com.thinkgem.jeesite.modules.sys.entity.Dict;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+
+/**
+ * @desc 投诉建议
+ * @author yaotengfei
+ * @date 2017年8月7日下午3:12:54
+ */
+@Controller
+@RequestMapping(value = "${adminPath}/complaints/complaint")
+public class ComplaintsController {
+
+	@Autowired
+	private UsersSuggestionService usersSuggestionService;
+	@Autowired
+	private UsersSuggestionMapper usersSuggestionMapper;
+	
+	/**
+	 * @desc 投诉建议列表
+	 * @author yaotengfei
+	 * @date 2017年8月7日下午6:02:31
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws ParseException 
+	 */
+	@RequestMapping("list")
+	public String getComplaintsList(UsersSuggestion usersSuggestion,Model model,HttpServletRequest request,HttpServletResponse response) throws ParseException{
+		String startDateStr = request.getParameter("startDateStr");
+		String endDateStr = request.getParameter("endDateStr");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(!StringUtils.isEmpty(startDateStr)){
+			usersSuggestion.setStartDate(sdf.parse(startDateStr));
+		}
+		if(!StringUtils.isEmpty(endDateStr)){
+			usersSuggestion.setEndDate(sdf.parse(endDateStr));
+		}
+		Page<UsersSuggestion> page = usersSuggestionService.findUsersSuggestionListForPage(new Page<UsersSuggestion>(request, response), usersSuggestion);
+		model.addAttribute("page", page);
+		List<Dict> userSortList=DictUtils.getDictList("users_user_sort");
+		model.addAttribute("usersSuggestion", usersSuggestion);
+		model.addAttribute("userSortList", userSortList);
+		return "modules/complaints/complaintsList";
+	}
+	
+	/**
+	 * @desc 投诉建议详情
+	 * @author yaotengfei
+	 * @date 2017年8月7日下午6:02:52
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("complaintsDetail")
+	public String appealDetail(Model model,String id){
+		UsersSuggestion usersSuggestion = usersSuggestionMapper.findDetail(id);
+		//查询字典缓存获取用户类型
+		String result = DictUtils.getDictLabels(usersSuggestion.getUserSort(),"users_user_sort","未知");
+		usersSuggestion.setUserSortStr(result);
+		model.addAttribute("usersSuggestion",usersSuggestion);
+		return "modules/complaints/complaintsDetail";
+	}
+	
+	/**
+	 * @desc 投诉建议回复
+	 * @author yaotengfei
+	 * @date 2017年8月17日上午10:53:45
+	 * @param usersSuggestion
+	 * @return
+	 */
+	@RequestMapping("reply")
+	@ResponseBody
+	public AjaxBeanUtil reply(UsersSuggestion usersSuggestion){
+		usersSuggestion.setReplyContent(usersSuggestion.getReplyContent());
+		usersSuggestion.setReplyTime(new Date());
+		User user = UserUtils.getUser();
+		if (StringUtils.isNotBlank(user.getId())){
+			usersSuggestion.setReplyPerson(user.getId());
+		}
+		usersSuggestion.preUpdate();
+		usersSuggestionMapper.updateByPrimaryKeySelective(usersSuggestion);
+		return new AjaxBeanUtil("更新成功", true);
+	}
+}

@@ -1,0 +1,288 @@
+{
+	"advice.html": {
+		"resources": [
+			"css/css.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/feedback.js",
+			"css/feedback-page.css",
+			"img/iconfont-tianjia.png",
+			"css/mui.min.js",
+			"js/feedback-page.js"
+		],
+		"refer": []
+	},
+	"new_file.html": {
+		"resources": [
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/feedback.js",
+			"css/feedback-page.css",
+			"js/feedback-page.js",
+			"js/mui.min.js"
+		],
+		"refer": []
+	},
+	"bidding.html": {
+		"resources": [
+			"css/css.css",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"img/car-img.jpg",
+			"js/mui.js",
+			"css/mui.css"
+		],
+		"refer": []
+	},
+	"App_bidding/ck_badding.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"img/head_img01.png",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"js/jquery.js",
+			"App_bidding/bidding.html",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		],
+		"refer": [
+			"App_bidding/con_bz.html",
+			"App_bidding/ck_person_details.html",
+			"App_bidding/bidding.html"
+		]
+	},
+	"App_bidding/bidding.html": {
+		"resources": [
+			"App_bidding/ck_badding.html",
+			"css/css.css",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"img/car-img.jpg",
+			"js/mui.js",
+			"css/mui.css",
+			"App_bidding/ck_broker.html"
+		],
+		"refer": [
+			"App_bidding/ck_badding.html",
+			"App_bidding/ck_broker.html"
+		]
+	},
+	"App_bidding/con_bz.html": {
+		"resources": [
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"js/city.data.js",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/style.css",
+			"js/mui.js",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"css/mui.css",
+			"fonts/iconfont.ttf"
+		],
+		"refer": [
+			"App_bidding/pay-success.html"
+		]
+	},
+	"App_bidding/pay-success.html": {
+		"resources": [
+			"js/iconfont.js",
+			"img/note.png",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/style.css",
+			"js/mui.js",
+			"css/mui.css",
+			"fonts/iconfont.ttf"
+		],
+		"refer": [
+			"App_deliverey/deliver.html",
+			"App_my_center/order.html"
+		]
+	},
+	"App_bidding/ck_person_details.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"img/head_img01.png",
+			"css/style.css",
+			"img/command_head02.png",
+			"img/command_head01.png",
+			"css/mui.css",
+			"css/mui.picker.css",
+			"css/iconfont.css",
+			"img/label_person.png",
+			"fonts/iconfont.ttf",
+			"css/mui.poppicker.css",
+			"js/mui.js",
+			"img/command_head03.png"
+		],
+		"refer": []
+	},
+	"App_bidding/ck_broker.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"img/head_img01.png",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"js/jquery.js",
+			"App_bidding/bidding.html",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		],
+		"refer": [
+			"App_bidding/con_bz.html",
+			"App_bidding/ck_broker_details.html",
+			"App_bidding/bidding.html"
+		]
+	},
+	"index-main.html": {
+		"resources": [
+			"App_deliverey/deliver.html",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"App_lookfor_car/find-car.html",
+			"App_deliverey/deliver.html",
+			"App_my_center/my_center.html",
+			"App_bidding/bidding.html"
+		]
+	},
+	"App_lookfor_car/find-car.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"img/photo_03.png",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"js/city.data.js",
+			"js/city.data-3.js",
+			"css/app.css",
+			"css/style.css",
+			"css/mui.css",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/style111.css",
+			"js/jquery.js",
+			"img/head_img01.png",
+			"img/head_img03.png",
+			"img/head_img04.png",
+			"img/head_img02.png"
+		],
+		"refer": [
+			"App_bidding/ck_person_details.html"
+		]
+	},
+	"App_deliverey/deliver.html": {
+		"resources": [
+			"img/shopping.png",
+			"img/deliver_list_img01.png",
+			"img/deliver_list_img03.png",
+			"css/mui.min.js",
+			"img/deliver_list_img02.png"
+		],
+		"refer": [
+			"App_deliverey/publish-bidding.html"
+		]
+	},
+	"App_my_center/my_center.html": {
+		"resources": [
+			"img/wode-bg.png",
+			"img/touxiang2.png",
+			"fonts/mui.ttf",
+			"js/mui.js"
+		],
+		"refer": [
+			"App_my_center/bank_cards.html",
+			"App_my_center/integral.html",
+			"App_my_center/my_collect.html"
+		]
+	},
+	"App_bidding/ck_broker_details.html": {
+		"resources": [
+			"img/label_broker.png",
+			"img/command_head02.png",
+			"img/command_head01.png",
+			"img/qualification.png",
+			"img/command_head03.png",
+			"img/head_img01.png",
+			"css/style.css",
+			"css/mui.css",
+			"css/mui.picker.css",
+			"css/iconfont.css",
+			"css/mui.poppicker.css",
+			"js/mui.js",
+			"js/jquery.js",
+			"fonts/mui.ttf",
+			"fonts/iconfont.ttf"
+		],
+		"refer": []
+	},
+	"App_my_center/bank_cards.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.css"
+		]
+	},
+	"App_my_center/integral.html": {
+		"resources": [
+			"css/css.css",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/mui.min.css",
+			"css/style.css",
+			"js/mui.js",
+			"css/mui.css"
+		]
+	},
+	"App_my_center/my_collect.html": {
+		"resources": [
+			"img/touxiang2.png",
+			"fonts/mui.ttf",
+			"css/iconfont.css",
+			"css/style.css",
+			"fonts/iconfont.ttf",
+			"js/mui.js",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"css/mui.css"
+		]
+	},
+	"App_deliverey/publish-bidding.html": {
+		"resources": [
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"css/iconfont.css",
+			"css/style.css",
+			"js/city.data.js",
+			"js/mui.js",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"css/mui.css",
+			"js/city.data-3.js"
+		]
+	}
+}

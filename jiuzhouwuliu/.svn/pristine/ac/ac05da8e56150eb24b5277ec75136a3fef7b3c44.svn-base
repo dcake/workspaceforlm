@@ -1,0 +1,118 @@
+package com.thinkgem.jeesite.mobile.driver.web;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.thinkgem.jeesite.common.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.mobile.driver.service.MobileDriverOrderService;
+
+/**
+ * @description	车主订单
+ * @author 文帅
+ * @date 2017年9月11日 下午2:37:34
+ */
+@Controller
+@RequestMapping(value="${adminPath}/mobileDriverOrder")
+public class MobileDriverOrderController {
+	@Autowired
+	private MobileDriverOrderService mobileDriverOrderService;
+	
+	/**
+	 * @description	车主端测试页面
+	 * @author 文帅
+	 * @date 2017年8月21日 下午4:47:31
+	 * @return
+	 */
+	@RequestMapping(value="goDriverTest")
+	public String goShipperTest(){
+		return "mobile/test/driverTest";
+	}
+	
+	/**
+	 * @description	查询订单列表
+	 * @author 文帅
+	 * @date 2017年9月11日 下午3:05:57
+	 * @param currentPage
+	 * @param userId
+	 * @param tyep 用于判断订单状态（当前订单-0,历史订单-1,全部订单-不传）
+	 * @return
+	 */
+	@RequestMapping(value="findDriverOrderList",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil findDriverOrderList(String currentPage,String driverId,String type){
+		return mobileDriverOrderService.findDriverOrderList(currentPage,driverId,type);
+	}
+	
+	/**
+	 * @description	支付信息费
+	 * @author 文帅
+	 * @date 2017年9月12日 上午10:15:01
+	 * @param driverOrderId
+	 * @param payMethod
+	 * @param userId 当前用户ID
+	 * @return
+	 */
+	@RequestMapping(value="payInfoFee",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil payInfoFee(String driverOrderId,String payMethod,Double deposit,String userId,HttpServletRequest request){
+		return mobileDriverOrderService.payInfoFee(driverOrderId, payMethod,deposit,userId,request);
+	}
+	/**
+	 * @description	接货单
+	 * @author 文帅
+	 * @date 2017年9月12日 下午4:35:51
+	 * @param driverOrderId
+	 * @return
+	 */
+	@RequestMapping(value="pickUpBill",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil pickUpBill(String driverOrderId){
+		return mobileDriverOrderService.pickUpBill(driverOrderId); 
+	}
+	/**
+	 * @description	确认接货
+	 * @author 文帅
+	 * @date 2017年9月12日 下午5:36:03
+	 * @param driverOrderId
+	 * @return
+	 */
+	@RequestMapping(value="confirmPickUp",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil confirmPickUp(String driverOrderId,HttpServletRequest request){
+		return mobileDriverOrderService.confirmPickUp(driverOrderId,request); 
+	}
+	
+	/**
+	 * @description	确认送达
+	 * @author 文帅
+	 * @date 2017年9月13日 上午11:05:22
+	 * @param driverOrderId 车主订单号
+	 * @param expressNo 快递单号
+	 * @param reciveGoodsName 收货人姓名
+	 * @param sendDriveName 回执单车主名称
+	 * @return
+	 */
+	@RequestMapping(value="confirmService",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil confirmService(String driverOrderId,String expressNo,String reciveGoodsName,String sendDriveName,HttpServletRequest request){
+		return mobileDriverOrderService.confirmService(driverOrderId,expressNo,reciveGoodsName,sendDriveName,request);
+	}
+	
+	/**
+	 * @description	更具车主订单ID查询物流信息列表
+	 * @author 文帅
+	 * @date 2017年9月13日 下午3:10:24
+	 * @param driverOrderId
+	 * @return
+	 */
+	@RequestMapping(value="logisticsInfoList",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil logisticsInfoList(String driverOrderId){
+		return mobileDriverOrderService.logisticsInfoList(driverOrderId);
+	}
+}

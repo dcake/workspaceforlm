@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<style>
+			body {
+				background-color: #FFFFFF;
+			}
+			
+			.mui-content {
+				background-color: #FFFFFF;
+			}
+			
+			.mui-input-row {
+				height: 50px;
+			}
+			
+			.mui-input-group .mui-input-row {
+				height: 45px;
+			}
+			
+			.mui-input-row label {
+				padding: 15px;
+			}
+			
+			input[type='text'] {
+				line-height: 45px;
+				height: 45px;
+				padding: 15px;
+			}
+			
+			.block-container {
+				margin-top: 8px;
+			}
+			
+			.content {
+				text-align: center;
+				margin-top: 118px;
+			}
+			
+			.content span {
+				font-size: 68px;
+				color: #2AC14D;
+			}
+			
+			.content h4 {
+				color: #333333;
+				margin-top: 10px;
+			}
+			
+			.content p {
+				margin-bottom: 10px;
+				color: #777;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">实名认证</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content">
+				<span class="mui-icon iconfont icon-renzheng2"></span>
+				<h4>恭喜您实名认证成功</h4>
+				<p style="margin-top: 30px;">{{userInfo.truename}}</p>
+				<p>{{userInfo.cardno.substr(0,6)+'*************'+userInfo.cardno.substr(userInfo.cardno.length-4)}}</p>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script>
+			/*mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui(".mui-bar").on("tap", "a", function() { 
+				var url = "add_txzh.html"; 
+				mui.openWindow({   url: url,   id: url  }); 
+			});*/
+			new Vue({
+				el:'.mui-content',
+				data:{
+					userInfo:getUser().userInfo
+				},
+				mounted:function(){
+					mui.init({
+						swipeBack: true //启用右滑关闭功能
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.AgentsMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.Agents" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="identity_type" property="identityType" jdbcType="VARCHAR" />
+    <result column="business_license_face_img" property="businessLicenseFaceImg" jdbcType="VARCHAR" />
+    <result column="business_license_other_img" property="businessLicenseOtherImg" jdbcType="VARCHAR" />
+    <result column="business_license_imgs" property="businessLicenseImgs" jdbcType="VARCHAR" />
+    <result column="legalperson_face_img" property="legalpersonFaceImg" jdbcType="VARCHAR" />
+    <result column="legalperson_other_img" property="legalpersonOtherImg" jdbcType="VARCHAR" />
+    <result column="is_truecommpany" property="isTruecommpany" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, company_name, identity_type, business_license_face_img, business_license_other_img, 
+    business_license_imgs, legalperson_face_img, legalperson_other_img, is_truecommpany, 
+    del_flag, remarks, update_date, update_by, create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from agents
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from agents
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.Agents" >
+    insert into agents (id, userid, company_name, 
+      identity_type, business_license_face_img, business_license_other_img, 
+      business_license_imgs, legalperson_face_img, 
+      legalperson_other_img, is_truecommpany, del_flag, 
+      remarks, update_date, update_by, 
+      create_date, create_by)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
+      #{identityType,jdbcType=VARCHAR}, #{businessLicenseFaceImg,jdbcType=VARCHAR}, #{businessLicenseOtherImg,jdbcType=VARCHAR}, 
+      #{businessLicenseImgs,jdbcType=VARCHAR}, #{legalpersonFaceImg,jdbcType=VARCHAR}, 
+      #{legalpersonOtherImg,jdbcType=VARCHAR}, #{isTruecommpany,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.Agents" >
+    insert into agents
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="identityType != null" >
+        identity_type,
+      </if>
+      <if test="businessLicenseFaceImg != null" >
+        business_license_face_img,
+      </if>
+      <if test="businessLicenseOtherImg != null" >
+        business_license_other_img,
+      </if>
+      <if test="businessLicenseImgs != null" >
+        business_license_imgs,
+      </if>
+      <if test="legalpersonFaceImg != null" >
+        legalperson_face_img,
+      </if>
+      <if test="legalpersonOtherImg != null" >
+        legalperson_other_img,
+      </if>
+      <if test="isTruecommpany != null" >
+        is_truecommpany,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="identityType != null" >
+        #{identityType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseFaceImg != null" >
+        #{businessLicenseFaceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseOtherImg != null" >
+        #{businessLicenseOtherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseImgs != null" >
+        #{businessLicenseImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonFaceImg != null" >
+        #{legalpersonFaceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonOtherImg != null" >
+        #{legalpersonOtherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isTruecommpany != null" >
+        #{isTruecommpany,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.Agents" >
+    update agents
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="identityType != null" >
+        identity_type = #{identityType,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseFaceImg != null" >
+        business_license_face_img = #{businessLicenseFaceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseOtherImg != null" >
+        business_license_other_img = #{businessLicenseOtherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="businessLicenseImgs != null" >
+        business_license_imgs = #{businessLicenseImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonFaceImg != null" >
+        legalperson_face_img = #{legalpersonFaceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="legalpersonOtherImg != null" >
+        legalperson_other_img = #{legalpersonOtherImg,jdbcType=VARCHAR},
+      </if>
+      <if test="isTruecommpany != null" >
+        is_truecommpany = #{isTruecommpany,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.Agents" >
+    update agents
+    set userid = #{userid,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      identity_type = #{identityType,jdbcType=VARCHAR},
+      business_license_face_img = #{businessLicenseFaceImg,jdbcType=VARCHAR},
+      business_license_other_img = #{businessLicenseOtherImg,jdbcType=VARCHAR},
+      business_license_imgs = #{businessLicenseImgs,jdbcType=VARCHAR},
+      legalperson_face_img = #{legalpersonFaceImg,jdbcType=VARCHAR},
+      legalperson_other_img = #{legalpersonOtherImg,jdbcType=VARCHAR},
+      is_truecommpany = #{isTruecommpany,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+           <!-- 获取经纪人列表 王涛-->
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Agents" >
+		    SELECT
+				t.*, 
+				u.truename,
+				u.userno,
+				u.username,
+				u.phoneno,
+				u. STATUS,
+				u.examine_status,
+				u.examine_remark
+		FROM
+				agents t,
+				users u
+		WHERE
+				t.userid = u.id
+		AND u.user_sort = '2'
+		<!-- AND t.is_truecommpany = '1'
+		AND t.identity_type = '2' -->
+    <if test="truename !=null and truename !=''">
+    	and u.truename like CONCAT('%','${truename}','%' )
+    </if>
+    <if test="phoneno !=null and phoneno !=''">
+    		and u.phoneno LIKE CONCAT('%','${phoneno}','%' )
+    </if>
+    <if test="examineStatus !=null and examineStatus !=''">
+    	and u.examine_status = #{examineStatus}
+    </if>
+   ORDER BY t.create_date desc
+  </select>
+        <!-- 通过ID查询经纪人列表王涛-->
+  <select id="selectByPrimaryKeyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		    SELECT
+				t.*, 
+				u.truename,
+				u.username,
+				u.phoneno,
+				u. STATUS,
+				u.examine_status,
+				u.examine_remark
+		FROM
+				agents t,
+				users u
+		WHERE
+				t.userid = u.id
+		AND u.user_sort = '2'
+		<!-- AND t.is_truecommpany = '1'
+		AND t.identity_type = '2' -->
+       AND t.id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="findOrderListId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+						SELECT
+					t.*, 
+					t3.order_no,
+					u.current_point,
+					u.truename,
+					u.phoneno,
+					t3.goods_type,
+					t3.shipper_area,
+					t3.reciver_area,
+					t3.zc_sf,
+					t5.pay_money,
+          			t4.jingjia_or_weituo
+				FROM
+					agents t,
+					agent_order t2,
+					goods t3,
+					users u,
+					goodsowner_order t4,
+				goodsowner_deal t5
+				WHERE
+					t.id = t2.agents_id
+				AND t2.goods_id = t3.id
+				AND t.userid =u.id
+				AND t4.goods_id =t3.id
+				AND t5.goodsowner_order_id=t4.id
+				AND u.user_sort = '2'
+			    <!-- AND t.is_truecommpany = '1'
+		        AND t.identity_type = '2' -->
+		        AND t.id = #{id,jdbcType=VARCHAR}
+  </select>
+   <!--  查询userId-->
+    <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from agents
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <!-- 用户审核同步更新addby崔亚光 -->
+  <update id="update" parameterType="com.thinkgem.jeesite.common.entity.Agents" >
+    update agents
+    <set >
+      <if test="isTruecommpany != null and isTruecommpany!=''" >
+        is_truecommpany = #{isTruecommpany,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+    <!--  查询userId-->
+    <select id="findAgentsByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+			   SELECT
+				*
+			FROM
+					agents  t,
+					users u
+			WHERE
+					t.userid = u.id
+			AND
+			    u.id= #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据货主订单查询经纪人   张彦学 -->
+  <select id="findAgetnsByGoodsownerOrder" parameterType="string" resultMap="BaseResultMap">
+  		SELECT
+			u.truename,
+			u.phoneno,
+			u.is_truename AS isTrueName,
+			a.*
+		FROM
+			agents a,
+			agent_order ao,
+			users u
+		WHERE
+			ao.goodsowner_orderid = #{0}
+		AND ao.agents_id = a.id
+		AND a.userid = u.id
+  </select>
+</mapper>

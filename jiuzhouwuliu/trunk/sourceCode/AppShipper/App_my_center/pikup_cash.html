@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0;
+			}
+			.mui-table-view-cell {
+				padding: 8px 15px;
+			}
+			
+			.mui-ellipsis {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				font-weight: inherit;
+				line-height: 30px;
+			}
+			
+			.mui-table-view:after {
+				background-color: #c8c7cc;
+			}
+			
+			.mui-input-row label {
+				padding: 11px 0;
+			}
+			
+			h4 {
+				font-weight: inherit;
+				color: #333;
+			}
+			
+			.mui-table-view-cell p {
+				font-size: 16px;
+				line-height: 30px;
+			}
+			
+			.mui-table-view-cell span {
+				font-size: 16px;
+				line-height: 30px;
+			}
+			
+			.mui-table-view-cell i {
+				font-style: normal;
+				color: #ff0600;
+			}
+			
+			.mui-table-view-cell>a:not(.mui-btn) {
+				font-size: 16px;
+				color: #1dacf9;
+			}
+			
+			.b_btn {
+				margin: 30px 2%;
+				width: 96%;
+				height: 48px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.mui-table-view:before {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view:after {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view-cell:after {
+				background-color: #DDDDDD;
+			}
+			.emptyData{
+				width: 50%;
+				height: 10%;
+				margin: auto;  
+	            position: absolute;  
+	            top: 0; left: 0; bottom: 0; right: 0; 
+	            text-align: center;
+	            font-size: larger;
+	           	color: #8F8F94;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">提现</h1>
+		</header>
+
+		<div class="mui-content">
+			<div v-if="!dataTag" class="emptyData">
+				您还没有添加银行卡
+				<div @tap="addCard()">
+					<button class="mui-btn mui-btn-outlined">
+						添加银行卡
+					</button>
+				</div>
+				
+			</div> 
+			<ul v-if="dataTag" class="mui-table-view">
+				<li @tap="selectBankCard()" class="mui-table-view-cell">
+					<a class="mui-navigate-right tz" id="detail.html">
+						<h4>{{bank.bankName}}</h4>
+						<p>储蓄卡 {{'******************'+bank.bankCardNo.substr(bank.bankCardNo.length-4)}}</p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-input-row">
+						<label>提现金额</label>
+						<input v-model="money" type="number" v-bind:placeholder="'可提现金额：'+userInfo.accountMoney+'元'">
+					</div>
+				</li>
+			</ul>
+			<!--<div class="mui-table-view-cell">
+				<span class="gray mui-pull-left">余额   <i>200.00</i></span>
+				<a class="mui-pull-right blue">全部提现</a>
+			</div>--> 
+		
+		<button v-if="dataTag" @tap="withdrawal()" type="button" class="b_btn" id="wallet.html">24小时内到账，立即提取</button>
+	</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+
+	<script type="text/javascript" charset="utf-8">
+	
+		var vm = new Vue({
+			el:'.mui-content',
+			data:{
+				userInfo:getUser().userInfo,
+				bank:{},
+				dataTag:false,	//是否有数据
+				money:'',
+				prePage:null	//上一页面
+			},
+			mounted:function(){
+				var self = this;
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				self.getData(); 
+				mui.plusReady(function(){
+					self.prePage = plus.webview.currentWebview().opener();
+				})
+			},
+			methods:{
+				/**
+				 * 获取银行卡
+				 */
+				getData:function(){
+					var self = this;
+					AjaxSend("MobileCommonBankCard/getBankCardListByUserId",{userId:self.userInfo.id},"post",function(result){
+						if(result.status){ 
+							self.bank = result.data[0];
+							self.dataTag = true
+						}
+					})
+				},
+				/*
+				 * 添加银行卡跳转
+				 */
+				addCard:function(){
+					mui.openWindow({
+						url: 'add_bank_cards.html',
+						id: 'add_bank_cards.html',
+						show:{
+					      	aniShow:'pop-in'
+					   	}
+					});
+				},
+				/**
+				 * 选择银行卡
+				 */
+				selectBankCard:function(){
+					mui.openWindow({
+						url: 'bank_cards.html',
+						id: 'bank_cards.html',
+						show:{
+					      	aniShow:'pop-in'
+					   	}
+					});
+				},
+				withdrawal:function(){
+					var self = this;
+					var re = /^[0-9]+.?[0-9]*$/; 
+					var money = self.money;
+					if (!re.test(money)) {
+					　　　　mui.toast("请输入正确的提现金额");
+					　　　　return false;
+					　　}
+					var param = {
+						userId:self.userInfo.id,
+						appayMoney:self.money,
+						bankCardId:self.bank.id
+					}
+					AjaxSend("MobileCommonBalance/userWithdrawCash",param,"post",function(result){
+						if(result.status){
+							/*console.log(JSON.stringify(result))
+							createUser(result.data);*/
+							//更新本地存储
+							var users = getUser();
+							users.userInfo = result.data;
+							createUser(users);
+							mui.alert("申请提现成功","提示：",function(){
+								mui.fire(self.prePage,'updataLocal');
+								setTimeout(function(){
+									mui.back();
+								},50);
+							})
+						}else{
+							mui.toast(result.msg);
+						}
+					})
+				}
+			}
+		})
+		//添加bank_cards.html页面自定义事件监听,选择银行卡
+		window.addEventListener('changeCard',function(event){
+		  	var cardInfo = event.detail.cardInfo;
+		  	vm.bank = cardInfo;
+		});
+		//添加add_bank_cards.html页面自定义事件监听
+		window.addEventListener('updateList',function(event){
+		  	vm.getData();
+		});
+	</script>
+
+</html>

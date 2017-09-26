@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				margin-right: 10px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+				margin-right: 15px;
+			}
+			
+			.icon-xing1:before {
+				margin-right: 5px;
+			}
+			
+			.icon-star1:before {
+				margin-right: 5px;
+				color: #F0AD4E;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: 40%;
+				padding: 8px 9px;
+			}
+			
+			.history-sold {
+				margin-top: -15px;
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.but-box {
+				margin: 35px 15px;
+				text-align: center;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				margin-top: 44px;
+				height: 40px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content {
+				margin-top: 40px;
+			}
+			
+			ul {
+				width: 100%;
+				list-style: none;
+				padding: 0px 10px;
+			}
+			
+			.ad-selector li {
+				position: relative;
+				float: left;
+				width: 33.333%;
+				font-size: 14px;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				margin-top: 7px;
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			
+			.content-padding {
+				padding: 23px 15px;
+				border-bottom: 1px solid #efefef;
+			}
+			
+			.money {
+				font-size: 18px;
+				color: #ff4800;
+				margin-left: 130px;
+			}
+			
+			.shopping .left {
+				width: 50%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+			}
+			
+			.shopping .right {
+				width: 50%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+				text-align: right;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			
+			.queren {
+				background: #1dacf9;
+				color: #fff;
+				width: 42%;
+				height: 48px;
+				font-size: 18px;
+				border-radius: 6px;
+				display: inline-block;
+			}
+			
+			.address {
+				color: #3f9e00;
+			}
+			
+			.label {
+				position: absolute;
+				top: 88px;
+				left: 30px;
+				width: 50px;
+			}
+			
+			.mui-table-view-cell {
+				margin: 5px 0px;
+				padding: 10px 0px;
+			}
+			
+			.mui-table-view-cell h5 {
+				padding: 5px 15px;
+				font-size: 16px;
+			}
+			
+			.mui-table-view-cell p {
+				padding: 0px 15px;
+				font-size: 16px;
+				color: #666666;
+				height: 38px;
+			}
+			
+			.car_infor_left {
+				width: 42%;
+				float: left;
+				text-align: right;
+				padding: 0px 15px;
+				color: #666666;
+			}
+			
+			.car_infor_right {
+				width: 58%;
+				float: right;
+				text-align: left;
+				color: #333333;
+			}
+			
+			.command .left {
+				width: 20%;
+				float: left;
+				padding: 8px 15px;
+			}
+			
+			.command .left img {
+				width: 60px;
+			}
+			
+			.command .right {
+				width: 80%;
+				float: left;
+				/*padding: 15px 0px;*/
+				margin-top: 6px;
+			}
+			
+			.command .mui-table-view-cell:after {
+				height: 1px;
+			}
+			
+			.command .mui-table-view-cell {
+				margin: 5px 0px;
+				padding: 5px 0px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.mui-table-view:before {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view:after {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view-cell:after {
+				background-color: #DDDDDD;
+			}
+			
+			.complain-date {
+				font-size: 14px;
+			}
+			
+			.mui-table-view-cell .comment {
+				color: #333;
+			}
+			
+			.mui-media-object {
+				border-radius: 50%;
+				height: 80px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">个人资料详情</h1>
+		</header>
+		<div class="mui-content" id="datails">
+			<form class="mui-input-group">
+				<img class="label" src="../img/label_person.png">
+				<div class="mui-left content-padding">
+					<img class="mui-media-object mui-pull-left" :src="inforDatails.headImg" onerror="this.src='../img/head_img01.png'">
+					<div class="mui-media-body mui-ellipsis">
+						<p>
+							<span class="name">{{inforDatails.truename}}</span>
+							<template v-if="inforDatails.isCollect == 1">
+								<span id="shoucang" class="iconfont icon-star1" @click="getCollect">已收藏</span>
+							</template>
+							<template v-else="inforDatails.isCollect == 0">
+								<span id="shoucang" class="iconfont icon-xing1" @click="getCollect">收藏</span>
+							</template>
+						</p>
+						<p class="mui-ellipsis address" style="font-size: 15px;height: 21px;">
+							<template v-if="userInfo.isTruename == 1">
+								<span>实名认证 · </span>
+							</template>
+							<template v-if="inforDatails.isTrueDrive == 1">
+								<span>驾驶证 · </span>
+							</template>
+							<template v-if="inforDatails.isTrueMove == 1">
+								<span>行驶证</span>
+							</template>
+						</p>
+					</div>
+				</div>
+			</form>
+			<ul class="mui-table-view shopping">
+				<li class="mui-table-view-cell mui-media">
+					<h5>个人简介</h5>
+					<p>{{userInfo.personDescribe}}</p>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<h5>车辆信息</h5>
+					<p><span class="car_infor_left">车型</span><span class="car_infor_right">{{inforDatails.truckType}}</span></p>
+					<p><span class="car_infor_left">高度</span><span class="car_infor_right">{{inforDatails.truckHeight}}</span></p>
+					<p><span class="car_infor_left">承重</span><span class="car_infor_right">{{inforDatails.truckMaxwight}}</span></p>
+					<p><span class="car_infor_left">累计运输次数</span><span class="car_infor_right">{{inforDatails.truckMaxwight}}</span></p>
+					<p><span class="car_infor_left">联系方式</span><span class="car_infor_right" @click="dialTest(userInfo.phoneno)">{{userInfo.phoneno}}</span></p>
+				</li>
+			</ul>
+			<p style="text-align: center;color: #777777;margin-top: 10px;">— 历史线路 —</p>
+			<div id="path" style="background: #fff;">
+				<ul class="mui-table-view shopping" style="min-height: 40px;">
+					<li class="mui-table-view-cell mui-media" v-for="path in paths">
+						<div class="left">{{path.goTime}}</div>
+						<div class="right">{{path.fromArea}}—{{path.toArea}}</div>
+					</li>
+				</ul>
+			</div>
+			<p style="text-align: center;color: #777777;margin-top: 10px;">— 评价(共{{evaluatesLength}}条) —</p>
+			<ul class="mui-table-view command" id="evaluate" style="min-height: 40px;">
+				<li class="mui-table-view-cell mui-media" v-for="evaluate in evaluates">
+					<div class="left">
+						<img src="../img/command_head01.png" />
+					</div>
+					<div class="right">
+						<p>{{evaluate.updateBy}}<span class="complain-date" style="float: right;">{{evaluate.updateDate}}</span></p>
+						<p class="comment">{{evaluate.content}}</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var datails = new Vue({
+			el: '#datails',
+			data: {
+				inforDatails: {},
+				userInfo: getUser().userInfo,
+				data: '',
+				currentPager: 0,
+				currentPager2: 0,
+				flag: false,
+				flag2: false,
+				pageSize: 10, //每页返回最大10条数据
+				paths: [], //线路
+				evaluates: [], //评价
+				evaluatesLength: '' //评价列表的长度
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					datails.data = plus.webview.currentWebview().data;
+					datails.getdatails(datails.data.agentId, datails.userInfo.id);
+					datails.getPath();
+					datails.getEvaluate();
+					mui.init({
+						swipeBack: true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '#path',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: datails.pullupRefresh
+							}
+						}
+					});
+					mui("#evaluate").pullRefresh({
+							container: '#evaluate',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: datails.pullupRefresh1
+							}
+					})
+				})
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-09-05
+				 * 获取个人信息
+				 */
+				getdatails: function(agentId, userId) {
+					var data = {
+						jingJiaRenId: agentId,
+						userId: userId,
+						type: 0
+					}
+					AjaxSend('mobileShip/lookDriverDetail', data, 'POST', function(result) {
+						if(result.status) {
+							result.data.headImg = ServerHost + result.data.headImg;
+							datails.inforDatails = result.data;
+							
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-05
+				 * 收藏或取消
+				 */
+				getCollect: function() {
+					var data = {
+						agentId: datails.data.agentId,
+						userId: datails.userInfo.id,
+						type: 1
+					}
+					AjaxSend('mobileShip/collectOrCancel', data, 'POST', function(result) {
+						if(result.status) {
+							if($("#shoucang").hasClass('icon-xing1')) {
+								$("#shoucang").addClass('icon-star1').removeClass('icon-xing1').html('已收藏');
+							} else {
+								$("#shoucang").addClass('icon-xing1').removeClass('icon-star1').html('收藏');
+							}
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-07
+				 * 车主历史路线
+				 */
+				getPath: function() {
+					var data = {
+						currentPage: datails.currentPager,
+						driversId: "03884751fcb84849bf3a8e5709240e07"
+					}
+					AjaxSend('mobileBid/findDriveLineList', data, 'POST', function(result) {
+						if(result.status) {
+							datails.paths = datails.paths.concat(result.data);
+							if(result.data.length < datails.pageSize) {
+								datails.flag = true;
+							}
+						} else {
+							datails.flag == true;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-07
+				 * 车主评价列表
+				 */
+				getEvaluate: function() {
+					var data = {
+						currentPage: datails.currentPager2,
+						driversId: "03884751fcb84849bf3a8e5709240e07"
+					}
+					AjaxSend('mobileBid/findDriverEvaluationList', data, 'POST', function(result) {
+						if(result.status) {
+							for(var i = 0; i < result.data.length; i++) {
+								//拼接头像url
+								result.data[i].headImg = ServerHost + result.data[i].headImg;
+							}
+							datails.evaluates = datails.evaluates.concat(result.data);
+							datails.evaluatesLength = result.data.length;
+							if(result.data.length < datails.pageSize) {
+								datails.flag2 = true;
+							}
+						} else {
+							datails.flag2 = true;
+							datails.evaluatesLength = 0;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-07
+				 * 历史线路上拉加载
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						datails.getPath(++datails.currentPager);
+						mui('#path').pullRefresh().endPullupToRefresh(datails.flag);
+					}, 1000);
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-07
+				 * 评价上拉加载
+				 */
+				pullupRefresh1: function() {
+					setTimeout(function() {
+						datails.getEvaluate(++datails.currentPager2);
+						mui('#evaluate').pullRefresh().endPullupToRefresh(datails.flag2);
+					}, 1000);
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-08
+				 * 点击电话直接拨打
+				 */
+				dialTest: function(phone) {
+					plus.nativeUI.confirm("您确定要拨打电话吗？",
+						function(event) {
+							if(event.index == 1) {
+								plus.device.dial(phone, false);
+							} else {
+								return false;
+							}
+						}, '客服消息', ['取消', '确定']
+					)
+				}
+			}
+		})
+	</script>
+
+</html>

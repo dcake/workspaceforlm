@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-badge {
+				position: relative;
+				margin-left: -10px;
+				margin-top: 5px;
+				z-index: 9999;
+				background: #f40909;
+				color: #fff;
+				font-size: 11px;
+				padding: 1px 4px;
+			}
+			
+			.save-cg {
+				margin-top: 10px;
+				padding: 15px 15px 10px 15px;
+				background: #fff;
+				width: 100%;
+				border-bottom: 1px solid #efefef;
+				/*left: 15px;*/
+				display: inline-block;
+			}
+			
+			.save-cg img {
+				float: left;
+				width: 30%;
+				height: 100%;
+				width: 95px;
+				border: 1px solid #F2EFEF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="add">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-icon iconfont icon-tongzhi mui-pull-left" @click="getmessage"></a>
+				<span class="mui-badge mui-pull-left">2</span>
+				<h1 class="mui-title">竞价</h1>
+			</header>
+			<div class="mui-content" style="position:relative;">
+				<div>
+					<div class="bidd" v-for="bidd in bidds">
+						<div class="save-cg">
+							<template v-if="bidd.goodsImg1 !='http://192.168.7.52:8080/jzwl/'">
+								<img src="bidd.goodsImg1" />
+							</template>
+							<template v-else>
+								<img src="../img/deliver_list_img03.png" />
+							</template>
+							<div class="save-wz">
+								<h2><span>{{bidd.goodCurrStatus}}</span>{{bidd.shipperName}}
+										<template v-if="bidd.goodCurrStatus=='待确认'">
+											<i>委托单</i>
+										</template>
+									</h2>
+								<p>{{bidd.goodsType}}/{{bidd.goodsNum}}{{bidd.goodsUnit}}/{{bidd.needTruckType}}</p>
+							</div>
+						</div>
+						<div class="bidd-jj">
+							<p>
+								<template v-if="bidd.goodCurrStatus=='竞价中'">
+									<a class="tz" v-on:click="getType(bidd.goodsownerOrderId,0)">查看竞价</a><span>{{bidd.zcYmd}} 出发</span>
+								</template>
+								<template v-else="bidd.goodCurrStatus=='待确认'">
+									<a class="tz" v-on:click="getType(bidd.goodsownerOrderId,1)">查看经纪人</a><span>{{bidd.zcYmd}} 出发</span>
+								</template>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			var add = new Vue({
+				el: '#add',
+				data: {
+					bidds: [],
+					currentPager: 0,
+					flag: false,
+					pageSize: 10, //每页返回最大10条数据
+					userInfo: getUser().userInfo
+				},
+				mounted: function() {
+					mui.plusReady(function() {
+						add.getbiddlist();
+						//						console.log(JSON.stringify(add.userInfo))
+						mui.init({
+							swipeBack: true, //启用右滑关闭功能
+							pullRefresh: {
+								container: '#add',
+								up: {
+									contentinit: '',
+									contentrefresh: '正在加载...',
+									contentnomore: '没有更多数据了 ',
+									callback: add.pullupRefresh
+								}
+							}
+						});
+					});
+				},
+				methods: {
+					/**
+					 * 熊世齐
+					 * 2017-08-30
+					 * 获取竞价列表
+					 */
+					getbiddlist: function() {
+						var data = {
+							currentPage: add.currentPager,
+							userId: "1" //add.userInfo.id
+						};
+						AjaxSend('mobileBid/findBidList', data, 'POST', function(result) {
+							if(result.status) {
+								for(var i = 0; i < result.data.length; i++) {
+									//拼接头像url
+									result.data[i].headImg = ServerHost + result.data[i].headImg;
+								}
+								//数组合并
+								add.bidds = add.bidds.concat(result.data);
+								if(result.data.length < add.pageSize) {
+									add.flag = true;
+								}
+							} else {
+								add.flag = true;
+							}
+						})
+					},
+					/**
+					 * 熊世齐
+					 * 2017-08-31
+					 * 获取点击按钮的name值并传到下一页面
+					 */
+					getType: function(goodsownerOrderId, name) {
+						var typ = {
+							goodsownerOrderId: goodsownerOrderId,
+							userId: add.userInfo.id,
+							type: name
+						};
+						AjaxSend('mobileBid/lookBidOrAgent', typ, 'POST', function(result) {})
+						if(name == 0) {
+							Url = 'ck_badding.html'
+							Id = 'ck_badding.html'
+						} else {
+							Url = 'ck_broker.html'
+							Id = 'ck_broker.html'
+						}
+						mui.openWindow({
+							url: Url,
+							id: Id,
+							extras: {
+								goodsownerOrderId: goodsownerOrderId
+							}
+						});
+					},
+					/**
+					 * 熊世齐
+					 * 2017-09-13
+					 * 跳转到消息页面
+					 */
+					getmessage: function() {
+						mui.openWindow({
+							url: "../App_my_center/message.html",
+							id: "../App_my_center/message.html"
+						});
+					},
+					/**
+					 * 熊世齐
+					 * 2017-08-30
+					 * 上拉加载
+					 */
+					pullupRefresh: function() {
+						setTimeout(function() {
+							add.getbiddlist(++add.currentPager);
+							mui('#add').pullRefresh().endPullupToRefresh(add.flag);
+						}, 1000);
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

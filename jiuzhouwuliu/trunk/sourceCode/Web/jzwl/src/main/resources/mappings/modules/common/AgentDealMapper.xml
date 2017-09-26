@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.AgentDealMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.AgentDeal" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="agent_order_id" property="agentOrderId" jdbcType="VARCHAR" />
+    <result column="pay_style" property="payStyle" jdbcType="VARCHAR" />
+    <result column="pay_order" property="payOrder" jdbcType="VARCHAR" />
+    <result column="suggest_price" property="suggestPrice" jdbcType="DOUBLE" />
+    <result column="rest_money" property="restMoney" jdbcType="DOUBLE" />
+    <result column="oil_card_money" property="oilCardMoney" jdbcType="DOUBLE" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, agent_order_id, pay_style, pay_order, suggest_price, rest_money, oil_card_money, 
+    del_flag, remarks, update_date, update_by, create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from agent_deal
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from agent_deal
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.AgentDeal" >
+    insert into agent_deal (id, agent_order_id, pay_style, 
+      pay_order, suggest_price, rest_money, 
+      oil_card_money, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{agentOrderId,jdbcType=VARCHAR}, #{payStyle,jdbcType=VARCHAR}, 
+      #{payOrder,jdbcType=VARCHAR}, #{suggestPrice,jdbcType=DOUBLE}, #{restMoney,jdbcType=DOUBLE}, 
+      #{oilCardMoney,jdbcType=DOUBLE}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.AgentDeal" >
+    insert into agent_deal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="agentOrderId != null" >
+        agent_order_id,
+      </if>
+      <if test="payStyle != null" >
+        pay_style,
+      </if>
+      <if test="payOrder != null" >
+        pay_order,
+      </if>
+      <if test="suggestPrice != null" >
+        suggest_price,
+      </if>
+      <if test="restMoney != null" >
+        rest_money,
+      </if>
+      <if test="oilCardMoney != null" >
+        oil_card_money,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="agentOrderId != null" >
+        #{agentOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payStyle != null" >
+        #{payStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrder != null" >
+        #{payOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestPrice != null" >
+        #{suggestPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="restMoney != null" >
+        #{restMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="oilCardMoney != null" >
+        #{oilCardMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.AgentDeal" >
+    update agent_deal
+    <set >
+      <if test="agentOrderId != null" >
+        agent_order_id = #{agentOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="payStyle != null" >
+        pay_style = #{payStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrder != null" >
+        pay_order = #{payOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="suggestPrice != null" >
+        suggest_price = #{suggestPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="restMoney != null" >
+        rest_money = #{restMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="oilCardMoney != null" >
+        oil_card_money = #{oilCardMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.AgentDeal" >
+    update agent_deal
+    set agent_order_id = #{agentOrderId,jdbcType=VARCHAR},
+      pay_style = #{payStyle,jdbcType=VARCHAR},
+      pay_order = #{payOrder,jdbcType=VARCHAR},
+      suggest_price = #{suggestPrice,jdbcType=DOUBLE},
+      rest_money = #{restMoney,jdbcType=DOUBLE},
+      oil_card_money = #{oilCardMoney,jdbcType=DOUBLE},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

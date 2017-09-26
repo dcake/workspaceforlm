@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.GoodsownerOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.GoodsownerOrder" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goodsowners_id" property="goodsownersId" jdbcType="VARCHAR" />
+    <result column="good_curr_status" property="goodCurrStatus" jdbcType="VARCHAR" />
+    <result column="jingjia_or_weituo" property="jingjiaOrWeituo" jdbcType="VARCHAR" />
+    <result column="public_sel" property="publicSel" jdbcType="VARCHAR" />
+    <result column="price_min" property="priceMin" jdbcType="DOUBLE" />
+    <result column="price_max" property="priceMax" jdbcType="DOUBLE" />
+    <result column="compete_price_view_count" property="competePriceViewCount" jdbcType="INTEGER" />
+    <result column="public_compete_price_time" property="publicCompetePriceTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_id, goodsowners_id, good_curr_status, jingjia_or_weituo, public_sel, price_min, 
+    price_max, compete_price_view_count, public_compete_price_time, del_flag, remarks, 
+    update_date, update_by, create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsowner_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodsowner_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerOrder" >
+    insert into goodsowner_order (id, goods_id, goodsowners_id, 
+      good_curr_status, jingjia_or_weituo, public_sel, 
+      price_min, price_max, compete_price_view_count, 
+      public_compete_price_time, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsownersId,jdbcType=VARCHAR}, 
+      #{goodCurrStatus,jdbcType=VARCHAR}, #{jingjiaOrWeituo,jdbcType=VARCHAR}, #{publicSel,jdbcType=VARCHAR}, 
+      #{priceMin,jdbcType=DOUBLE}, #{priceMax,jdbcType=DOUBLE}, #{competePriceViewCount,jdbcType=INTEGER}, 
+      #{publicCompetePriceTime,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerOrder" >
+    insert into goodsowner_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsownersId != null" >
+        goodsowners_id,
+      </if>
+      <if test="goodCurrStatus != null" >
+        good_curr_status,
+      </if>
+      <if test="jingjiaOrWeituo != null" >
+        jingjia_or_weituo,
+      </if>
+      <if test="publicSel != null" >
+        public_sel,
+      </if>
+      <if test="priceMin != null" >
+        price_min,
+      </if>
+      <if test="priceMax != null" >
+        price_max,
+      </if>
+      <if test="competePriceViewCount != null" >
+        compete_price_view_count,
+      </if>
+      <if test="publicCompetePriceTime != null" >
+        public_compete_price_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsownersId != null" >
+        #{goodsownersId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCurrStatus != null" >
+        #{goodCurrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaOrWeituo != null" >
+        #{jingjiaOrWeituo,jdbcType=VARCHAR},
+      </if>
+      <if test="publicSel != null" >
+        #{publicSel,jdbcType=VARCHAR},
+      </if>
+      <if test="priceMin != null" >
+        #{priceMin,jdbcType=DOUBLE},
+      </if>
+      <if test="priceMax != null" >
+        #{priceMax,jdbcType=DOUBLE},
+      </if>
+      <if test="competePriceViewCount != null" >
+        #{competePriceViewCount,jdbcType=INTEGER},
+      </if>
+      <if test="publicCompetePriceTime != null" >
+        #{publicCompetePriceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerOrder" >
+    update goodsowner_order
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsownersId != null" >
+        goodsowners_id = #{goodsownersId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodCurrStatus != null" >
+        good_curr_status = #{goodCurrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jingjiaOrWeituo != null" >
+        jingjia_or_weituo = #{jingjiaOrWeituo,jdbcType=VARCHAR},
+      </if>
+      <if test="publicSel != null" >
+        public_sel = #{publicSel,jdbcType=VARCHAR},
+      </if>
+      <if test="priceMin != null" >
+        price_min = #{priceMin,jdbcType=DOUBLE},
+      </if>
+      <if test="priceMax != null" >
+        price_max = #{priceMax,jdbcType=DOUBLE},
+      </if>
+      <if test="competePriceViewCount != null" >
+        compete_price_view_count = #{competePriceViewCount,jdbcType=INTEGER},
+      </if>
+      <if test="publicCompetePriceTime != null" >
+        public_compete_price_time = #{publicCompetePriceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.GoodsownerOrder" >
+    update goodsowner_order
+    set goods_id = #{goodsId,jdbcType=VARCHAR},
+      goodsowners_id = #{goodsownersId,jdbcType=VARCHAR},
+      good_curr_status = #{goodCurrStatus,jdbcType=VARCHAR},
+      jingjia_or_weituo = #{jingjiaOrWeituo,jdbcType=VARCHAR},
+      public_sel = #{publicSel,jdbcType=VARCHAR},
+      price_min = #{priceMin,jdbcType=DOUBLE},
+      price_max = #{priceMax,jdbcType=DOUBLE},
+      compete_price_view_count = #{competePriceViewCount,jdbcType=INTEGER},
+      public_compete_price_time = #{publicCompetePriceTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!--查询货主订单 pcx -->
+    <select id="findOrderList" resultType="com.thinkgem.jeesite.common.entity.Goodsowners" parameterType="com.thinkgem.jeesite.common.entity.Goodsowners" >
+  SELECT * FROM(
+	SELECT
+	vgo.goodsId AS goodsId,
+	vgo.orderId,
+	vgo.order_no,
+	gd.deal_money as payMoney,
+	IFNULL(uir.integral_score,0) AS integralScore,
+	va.truename as agentsTrueName,
+	va.phoneno as agentsPhoneno,
+	GROUP_CONCAT(vd.truename separator '<![CDATA[<br/>]]>')  as driversTrueName,
+	GROUP_CONCAT(vd.phoneno separator '<![CDATA[<br/>]]>')  as driversPhoneno,
+	vgo.goods_type,
+	vgo.shipper_area,
+	vgo.reciver_area,
+	vgo.create_date
+	FROM view_all_goodsowner_order_info vgo
+	LEFT JOIN view_all_goodsowners_info vg ON vg.goodsownersId = vgo.goodsowners_id
+	LEFT JOIN view_all_agent_order_info vao ON vao.goodsId=vgo.goodsId
+	LEFT JOIN view_all_agents_info va ON va.agentsId = vao.agents_id
+	LEFT JOIN view_all_drive_order_info vdo ON vdo.goodsId = vgo.goodsId
+	LEFT JOIN view_all_drivers_info vd ON vd.driversId = vdo.drivers_id
+	LEFT JOIN users_integral_record uir ON vgo.orderId = uir.params
+	left JOIN goodsowner_deal gd on gd.goodsowner_order_id = vgo.orderId
+	WHERE vgo.goodsowners_id = #{id,jdbcType=VARCHAR} GROUP BY vgo.goodsId) aa
+	where 1=1 
+   <if test="driversTrueName !=null and driversTrueName !=''">
+    	and aa.driversTrueName like CONCAT('%','${driversTrueName}','%' )
+   </if>
+    <if test="driversPhoneno !=null and driversPhoneno !=''">
+    	and aa.driversPhoneno like CONCAT('%','${driversPhoneno}','%' )
+    </if>
+   	<if test="beginDate!= null and beginDate!= ''" >
+        AND DATE_FORMAT(aa.create_date, '%Y-%m-%d') &gt;=#{beginDate}
+    </if>
+    <if test="endDate!= null and endDate!= ''" >
+        AND DATE_FORMAT(aa.create_date, '%Y-%m-%d') &lt;=#{endDate}
+    </if>
+    ORDER BY aa.create_date DESC
+  </select>
+   <!-- 根据用户ID查询竞价列表 文帅 -->
+   <select id="findBidList" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsowner_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查询货主订单    张彦学 -->
+  <select id="findShipperOrderList" parameterType="map" resultType="com.thinkgem.jeesite.common.entity.Goods">
+  		SELECT
+			g1.id,
+			g1.goods_type,
+			g1.zc_ymd,
+			g1.goods_img1,
+			g1.need_truck_type,
+			g1.goods_num,
+			g1.goods_unit,
+			go.id AS goodsownerOrderId,
+			go.good_curr_status AS goodCurrStatus,
+			go.jingjia_or_weituo AS jingjiaOrWeituo,
+			dl.deal_money AS dealMoney
+		FROM
+			goodsowner_order go,
+			goodsowners g,
+			users u,
+			goodsowner_deal dl,
+			goods g1
+		WHERE
+			go.goodsowners_id = g.id
+		AND g.user_id = u.id
+		AND dl.goodsowner_order_id = go.id
+		AND go.goods_id = g1.id
+		AND u.id = #{userId}
+		<if test="type != null and type != '' and type == 0 ">
+			AND  go.good_curr_status IN('3','4','11')
+		</if>
+		<if test="type != null and type != '' and type == 1 ">
+			AND  go.good_curr_status IN('5')
+		</if>
+		<if test="type != null and type != '' and type == 2 ">
+			AND  go.good_curr_status IN('3','4','11','5')
+		</if>
+		LIMIT #{pageNo},#{pageSize}
+  </select>
+  
+  <!-- 根据订单id查询订单信息   张彦学 -->
+  <select id="findOrderDetail" parameterType="string" resultType="com.thinkgem.jeesite.common.entity.GoodsownerOrder">
+  		SELECT
+			go.id,
+			go.remarks,
+			go.create_date,
+			g1.insurance_describe,
+			g1.goods_type,
+			g1.shipper_area_detail,
+			g1.reciver_area_detail,
+			g1.order_no,
+			u.truename AS goodsownersName,
+			u.phoneno AS goodsownersPhone,
+			dl.deal_money,
+			dl.settle_accounts_date AS settleAccountsDate
+		FROM
+			goodsowner_order go,
+			goodsowners g,
+			goods g1,
+			users u,
+			goodsowner_deal dl
+		WHERE
+			go.id = #{id}
+		AND go.goods_id = g1.id
+		AND go.goodsowners_id = g.id
+		AND g.user_id = u.id
+		AND dl.goodsowner_order_id = go.id
+  </select>
+  <!-- 根据货物ID查询货主订单  文帅-->
+  <select id="findOrderByGoodId" resultMap="BaseResultMap" parameterType="string">
+  	SELECT
+		*
+	FROM
+		goodsowner_order
+	WHERE
+		goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据货物id查询货品信息   张彦学 -->
+  <select id="findGoodsByOrderId" parameterType="string" resultType="com.thinkgem.jeesite.common.entity.Goods">
+  		SELECT g.*,go.id AS goodsownerOrderId FROM goods g, goodsowner_order go WHERE go.goods_id = g.id AND go.id = #{orderId}
+  </select>
+  <!-- 根据用户ID查询户主订单  文帅 -->
+  <select id="findOrderByUserId" resultMap="BaseResultMap" parameterType="string">
+  	SELECT
+		*
+	FROM
+		goodsowner_order t,
+		goodsowners t1
+	WHERE
+		t.goodsowners_id = t1.id
+	AND t1.user_id =  #{userId,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据用户ID查询货主订单列表分页 文帅 -->
+  <select id="findShipList" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		t.*,
+		t2.goods_type AS goodsType,
+		t2.goods_num AS goodsNum,
+		t2.goods_unit AS goodsUnit,
+		t2.need_truck_type AS needTruckType,
+		t2.zc_ymd AS zcYmd,
+		t2.insurance_describe AS insuranceDescribe,
+		t2.goods_img1 AS goodsImg1
+	FROM
+		goodsowner_order t,
+		goodsowners t1,
+		goods t2
+	WHERE
+		t.goodsowners_id = t1.id
+	AND t.goods_id = t2.id
+	AND t1.user_id = #{userId,jdbcType=VARCHAR}
+	AND t.good_curr_status IN("0","2","6","7","10")
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+  <!-- 根据货主ID查询该货主的运输次数 文帅 -->
+  <select id="findShipCount" resultType="int" parameterType="string">
+  	SELECT
+		*
+	FROM
+		goodsowner_order
+	WHERE
+		good_curr_status = '5'
+	AND goodsowners_id = #{goodsownersId,jdbcType=VARCHAR}
+  </select>
+    <!-- 根据货主ID查询交易数  崔亚光 -->
+  <select id="findCount" resultType="int" parameterType="string">
+  	SELECT
+		COUNT(*)
+	FROM
+		goodsowner_order
+	WHERE
+		goodsowners_id = #{userid,jdbcType=VARCHAR}
+	AND del_flag = "0"
+  </select>
+  
+</mapper>

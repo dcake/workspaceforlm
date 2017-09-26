@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.DriversMapper">
+ <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.Drivers" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="driver_type" property="driverType" jdbcType="VARCHAR" />
+    <result column="is_org_driver" property="isOrgDriver" jdbcType="VARCHAR" />
+    <result column="face_img" property="faceImg" jdbcType="VARCHAR" />
+    <result column="drive_fleet_id" property="driveFleetId" jdbcType="VARCHAR" />
+    <result column="is_has_car" property="isHasCar" jdbcType="VARCHAR" />
+    <result column="truck_no" property="truckNo" jdbcType="VARCHAR" />
+    <result column="truck_type" property="truckType" jdbcType="VARCHAR" />
+    <result column="truck_width" property="truckWidth" jdbcType="VARCHAR" />
+    <result column="truck_height" property="truckHeight" jdbcType="VARCHAR" />
+    <result column="truck_length" property="truckLength" jdbcType="VARCHAR" />
+    <result column="truck_maxwight" property="truckMaxwight" jdbcType="VARCHAR" />
+    <result column="drive_licence_img1" property="driveLicenceImg1" jdbcType="VARCHAR" />
+    <result column="drive_licence_img2" property="driveLicenceImg2" jdbcType="VARCHAR" />
+    <result column="move_licence_img1" property="moveLicenceImg1" jdbcType="VARCHAR" />
+    <result column="move_licence_img2" property="moveLicenceImg2" jdbcType="VARCHAR" />
+    <result column="is_true_drive" property="isTrueDrive" jdbcType="VARCHAR" />
+    <result column="is_true_move" property="isTrueMove" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, driver_type, is_org_driver, face_img, drive_fleet_id, is_has_car, truck_no, 
+    truck_type, truck_width, truck_height, truck_length, truck_maxwight, drive_licence_img1, 
+    drive_licence_img2, move_licence_img1, move_licence_img2, is_true_drive, is_true_move, 
+    del_flag, remarks, update_date, update_by, create_date, create_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from drivers
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from drivers
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    insert into drivers (id, userid, driver_type, 
+      is_org_driver, face_img, drive_fleet_id, 
+      is_has_car, truck_no, truck_type, 
+      truck_width, truck_height, truck_length, 
+      truck_maxwight, drive_licence_img1, drive_licence_img2, 
+      move_licence_img1, move_licence_img2, is_true_drive, 
+      is_true_move, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{driverType,jdbcType=VARCHAR}, 
+      #{isOrgDriver,jdbcType=VARCHAR}, #{faceImg,jdbcType=VARCHAR}, #{driveFleetId,jdbcType=VARCHAR}, 
+      #{isHasCar,jdbcType=VARCHAR}, #{truckNo,jdbcType=VARCHAR}, #{truckType,jdbcType=VARCHAR}, 
+      #{truckWidth,jdbcType=VARCHAR}, #{truckHeight,jdbcType=VARCHAR}, #{truckLength,jdbcType=VARCHAR}, 
+      #{truckMaxwight,jdbcType=VARCHAR}, #{driveLicenceImg1,jdbcType=VARCHAR}, #{driveLicenceImg2,jdbcType=VARCHAR}, 
+      #{moveLicenceImg1,jdbcType=VARCHAR}, #{moveLicenceImg2,jdbcType=VARCHAR}, #{isTrueDrive,jdbcType=VARCHAR}, 
+      #{isTrueMove,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    insert into drivers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="driverType != null" >
+        driver_type,
+      </if>
+      <if test="isOrgDriver != null" >
+        is_org_driver,
+      </if>
+      <if test="faceImg != null" >
+        face_img,
+      </if>
+      <if test="driveFleetId != null and  driveFleetId !=''" >
+        drive_fleet_id,
+      </if>
+      <if test="isHasCar != null" >
+        is_has_car,
+      </if>
+      <if test="truckNo != null" >
+        truck_no,
+      </if>
+      <if test="truckType != null" >
+        truck_type,
+      </if>
+      <if test="truckWidth != null" >
+        truck_width,
+      </if>
+      <if test="truckHeight != null" >
+        truck_height,
+      </if>
+      <if test="truckLength != null" >
+        truck_length,
+      </if>
+      <if test="truckMaxwight != null" >
+        truck_maxwight,
+      </if>
+      <if test="driveLicenceImg1 != null" >
+        drive_licence_img1,
+      </if>
+      <if test="driveLicenceImg2 != null" >
+        drive_licence_img2,
+      </if>
+      <if test="moveLicenceImg1 != null" >
+        move_licence_img1,
+      </if>
+      <if test="moveLicenceImg2 != null" >
+        move_licence_img2,
+      </if>
+      <if test="isTrueDrive != null" >
+        is_true_drive,
+      </if>
+      <if test="isTrueMove != null" >
+        is_true_move,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="driverType != null" >
+        #{driverType,jdbcType=VARCHAR},
+      </if>
+      <if test="isOrgDriver != null" >
+        #{isOrgDriver,jdbcType=VARCHAR},
+      </if>
+      <if test="faceImg != null" >
+        #{faceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="driveFleetId != null and  driveFleetId !='' " >
+        #{driveFleetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isHasCar != null" >
+        #{isHasCar,jdbcType=VARCHAR},
+      </if>
+      <if test="truckNo != null" >
+        #{truckNo,jdbcType=VARCHAR},
+      </if>
+      <if test="truckType != null" >
+        #{truckType,jdbcType=VARCHAR},
+      </if>
+      <if test="truckWidth != null" >
+        #{truckWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="truckHeight != null" >
+        #{truckHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="truckLength != null" >
+        #{truckLength,jdbcType=VARCHAR},
+      </if>
+      <if test="truckMaxwight != null" >
+        #{truckMaxwight,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenceImg1 != null" >
+        #{driveLicenceImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenceImg2 != null" >
+        #{driveLicenceImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="moveLicenceImg1 != null" >
+        #{moveLicenceImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="moveLicenceImg2 != null" >
+        #{moveLicenceImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrueDrive != null" >
+        #{isTrueDrive,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrueMove != null" >
+        #{isTrueMove,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    update drivers
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="driverType != null" >
+        driver_type = #{driverType,jdbcType=VARCHAR},
+      </if>
+      <if test="isOrgDriver != null" >
+        is_org_driver = #{isOrgDriver,jdbcType=VARCHAR},
+      </if>
+      <if test="faceImg != null" >
+        face_img = #{faceImg,jdbcType=VARCHAR},
+      </if>
+      <if test="driveFleetId != null and  driveFleetId !='' " >
+        drive_fleet_id = #{driveFleetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isHasCar != null" >
+        is_has_car = #{isHasCar,jdbcType=VARCHAR},
+      </if>
+      <if test="truckNo != null" >
+        truck_no = #{truckNo,jdbcType=VARCHAR},
+      </if>
+      <if test="truckType != null" >
+        truck_type = #{truckType,jdbcType=VARCHAR},
+      </if>
+      <if test="truckWidth != null" >
+        truck_width = #{truckWidth,jdbcType=VARCHAR},
+      </if>
+      <if test="truckHeight != null" >
+        truck_height = #{truckHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="truckLength != null" >
+        truck_length = #{truckLength,jdbcType=VARCHAR},
+      </if>
+      <if test="truckMaxwight != null" >
+        truck_maxwight = #{truckMaxwight,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenceImg1 != null" >
+        drive_licence_img1 = #{driveLicenceImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="driveLicenceImg2 != null" >
+        drive_licence_img2 = #{driveLicenceImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="moveLicenceImg1 != null" >
+        move_licence_img1 = #{moveLicenceImg1,jdbcType=VARCHAR},
+      </if>
+      <if test="moveLicenceImg2 != null" >
+        move_licence_img2 = #{moveLicenceImg2,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrueDrive != null" >
+        is_true_drive = #{isTrueDrive,jdbcType=VARCHAR},
+      </if>
+      <if test="isTrueMove != null" >
+        is_true_move = #{isTrueMove,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+    update drivers
+    set userid = #{userid,jdbcType=VARCHAR},
+      driver_type = #{driverType,jdbcType=VARCHAR},
+      is_org_driver = #{isOrgDriver,jdbcType=VARCHAR},
+      face_img = #{faceImg,jdbcType=VARCHAR},
+      drive_fleet_id = #{driveFleetId,jdbcType=VARCHAR},
+      is_has_car = #{isHasCar,jdbcType=VARCHAR},
+      truck_no = #{truckNo,jdbcType=VARCHAR},
+      truck_type = #{truckType,jdbcType=VARCHAR},
+      truck_width = #{truckWidth,jdbcType=VARCHAR},
+      truck_height = #{truckHeight,jdbcType=VARCHAR},
+      truck_length = #{truckLength,jdbcType=VARCHAR},
+      truck_maxwight = #{truckMaxwight,jdbcType=VARCHAR},
+      drive_licence_img1 = #{driveLicenceImg1,jdbcType=VARCHAR},
+      drive_licence_img2 = #{driveLicenceImg2,jdbcType=VARCHAR},
+      move_licence_img1 = #{moveLicenceImg1,jdbcType=VARCHAR},
+      move_licence_img2 = #{moveLicenceImg2,jdbcType=VARCHAR},
+      is_true_drive = #{isTrueDrive,jdbcType=VARCHAR},
+      is_true_move = #{isTrueMove,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+     <!-- 获取车主列表 王涛-->
+  <select id="findList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+SELECT aa.*,t1.fleet_name from(
+		     SELECT
+				 t.*,
+			   u.username,
+			   u.truename,
+			   u.userno,
+			   u.phoneno,
+			   u.status,
+			   u.examine_status,
+			   u.examine_remark,
+			   u.level
+		FROM
+				drivers t,
+				users u
+		WHERE
+		    t.userid=u.id
+		     ) as aa
+		     left join  drive_fleet t1 on aa.drive_fleet_id=t1.id
+		     WHERE 1=1
+    <if test="truename !=null and truename !=''">
+    	and aa.truename like CONCAT('%','${truename}','%' )
+    </if>
+    <if test="phoneno !=null and phoneno !=''">
+    		and aa.phoneno LIKE CONCAT('%','${phoneno}','%' )
+    </if>
+    <if test="examineStatus !=null and examineStatus !=''">
+    	and aa.examine_status = #{examineStatus}
+    </if>
+    <if test="level !=null and level !=''">
+    	and aa.level = #{level}
+    </if>
+   ORDER BY t1.create_date desc
+  </select>
+    <select id="selectByPrimaryKeyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     SELECT
+				 t.*,
+			   u.username,
+			   u.phoneno,
+			   u.status,
+			   u.examine_status,
+			   u.examine_remark,
+			   u.level,
+			   t1.fleet_name
+		FROM
+				drivers t,
+				users u,
+			  drive_fleet t1
+		WHERE
+		       t.drive_fleet_id=t1.id
+		AND
+		       t.userid=u.id
+		AND u.user_sort='1'
+		AND 
+        t.driver_type='0'
+		AND
+     t.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!--  查询userId-->
+    <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from drivers
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <!--  订单信息-->
+       <!-- 获取车主列表 王涛-->
+  <select id="findOrderList" resultMap="BaseResultMap" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+				SELECT
+					t.*, t3.order_no,
+					u.current_point,
+					u.truename,
+					u.phoneno,
+					t3.goods_type,
+					t3.shipper_area,
+					t3.reciver_area,
+					t3.zc_sf,
+					t5.pay_money
+				FROM
+					drivers t,
+					drive_order t2,
+					goods t3,
+					users u,
+					goodsowner_order t4,
+				goodsowner_deal t5
+				WHERE
+					t.id = t2.drivers_id
+				AND t2.goods_id = t3.id
+				AND t.userid =u.id
+				AND t4.goods_id =t3.id
+				AND t5.goodsowner_order_id=t4.id
+				AND t.id=#{id,jdbcType=VARCHAR}
+				AND u.user_sort = '1'
+				AND t.driver_type = '0'
+		    <if test="truename !=null and truename !=''">
+		    	and u.truename like CONCAT('%','${truename}','%' )
+		    </if>
+		    <if test="phoneno !=null and phoneno !=''">
+		    		and u.phoneno LIKE CONCAT('%','${phoneno}','%' )
+		    </if>
+		   	<if test="beginDate!= null and beginDate!= ''" >
+		        AND DATE_FORMAT(t.create_date, '%Y-%m-%d') &gt;=#{beginDate}
+		    </if>
+		    <if test="endDate!= null and endDate!= ''" >
+		        AND DATE_FORMAT(t.create_date, '%Y-%m-%d') &lt;=#{endDate}
+		    </if>
+  </select>
+  <!-- 根据ID查询货主信息 -->
+  <select id="findOrderListId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+					SELECT
+					t.*, t3.order_no,
+					u.current_point,
+					u.truename,
+					u.phoneno,
+					t3.goods_type,
+					t3.shipper_area,
+					t3.reciver_area,
+					t3.zc_sf,
+					t5.pay_money
+				FROM
+					drivers t,
+					drive_order t2,
+					goods t3,
+					users u,
+					goodsowner_order t4,
+				goodsowner_deal t5
+				WHERE
+					t.id = t2.drivers_id
+				AND t2.goods_id = t3.id
+				AND t.userid =u.id
+				AND t4.goods_id =t3.id
+				AND t5.goodsowner_order_id=t4.id
+				AND u.user_sort = '1'
+				AND t.driver_type = '0'
+				AND
+      t.id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <!--  查询userId-->
+    <select id="findDriverByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+			   SELECT
+				*
+			FROM
+					drivers t,
+					users u
+			WHERE
+					t.userid = u.id
+			AND
+			    u.id= #{id,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 用户审核同步更新认证addby崔亚光 -->
+  <update id="update" parameterType="com.thinkgem.jeesite.common.entity.Drivers">
+  	update drivers
+		<set>
+			<if test="isTrueDrive != null">
+				is_true_drive = #{isTrueDrive,jdbcType=VARCHAR},
+			</if>
+			<if test="isTrueMove != null">
+				is_true_move = #{isTrueMove,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  
+  <!--  通过用户编号查询车主 pcx-->
+    <select id="findDriverByUserno" resultType="com.thinkgem.jeesite.common.entity.Drivers" parameterType="com.thinkgem.jeesite.common.entity.Drivers" >
+	SELECT
+		v.driversId as id,
+		v.*
+	FROM
+		view_all_drivers_info v
+	WHERE
+		v.userno = #{userno,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据货主订单查询车主信息   张彦学 -->
+  <select id="findDriverByGoodsownerOrder" parameterType="string" resultMap="BaseResultMap">
+  		SELECT
+			u.truename,
+			u.phoneno,
+			u.is_truename AS isTrueName,
+			d.*,
+			doo.id AS driverOrderId
+		FROM
+			drivers d,
+			drive_order doo,
+			users u
+		WHERE
+			doo.user_order_id = #{id}
+		AND doo.drivers_id = d.id
+		AND d.userid = u.id
+  </select>
+    <select id="getDriversByTruckNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from drivers
+    where truck_no = #{truckNo,jdbcType=VARCHAR}
+    <if test="driversId != null">
+		and id !=#{driversId,jdbcType=VARCHAR}
+	</if>
+  </select>
+  <!-- 根据车队长ID查询该车队的队员列表 -->
+  <select id="findTeamMembersList" resultMap="BaseResultMap" parameterType="map">
+  	SELECT
+		d.*, u.truename AS truename,
+		u.sex AS sex,
+		u.area_code AS areaCode,
+		u.head_img AS headImg
+	FROM
+		drivers d,
+		users u
+	WHERE
+		d.userid = u.id
+	AND drive_fleet_id = #{driveFleetId,jdbcType=VARCHAR}
+	AND driver_type = "1"
+	LIMIT #{currentPage},#{pageSize}
+  </select>
+  <resultMap id="inviteMap" type="com.thinkgem.jeesite.common.entity.Drivers" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="driver_type" property="driverType" jdbcType="VARCHAR" />
+    <result column="is_org_driver" property="isOrgDriver" jdbcType="VARCHAR" />
+    <result column="face_img" property="faceImg" jdbcType="VARCHAR" />
+    <result column="drive_fleet_id" property="driveFleetId" jdbcType="VARCHAR" />
+    <result column="is_has_car" property="isHasCar" jdbcType="VARCHAR" />
+    <result column="truck_no" property="truckNo" jdbcType="VARCHAR" />
+    <result column="truck_type" property="truckType" jdbcType="VARCHAR" />
+    <result column="truck_width" property="truckWidth" jdbcType="VARCHAR" />
+    <result column="truck_height" property="truckHeight" jdbcType="VARCHAR" />
+    <result column="truck_length" property="truckLength" jdbcType="VARCHAR" />
+    <result column="truck_maxwight" property="truckMaxwight" jdbcType="VARCHAR" />
+    <result column="drive_licence_img1" property="driveLicenceImg1" jdbcType="VARCHAR" />
+    <result column="drive_licence_img2" property="driveLicenceImg2" jdbcType="VARCHAR" />
+    <result column="move_licence_img1" property="moveLicenceImg1" jdbcType="VARCHAR" />
+    <result column="move_licence_img2" property="moveLicenceImg2" jdbcType="VARCHAR" />
+    <result column="is_true_drive" property="isTrueDrive" jdbcType="VARCHAR" />
+    <result column="is_true_move" property="isTrueMove" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="truename" property="truename" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+    <result column="user_sort" property="userSort" jdbcType="VARCHAR" />
+    <result column="gps_info" property="gpsInfo" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 邀请队员列表  崔亚光 -->
+  <select id="findInviteList" resultMap="inviteMap" parameterType="java.lang.String">
+  	select 
+  		u.truename,u.head_img,u.sex,u.user_sort,u.area_code,u.gps_info,
+  		t.userid,t.driver_type,t.id
+  		from users u,drivers t
+  		where t.userid=u.id
+  		<if test="userid != null and userid != '' ">
+  			and t.userid=#{userid,jdbcType=VARCHAR}
+  		</if>
+  
+  </select>
+  <!-- 退出车队  崔亚光 -->
+  <update id="exitDriveFleet" parameterType="com.thinkgem.jeesite.common.entity.Drivers">
+  	update drivers
+  	<set>
+  		driver_type='0',
+  		drive_fleet_id=#{driveFleetId,jdbcType=VARCHAR}
+  	</set>
+  	where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 转让身份列表  崔亚光 -->
+    <select id="changeBodyList" resultMap="inviteMap" parameterType="java.lang.String">
+  	select 
+  		u.truename,u.head_img,u.sex,u.user_sort,u.area_code,u.gps_info,
+  		t.userid,t.driver_type,t.id
+  		from users u,drivers t
+  		where t.userid=u.id
+  			and t.drive_fleet_id=#{driveFleetId,jdbcType=VARCHAR}
+  
+  </select>
+  <!-- 转让身份 崔亚光 -->
+  <update id="changeBody" parameterType="java.lang.String">
+  	update drivers
+  	<set>
+  		driver_type='1',
+  	</set>
+  	where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

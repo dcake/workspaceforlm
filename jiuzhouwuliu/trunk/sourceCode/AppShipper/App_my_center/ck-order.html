@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.appeal{
+				line-height: 44px;
+				color: #fff;
+				padding-right: 10px;
+			}
+			.transport{
+				width: 100%;
+				height: 50px;
+				background: #fff;
+			}
+			.tran-1{
+				margin-left: 32%;
+				height: 50px;
+				padding-top: 10px;
+
+			}
+			.tran-1 img{
+				width:30px;
+				float: left;
+			}
+			.tran-1 span{
+				float: left;
+				line-height: 30px;
+				color: #999;
+				padding-left: 10px;
+			}
+			.order-1 p span.icon-dianhua{
+				color: #0062CC;
+				margin-left: 40px;
+				font-size: 20px;
+			}
+			textarea{
+				border: 0;
+				color: #333;
+			}
+			.appeal-con h2{
+				font-weight: normal;
+				font-size: 14px;
+				margin: 0;
+				padding: 0;
+				padding: 10px 15px;
+				color: #8F8F94;
+			}
+			.appeal-con p{
+				padding-top: 10px;
+				padding-left: 15px;
+			}
+			.rq-order{
+				width: 100%;
+				background: #fff;
+				display: inline-block
+			}
+			.rq-order p{
+				float: right;
+				padding-right: 10px;
+				margin-top: 0;
+			}
+			.icon-xing1:before{
+				font-size:17px;
+			    color:#999999;
+			}
+			.icon-xingjihui:before{
+				font-size:17px;
+			    color:#ffb107;
+			}
+			.ss-cause1 {
+			    padding: 0px 15px;
+			    height:40px;
+			    line-height: 40px;
+			    font-size: 14px;			    
+			}
+			.ss-cause{
+				margin-top: 0;
+				color: #666;
+			}
+			.tp-hw{
+			  padding:15px;
+			  background: #fff;
+			  display: inline-block;
+			  width: 100%;
+			}
+			.tp-hw img{
+				width: 65px;
+				float: left;
+				margin-right: 10px;
+			}	
+			.tk-p{
+				padding-top: 15px;
+				padding-left: 15px;
+				color: #000;
+				font-size: 16px;
+			} 
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">查看订单</h1>
+		</header>
+		<div class="mui-content">
+			<div class="ck-dd">
+				<ul class="mui-table-view">
+					<li v-for="(key,item,index) in detailData.position" class="mui-table-view-cell">
+						<a @tap="positionList(key)" class="mui-navigate-right">
+							<div class="ck-nr">
+								<span class="mui-icon iconfont icon-huocheicon-copy icon-c"></span>
+								<p>
+									<h2>{{key[0].curArea}}</h2>
+									<i>{{key[0].createDate}}</i>
+								</p>
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="ck-nr">
+							<span class="mui-icon iconfont icon-beizhu icon-bz"></span>
+							<p>
+								<h2>备注：{{detailData.goodsownerOrder.remarks}}</h2>
+							</p>
+						</div>
+					</li>
+				</ul>
+				<div class="order-con">
+					<ul class="order-1">
+						<h2>车主信息</h2>
+						<li v-for="(item,index) in detailData.driverList">
+							<a v-if="item.isTrueName == 1">实名认证</a>
+							<a v-if="item.isTrueDrive == 1">驾照证</a>
+							<a v-if="item.isTrueMove == 1">行驶证</a>
+							<p> <span>车主名称</span>{{item.truename}}</p>
+							<p> <span>手机号</span>{{item.phoneno}}</p>
+							<p> <span>车牌号</span>{{item.truckNo}}</p>
+							<div v-if="index != detailData.driverList.length-1" class="line"></div>
+						</li>
+					</ul>
+					<div class="order-1">
+						<p> <span>货主信息</span> </p>
+						<p> <span>货主名称</span>{{detailData.goodsownerOrder.goodsownersName}}</p>
+						<p> <span>手机号</span>{{detailData.goodsownerOrder.goodsownersPhone}}</p>
+						<p> <span>货物类型</span>{{detailData.goodsownerOrder.goodsType}}</p>
+						<p> <span>发货地</span>{{detailData.goodsownerOrder.shipperAreaDetail}}</p>
+						<p> <span>收货地</span>{{detailData.goodsownerOrder.reciverAreaDetail}}</p>
+					</div>
+					<div class="order-1 order-jg">
+						<p>成交价<b>￥{{detailData.goodsownerOrder.dealMoney}}</b></p>
+					</div>
+					<div class="order-1 or-bz" style="margin-bottom: 30px;">
+						<p> 订单编号：{{detailData.goodsownerOrder.orderNo}}</p>
+						<p> 创建时间：{{detailData.goodsownerOrder.createDate}}</p>
+						<p style="margin-bottom: 0;"> 付款时间：{{detailData.goodsownerOrder.dealDate}}</p>
+					</div>
+				</div>
+			</div>
+			<!--<div class="appeal-con">
+				<h2>申诉</h2>
+				<div class="row mui-input-row">
+                 	<div class="tp-hw">
+						无
+					</div>	
+				</div>
+			</div>
+			<div class="appeal-con">
+				<h2>图片</h2>
+				<div class="row mui-input-row">
+                 	<div class="tp-hw">
+						<img src="../img/ck-img.jpg" />
+						<img src="../img/ck-img.jpg" />
+						<img src="../img/ck-img.jpg" />
+					</div>	
+					<p style="float: right; padding-right: 10px;">2017-07-01    13：03：22</p>
+				</div>
+			</div>
+			<div class="appeal-con">
+				<h2>回复</h2>
+				<div class="row mui-input-row">
+                 	<div class="tp-hw">
+						电话号码填写有误，无法拨通，请核实后再发布。
+					</div>	
+					<p style="float: right; padding-right: 10px;">2017-07-01    13：03：22</p>
+				</div>
+			</div>
+			<div class="appeal-con">
+				<h2>评价</h2>
+				<div class="ss-cause">
+					<div class="ss-cause1">
+						     评星
+						<span class="list1">
+							<a href="#" class="star1 iconfont icon-xingjihui"></a>
+							<a href="#" class="star2 iconfont icon-xingjihui"></a>
+							<a href="#" class="star3 iconfont icon-xingjihui"></a>
+							<a href="#" class="star4 iconfont icon-xingjihui"></a>
+							<a href="#" class="star5 iconfont icon-xing1"></a>
+						</span>
+					</div>	
+                 	<div class="tp-hw" style="border-top: 1px solid #eee; color: #000;">
+						电话号码填写有误，无法拨通，请核实后再发布。
+					</div>	
+				</div>
+			</div>-->
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/base.js"></script>
+		<script src="../js/vue.js"></script>
+		<script type="text/javascript">
+			var detailVM = new Vue({
+				el:'.mui-content',
+				data:{
+					detailData:{}
+				},
+				mounted:function(){
+					var self = this;
+					mui.init();
+					//order.html自定义函数
+					window.addEventListener("getDetailData",function(event){
+						var orderId = event.detail.orderId;
+						var type = event.detail.type;
+						self.getDetailData(orderId,type);
+					});
+				}, 
+				methods:{
+					/**
+					 * 获取数据源
+					 * @param {Object} orderId 订单id
+					 * @param {Object} type	是否委托单
+					 */
+					getDetailData:function(orderId,type){
+						var self = this;
+						var param = {
+							orderId:orderId,
+							type:type
+						}
+						AjaxSend("mobileShipperOrder/checkOrder",param,"post",function(result){
+							console.log(JSON.stringify(result))
+							if(result.status){
+								self.detailData = result.data;
+							}
+						})
+					},
+					positionList:function(key){
+						var self = this;
+						mui.openWindow({
+							url:'logistics.html',
+							id:'logistics.html',
+							extras:{
+								positionList: key
+							}
+						})
+					}
+				}
+			})
+			//重写返回逻辑，返回时隐藏详情页webview
+			mui.back = function() {
+			    plus.webview.currentWebview().hide("auto", 300);
+			}
+			//窗口隐藏时，重置页面数据
+			mui.plusReady(function () {
+			    var self = plus.webview.currentWebview();
+			    self.addEventListener("hide",function (e) {
+			        window.scrollTo(0, 0);//重置滚动条位置
+			    },false);
+			})
+		</script>
+	</body>
+
+</html>

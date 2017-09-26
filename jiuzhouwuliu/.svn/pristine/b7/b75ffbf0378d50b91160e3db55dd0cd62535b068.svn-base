@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-table-view .mui-media-object{
+				line-height: 80px;
+				max-width: 80px;
+				height: 80px;
+				margin-right: 10px;
+			}
+			.mui-bar {
+				padding: 0;
+			}
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			.mui-content {
+				margin-top: 50px;
+			}
+			.mui-badge {
+				position: relative;
+				margin-left: -10px;
+				margin-top: 5px;
+				z-index: 9999;
+				background: #f40909;
+				color: #fff;
+				font-size: 11px;
+				padding: 1px 4px;
+			}
+			ul {
+				padding: 0;
+				margin: 0;
+			}
+			.mui-table-view-cell {
+				padding: 15px 15px;
+			}
+			.mui-table-view-cell p {
+				margin-bottom: 7px;
+			}
+			.leibie {
+				font-size: 16px;
+				font-weight: 400;
+			}
+			.address {
+				font-weight: 400;
+				font-size: 16px;
+				color: #000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-tongzhi mui-pull-left tz" id="../App_my_center/message.html"></a>
+			<h1 id="title" class="mui-title">找车</h1>
+		</header>
+		<div class="mui-content" style="margin-bottom: 10px;">
+			<div class="ad-selector">
+				<ul>
+					<li id="distance" class="nearby"><span class="ui-alert select-size">{{rangesVal}}</span>
+						<a class="mui-icon mui-icon-arrowdown" style=""></a>
+					</li>
+					<li id="city" style="height: 50px;overflow: hidden;"><span class="ui-alert select-size">{{cityVal}}</span>
+						<a class="mui-icon mui-icon-arrowdown" style="vertical-align:top;margin-top: 12px;"></a>
+					</li>
+					<li @tap="carType()" class="moreclass"><span class="select-size">{{truckTypeStr}}</span>
+						<a class="mui-icon mui-icon-arrowdown" style=""></a>
+					</li>
+				</ul>
+			</div>
+			<ul class="mui-table-view shopping">
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img10.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">武汉江夏—长沙雨花</span><span class="mui-icon iconfont icon-star1 mui-pull-right"></span></p>
+						<p><span class="leibie">黄飞鸿</span></p>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+						</p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img08.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">哈尔滨江北—郑州金水</span></p>
+						<p><span class="leibie">于文月</span>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+						</p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img09.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">哈尔滨江北—郑州金水</span></p>
+						<p><span class="leibie">于文月</span>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+						</p>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<img class="mui-media-object mui-pull-left" src="../img/head-img05.png">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="address">武汉江夏—长沙雨花</span></p>
+						<p><span class="leibie">黄飞鸿</span></p>
+						<p class="mui-ellipsis">
+							<span class="mui-pull-left mui-ellipsis detail">高拦车/3米/10吨</span>
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/city.data-3.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var VM = new Vue({
+			el:'.mui-content',
+			data:{
+				ranges:'3',	//范围
+				rangesVal:'3公里',//页面显示范围
+				areaCode:'',//区域
+				cityVal:'选择地区',	//区
+				truckType:'0',//车型value
+				truckTypeStr:'选择车型',//车型label
+				truckLength:'0',//车长value
+				truckWidth:'0'//车宽value
+			},
+			mounted:function(){
+				var self = this;
+				mui.init();
+				var cityVal = document.getElementById("cityVal");
+				//获取用户当前未知
+				var userGPSInfo = getUserGPS();
+				self.areaCode = userGPSInfo.province+","+userGPSInfo.city+","+userGPSInfo.district;
+				self.cityVal = userGPSInfo.district;
+				/*选择范围 start*/
+				var userPicker = new mui.PopPicker();
+				userPicker.setData([
+					{
+						value: '3',
+						text: '3公里'
+					},{
+						value: '5',
+						text: '5公里'
+					},{
+						value: '10',
+						text: '10公里'
+					},{
+						value: '20',
+						text: '20公里'
+					}]);
+					var distance = document.getElementById("distance");
+					distance.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							self.rangesVal = items[0].text;
+							self.ranges = items[0].value;
+						});
+					}, false);
+				/*选择范围 end*/
+				/*选择地区 start*/
+				/**
+				 * 获取对象属性的值
+				 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+				 * @param {Object} obj 对象
+				 * @param {String} param 属性名
+				 */
+				var _getParam = function(obj, param) {
+					return obj[param] || '';
+				};
+				var cityPicker = new mui.PopPicker({
+					layer: 3
+				});
+				cityPicker.setData(cityData3);  
+				var city = document.getElementById("city");
+				city.addEventListener('tap', function(event) {
+					cityPicker.show(function(items) {
+						self.cityVal = _getParam(items[2], 'text');
+						self.areaCode = _getParam(items[0], 'text') + "," + _getParam(items[1], 'text') + "," + _getParam(items[2], 'text');
+					});
+				}, false);
+				/*选择地区 end*/ 
+			},
+			methods:{
+				carType:function(){
+					mui.openWindow({
+						url:'carParam.html',
+						id:'carParam.html',
+					   	show:{
+					      	aniShow:"slide-in-bottom",//页面显示动画，从屏幕底部弹出；
+					    },
+					})
+				}
+			}
+		})
+		//carParam.html自定义函数，传递用户选择的车型参数
+		window.addEventListener("carVal",function(event){
+			VM.truckType = event.detail.typeVal;
+			VM.truckTypeStr = event.detail.typeValStr;
+			VM.truckLength = event.detail.lengthVal;
+			VM.truckWidth = event.detail.widthVal;
+		})
+	
+	</script>
+
+</html>

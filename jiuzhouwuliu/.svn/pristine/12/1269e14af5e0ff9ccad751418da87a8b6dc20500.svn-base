@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				height: 80px;
+				margin-right: 10px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: 40%;
+				padding: 8px 9px;
+				margin-left: 120px;
+			}
+			
+			.history-sold {
+				margin-top: -15px;
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.but-box {
+				margin: 35px 15px;
+				text-align: center;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.btn_chengse {
+				background-color: #FF7800;
+				margin-left: 20px;
+			}
+			
+			.ad-selector {
+				margin-top: 44px;
+				height: 40px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content {
+				margin-top: 40px;
+			}
+			
+			ul {
+				width: 100%;
+				list-style: none;
+				padding: 0px 10px;
+			}
+			
+			.ad-selector li {
+				position: relative;
+				float: left;
+				width: 33.333%;
+				font-size: 14px;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				/*margin-top: 7px;*/
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			
+			.content-padding {
+				padding: 15px;
+				border-bottom: 1px solid #efefef;
+			}
+			
+			.money {
+				font-size: 18px;
+				color: #ff4800;
+				float: right;
+			}
+			
+			.shopping .left {
+				width: 32%;
+				float: left;
+				font-size: 16px;
+				color: #777;
+				padding: 1px 15px;
+			}
+			
+			.shopping .right {
+				width: 68%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			/*收藏*/
+			
+			.icon-xing1:before {
+				/*padding-right: 5px;*/
+				font-size: 18px;
+			}
+			
+			.icon-star1:before {
+				/*padding-right: 5px;*/
+				font-size: 18px;
+				color: #F0AD4E;
+			}
+			
+			.badding-num {
+				height: 50px;
+				vertical-align: middle;
+				text-align: center;
+				padding: 17px 0px;
+				color: #ff5400;
+				box-shadow: 2px 3px 6px #EFEFEF;
+				font-size: 16px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.queren {
+				background: #1dacf9;
+				color: #fff;
+				width: 40%;
+				margin: 0 4%;
+				height: 48px;
+				font-size: 18px;
+				border-radius: 6px;
+				display: inline-block;
+			}
+			
+			img.label {
+				width: 50px;
+				margin-left: 5px;
+			}
+			
+			.mui-pull-left {
+				border-radius: 50%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">查看竞价</h1>
+		</header>
+		<div id="lookbadd" class="mui-content">
+			<form class="mui-input-group" style="border-bottom: none;">
+				<div class="badding-num">共{{length}}人参与竞价</div>
+				<div class="mui-left content-padding" v-for="infor in infors" style="border-bottom: none;">
+					<template v-if="infor.userSort == 1">
+						<div class="mui-left content-padding" style="border-bottom: none;margin-bottom: 0;padding: 0 15px;">
+							<div @click="ckperson(1,infor.userId)">
+								<img class="mui-media-object mui-pull-left" :src="infor.headImg" onerror="this.src='../img/head_img01.png'">
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="name">{{infor.truename}}<img class="label" src="../img/label_cz.png" ></span>
+										<template v-if="infor.isCollect == 1">
+											<span id="shoucang01" class="iconfont icon-star1 mui-pull-right"></span>
+										</template>
+									</p>
+									<p class="mui-ellipsis address">{{infor.truckType}}{{infor.truckLength}}{{infor.truckMaxwight}}{{infor.goodsUnit}}<span class="money">￥{{infor.jingjiaPrice}}</span></p>
+									<p class="mui-ellipsis address">运输{{infor.transportCount}}次</p>
+								</div>
+							</div>
+							<p class="mui-ellipsis" style="margin-bottom: 0;">
+								<template v-if="infor.jingjiaStatus == 1">
+									<button type="button" class="mui-btn mui-pull-right confirm01 tz" id="ck_person_details.html" @click="getJingJiaRen(infor.userId,infor.jingjiaPrice,0)">取消</button>
+									<span class="mui-pull-right" style="padding-right: 10px;padding-top: 5px;">已确认</span>
+								</template>
+								<template v-else="infor.jingjiaStatus == 0">
+									<button type="button" class="mui-btn mui-pull-right tz" id="ck_broker.html" @click="getJingJiaRen(infor.userId,infor.jingjiaPrice,1)">确认</button>
+								</template>
+							</p>
+						</div>
+					</template>
+					<template v-if="infor.userSort == 2">
+						<div class="mui-left content-padding">
+							<div @click="ckperson(2,infor.userId)">
+								<template v-if="infor.headImg !='http://192.168.7.52:8080/jzwl/'">
+									<img class="mui-media-object mui-pull-left" :src="infor.headImg">
+								</template>
+								<template v-else>
+									<img class="mui-media-object mui-pull-left" src="../img/head_img01.png">
+								</template>
+								<div class="mui-media-body mui-ellipsis">
+									<p>
+										<span class="name">{{infor.truename}}<img class="label" src="../img/label_broker.png" ></span>
+										<template v-if="infor.isCollect == 1">
+											<span id="shoucang01" class="iconfont icon-star1 mui-pull-right"></span>
+										</template>
+									</p>
+									<p class="mui-ellipsis address">{{infor.companyName}}<span class="money">￥{{infor.jingjiaPrice}}</span></p>
+								</div>
+							</div>
+							<p class="mui-ellipsis" style="margin-bottom: 0;">
+								<template v-if="infor.jingjiaStatus == 1">
+									<button type="button" class="mui-btn mui-pull-right confirm01 tz" id="ck_person_details.html" @click="getJingJiaRen(infor.userId,infor.jingjiaPrice,0)">取消</button>
+									<span class="mui-pull-right" style="padding-right: 10px;padding-top: 5px;">已确认</span>
+								</template>
+								<template v-else="infor.jingjiaStatus == 0">
+									<button type="button" class="mui-btn mui-pull-right tz" id="ck_broker.html" @click="getJingJiaRen(infor.userId,infor.jingjiaPrice,1)">确认</button>
+								</template>
+							</p>
+						</div>
+					</template>
+				</div>
+			</form>
+			<ul class="mui-table-view shopping">
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">出发时间</div>
+					<div class="right">{{inforData.zcYmd}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">发货人</div>
+					<div class="right">{{inforData.shipperName}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">联系方式</div>
+					<div class="right" @click="dialTest(inforData.shipperTel)">{{inforData.shipperTel}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">发货地</div>
+					<div class="right">{{inforData.shipperArea}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">收货地</div>
+					<div class="right">{{inforData.reciverArea}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">需求车型</div>
+					<div class="right">{{inforData.needTruckType}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">货物类型</div>
+					<div class="right">{{inforData.goodsType}}</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">货物单位</div>
+					<div class="right">{{inforData.goodsNum}}{{inforData.goodsUnit}}</div>
+				</li>
+			</ul>
+			<div class="but-box">
+				<button class="queren" type="button" @click="affirm()">确认交易</button>
+				<button class="queren" type="button" @click="cancel(goodsownerOrderId)">取消竞价</button>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var lookbadd = new Vue({
+			el: '#lookbadd',
+			data: {
+				infors: [],
+				inforData: {},
+				length: length,
+				userInfo: getUser().userInfo,
+				goodsownerOrderId: '',
+				jingjiaPrice: '',
+				jingjiaid: '',
+				onOff: true,
+				index: ''
+			},
+			mounted: function() {
+				
+				mui.plusReady(function() {
+					mui.init({
+						swipeBack: true //启用右滑关闭功能
+					});
+					lookbadd.goodsownerOrderId = plus.webview.currentWebview().goodsownerOrderId;
+					lookbadd.index = plus.webview.currentWebview().index;
+					lookbadd.getor(lookbadd.goodsownerOrderId);
+					lookbadd.getbadd(lookbadd.goodsownerOrderId);
+
+				});
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-08-31
+				 * 获取竞价列表
+				 */
+				getor: function(goodsId) {
+					var typ = {
+						goodsownerOrderId: goodsId,
+						userId: lookbadd.userInfo.id,
+						type: 0
+					};
+					AjaxSend('mobileBid/lookBidOrAgent', typ, 'POST', function(result) {
+						if(result.status) {
+							console.log(JSON.stringify(result))
+							for(var i = 0; i < result.data.length; i++) {
+								//拼接头像url
+								result.data[i].headImg = ServerHost + result.data[i].headImg;
+								if(result.data[i].jingjiaStatus == 1) {
+									lookbadd.onOff = false;
+									lookbadd.jingjiaid = result.data[i].userId;
+									lookbadd.jingjiaPrice = result.data[i].jingjiaPrice;
+								}
+								//拼接信息
+								if(result.data[i].truckType && (result.data[i].truckLength || result.data[i].truckMaxwight)) {
+									result.data[i].truckType = result.data[i].truckType + '/'
+								}
+								if(result.data[i].truckLength && result.data[i].truckMaxwight) {
+									result.data[i].truckLength = result.data[i].truckLength + '/'
+								}
+							}
+							//数组合并
+							lookbadd.infors = lookbadd.infors.concat(result.data);
+							lookbadd.length = result.data.length;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-08-30
+				 * 获取货物详情
+				 */
+				getbadd: function(goodsId) {
+					var data = {
+						goodsownerOrderId: goodsId
+					};
+					AjaxSend('mobileBid/lookGoodsDetail', data, 'POST', function(result) {
+						if(result.status) {
+							lookbadd.inforData = result.data;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 确认或取消竞价人
+				 */
+				getJingJiaRen: function(jingjiaid, jingjiaPrice, type) {
+					if(lookbadd.onOff == false && type == 1) {
+						mui.toast("只能选择一名竞价人")
+						return;
+					}
+					lookbadd.onOff = true;
+					var param = {
+						jingJiaRenId: jingjiaid,
+						type: type,
+						goodsownerOrderId: lookbadd.goodsownerOrderId
+					}
+					AjaxSend('mobileBid/chooseOrCancleJingJiaRen', param, 'POST', function(result) {
+						if(result.status) {
+							console.log(JSON.stringify(result))
+							if(type == 1) {
+								lookbadd.jingjiaid = jingjiaid;
+								lookbadd.jingjiaPrice = jingjiaPrice;
+							} else {
+								lookbadd.jingjiaid = '';
+								lookbadd.jingjiaPrice = '';
+							}
+							lookbadd.infors = [];
+							lookbadd.getor(lookbadd.goodsownerOrderId);
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-01
+				 * 跳转到确认交易页
+				 */
+				affirm: function() {
+					if(lookbadd.jingjiaid == "") {
+						mui.toast("请先确认一个竞价")
+						return;
+					}
+					var param = {
+						userInfoid: lookbadd.userInfo.id,
+						userid: lookbadd.jingjiaid,
+						price: lookbadd.jingjiaPrice,
+						type: 0,
+						goodsownerOrderId: lookbadd.goodsownerOrderId,
+						index: lookbadd.index
+					}
+					mui.openWindow({
+						url: 'con_bz.html',
+						id: 'con_bz.html',
+						extras: {
+							data: param
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-04
+				 * 跳转到查看资料页
+				 */
+				ckperson: function(type, jingJiaRenid) {
+					if(type == 1) {
+						var id = 'ck_person_details.html'
+					} else {
+						var id = 'ck_broker_details.html'
+					};
+					var data = {
+						agentId: jingJiaRenid,
+						userId: lookbadd.userInfo.id
+					}
+					mui.openWindow({
+						url: id,
+						id: id,
+						extras: {
+							data: data
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-04
+				 * 取消竞价
+				 */
+				cancel: function(goodsId) {
+					var data = {
+						goodsownerOrderId: goodsId,
+						userId: lookbadd.userInfo.id
+					}
+					AjaxSend('mobileBid/cancleJingJia', data, 'POST', function(result) {
+						if(result.status) {
+							//打开竞价页面
+							mui.fire(plus.webview.getWebviewById("index-main.html"), "gohome", {});
+							mui.fire(plus.webview.getWebviewById("deliver_sub.html"), "cancelSuccess");
+							plus.webview.getWebviewById("ck_badding.html").close();
+							//删除竞价页面相应的竞价
+							mui.fire(plus.webview.getWebviewById("bidding_sub.html"), "deleteLisr",{
+								index: lookbadd.index
+							});
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-08
+				 * 点击电话直接拨打
+				 */
+				dialTest: function(phone) {
+					plus.nativeUI.confirm("您确定要拨打电话吗？",
+						function(event) {
+							if(event.index == 1) {
+								plus.device.dial(phone, false);
+							} else {
+								return false;
+							}
+						}, '客服消息', ['取消', '确定']
+					)
+				}
+			}
+		})
+	</script>
+
+</html>

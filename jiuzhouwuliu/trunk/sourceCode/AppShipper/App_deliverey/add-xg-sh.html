@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="feedback">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css">
+		<style>
+			.mui-popup-button:last-child {
+				border-radius: 6px;
+			}
+			
+			.popupbox .popup,
+			.popupbox1 .popup {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				bottom: 0;
+			}
+			
+			.popupbox .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-bottom: 10px;
+			}
+			
+			.popupbox .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 34px;
+			}
+			
+			.mui-btn {
+				background-color: #efeff4;
+				color: #333;
+			}
+			
+			.mui-popup-button:first-child:last-child {
+				border-radius: 6px;
+				margin: 0 20px;
+			}
+			
+			.mui-popup-button {
+				font-size: 17px;
+				line-height: 44px;
+				position: relative;
+				width: 40%;
+				height: 44px;
+				padding: 0 5px;
+				text-align: center;
+				color: #f7f7f7;
+				background: #1dacf9;
+				margin-right: 10px;
+			}
+			
+			.popupbox .mui-popup-buttons {
+				border-top: 0px solid #ddd;
+				margin-bottom: 11px;
+				clear: both;
+			}
+			
+			.popupbox .mui-popup-cont {
+				padding: 10px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: #fff;
+			}
+			
+			.fbhy {
+				color: #fff;
+				line-height: 44px;
+				font-size: 14px;
+			}
+			
+			.bz label {
+				width: 20%;
+			}
+			
+			.xx-add label {
+				float: left;
+				width: 25%;
+			}
+			
+			.xx-add textarea {
+				float: left;
+				width: 60%;
+				border: none;
+				padding: 0;
+			}
+			
+			li.xx-add span {
+				float: right;
+				width: 5%;
+			}
+			
+			.bx-bt span {
+				float: right;
+			}
+			
+			.mui-radio.mui-left label {
+				padding-left: 48px;
+			}
+			
+			.mui-radio.mui-left input[type='radio'] {
+				left: 10px;
+			}
+			
+			.icon-weizhi {
+				font-size: 20px;
+			}
+			/*地址弹出框*/
+			
+			#city {
+				width: 80%;
+				margin-bottom: 0;
+				border: none;
+				height: 30px;
+				padding: 5px 10px;
+			}
+			
+			._citys {
+				background: #fff;
+				position: relative;
+			}
+			
+			._citys0 {
+				margin: 0;
+				padding: 0;
+				border-bottom: 2px solid #1dacf9;
+			}
+			
+			._citys0 li {
+				width: 30%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 16px;
+				display: inline-block;
+				text-align: center;
+			}
+			
+			._citys0 .citySel {
+				background: #1dacf9;
+				color: #fff;
+			}
+			
+			#cColse {
+				width: 18px;
+				height: 18px;
+				text-align: center;
+				line-height: 14px;
+				color: #1dacf9;
+				position: absolute;
+				right: 10px;
+				top: 12px;
+				border: 1px solid #1dacf9;
+				border-radius: 4px;
+			}
+			
+			._citys1 {
+				overflow: hidden;
+				padding-bottom: 10px;
+			}
+			
+			._citys1 a {
+				width: 23%;
+				height: 35px;
+				float: left;
+				background-color: #f5f5f5;
+				color: #666;
+				margin: 5px 1% 0;
+				line-height: 35px;
+				text-align: center;
+				cursor: pointer;
+				font-size: 15px;
+				overflow: hidden;
+			}
+			/*#PoPy{
+				top: 44px!important;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">收货信息</h1>
+			<!--<a class="mui-pull-right fbhy goods">常发货源</a>-->
+		</header>
+		<div id="shInfo" class="mui-content">
+			<div class="add-con">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="bz">
+							<label>收货人</label>
+							<input v-model="receiveName" readonly="readonly" type="text" placeholder="请输入收货人名称" />
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="bz">
+							<label>联系方式</label>
+							<input v-model="receivePhone" readonly="readonly" type="text" placeholder="请输入联系电话" />
+						</div>
+					</li>
+					<li class="mui-table-view-cell" style="line-height: 30px;">
+						<a>
+							<label style="width: 20%;float: left;">收货地址</label>
+							<input v-model="reciverArea" readonly="readonly" type="text" id="city" placeholder="请选择收货地" />
+						</a>
+					</li>
+					<li class="mui-table-view-cell xx-add">
+						<label style="width: 23%;">详细地址</label>
+						<textarea v-model="reciverAreaDetail" readonly="readonly" placeholder="请填写详细地址  街道名/单位名"></textarea>
+						<!--<span class="iconfont icon-weizhi"></span>-->
+					</li>
+				</ul>
+			</div>
+			<!--<div class="but-box">
+				<button class="queren tz" id="setting.html" type="button">保存</button>
+			</div>-->
+		</div>
+		<!--弹窗-选择保险 -->
+		<div class="popupbox mui-backdrop">
+			<div class="popup">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title">
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="bx-bt">
+								<span>2017-01-23</span>蔬菜  湖北 武汉——湖南 长沙
+							</label>
+							<input name="rideo1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="bx-bt">
+								<span>2017-01-23</span>蔬菜  湖北 武汉——湖南 长沙 
+							</label>
+							<input name="rideo1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="bx-bt">
+								<span>2017-01-23</span>蔬菜  湖北 武汉——湖南 长沙
+							</label>
+							<input name="rideo1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+							<label class="bx-bt">
+								<span>2017-01-23</span>蔬菜  湖北 武汉——湖南 长沙
+							</label>
+							<input name="rideo1" type="radio">
+						</div>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span class="mui-popup-button mui-popup-button-bold" style="border-radius: 6px;">取消</span>
+					<span class="mui-popup-button mui-popup-button-bold">确定</span>
+				</div>
+			</div>
+		</div>
+		<!-- -->
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/Popt.js"></script>
+	<script type="text/javascript" src="../js/cityJson.js"></script>
+	<script type="text/javascript" src="../js/citySet.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var sh = new Vue({
+			el: '#shInfo',
+			data: {
+				receiveName: '',
+				receivePhone: '',
+				reciverArea: '',
+				reciverAreaDetail: ''
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					var receiverInfo = plus.webview.currentWebview().receiverInfo;
+					sh.receiveName = receiverInfo.receiveName;
+					sh.receivePhone = receiverInfo.receivePhone;
+					sh.reciverArea = receiverInfo.reciverArea;
+					sh.reciverAreaDetail = receiverInfo.reciverAreaDetail;
+				})
+			}
+		})
+		//var oW = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+		//var oH = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+		/*$("#city").click(function(e) {
+			SelCity(this, e);
+			$("._citys").css("width",oW)
+			$("._citys").css("height",oH-199+'px')
+			$("#PoPy").css("width",oW)
+			$("#PoPy").css("left",0)
+		});*/
+
+		//选择常发货源
+		//点击弹出选择属性界面
+		$(".popupbox").hide();
+		/*$(".goods").click(
+			function() {
+				$(".popupbox").show();
+				//body.style.height = oH+'px';
+				body.style.overflow = 'hidden';
+			}
+		);*/
+		//    结束
+		/*$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox").hide();
+			}
+		)*/
+		//选择班级
+		/*$('.mui-popup-cont .mui-btn').click(function() {
+			$(this).addClass('mui-btn-primary').removeClass('mui-btn').siblings().removeClass('mui-btn-primary').addClass('mui-btn');
+		})	*/
+	</script>
+
+</html>

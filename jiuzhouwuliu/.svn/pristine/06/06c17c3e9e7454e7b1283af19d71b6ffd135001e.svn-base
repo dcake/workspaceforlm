@@ -1,0 +1,27 @@
+package com.thinkgem.jeesite.mobile.utils;
+
+import net.sourceforge.pinyin4j.PinyinHelper;
+
+public class PinYinHeadCharUtil {
+
+	/**
+	 * @desc 根据姓名获取拼音首字母
+	 * @author yaotengfei
+	 * @date 2017年8月22日下午3:27:30
+	 * @param str
+	 * @return
+	 */
+	public static String getPinYinHeadChar(String str) {
+        String convert = "";
+        for (int j = 0; j < str.length(); j++) {
+            char word = str.charAt(j);
+            String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
+            if (pinyinArray != null) {
+                convert += pinyinArray[0].charAt(0);
+            } else {
+                convert += word;
+            }
+        }
+        return convert;
+    }
+}

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.UsersAccountOperateMapper">
+	<resultMap id="BaseResultMap"
+		type="com.thinkgem.jeesite.common.entity.UsersAccountOperate">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="operate_type" property="operateType" jdbcType="VARCHAR" />
+		<result column="operat_money" property="operatMoney" jdbcType="DOUBLE" />
+		<result column="rest_money" property="restMoney" jdbcType="DOUBLE" />
+		<result column="pay_style" property="payStyle" jdbcType="VARCHAR" />
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+		<result column="bank_card_no" property="bankCardNo" jdbcType="VARCHAR" />
+		<result column="integral_score" property="integralScore"
+			jdbcType="DOUBLE" />
+		<result column="total_score" property="totalScore" jdbcType="DOUBLE" />
+		<result column="is_deal_ok" property="isDealOk" jdbcType="VARCHAR" />
+		<result column="del_flag" property="delFlag" jdbcType="CHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, userid, operate_type, operat_money, rest_money, pay_style, order_no,
+		bank_card_no,
+		integral_score, total_score, is_deal_ok, del_flag, remarks, update_date, update_by,
+		create_date, create_by
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from users_account_operate
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from users_account_operate
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert"
+		parameterType="com.thinkgem.jeesite.common.entity.UsersAccountOperate">
+		insert into users_account_operate (id, userid, operate_type,
+		operat_money, rest_money, pay_style,
+		order_no, bank_card_no, integral_score,
+		total_score, is_deal_ok, del_flag,
+		remarks, update_date, update_by,
+		create_date, create_by)
+		values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},
+		#{operateType,jdbcType=VARCHAR},
+		#{operatMoney,jdbcType=DOUBLE}, #{restMoney,jdbcType=DOUBLE}, #{payStyle,jdbcType=VARCHAR},
+		#{orderNo,jdbcType=VARCHAR}, #{bankCardNo,jdbcType=VARCHAR},
+		#{integralScore,jdbcType=DOUBLE},
+		#{totalScore,jdbcType=DOUBLE}, #{isDealOk,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR},
+		#{remarks,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP},
+		#{updateBy,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.thinkgem.jeesite.common.entity.UsersAccountOperate">
+		insert into users_account_operate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userid != null">
+				userid,
+			</if>
+			<if test="operateType != null">
+				operate_type,
+			</if>
+			<if test="operatMoney != null">
+				operat_money,
+			</if>
+			<if test="restMoney != null">
+				rest_money,
+			</if>
+			<if test="payStyle != null">
+				pay_style,
+			</if>
+			<if test="orderNo != null">
+				order_no,
+			</if>
+			<if test="bankCardNo != null">
+				bank_card_no,
+			</if>
+			<if test="integralScore != null">
+				integral_score,
+			</if>
+			<if test="totalScore != null">
+				total_score,
+			</if>
+			<if test="isDealOk != null">
+				is_deal_ok,
+			</if>
+			<if test="delFlag != null">
+				del_flag,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="updateBy != null">
+				update_by,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="createBy != null">
+				create_by,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="operateType != null">
+				#{operateType,jdbcType=VARCHAR},
+			</if>
+			<if test="operatMoney != null">
+				#{operatMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="restMoney != null">
+				#{restMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="payStyle != null">
+				#{payStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCardNo != null">
+				#{bankCardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="integralScore != null">
+				#{integralScore,jdbcType=DOUBLE},
+			</if>
+			<if test="totalScore != null">
+				#{totalScore,jdbcType=DOUBLE},
+			</if>
+			<if test="isDealOk != null">
+				#{isDealOk,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				#{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.thinkgem.jeesite.common.entity.UsersAccountOperate">
+		update users_account_operate
+		<set>
+			<if test="userid != null">
+				userid = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="operateType != null">
+				operate_type = #{operateType,jdbcType=VARCHAR},
+			</if>
+			<if test="operatMoney != null">
+				operat_money = #{operatMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="restMoney != null">
+				rest_money = #{restMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="payStyle != null">
+				pay_style = #{payStyle,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				order_no = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="bankCardNo != null">
+				bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+			</if>
+			<if test="integralScore != null">
+				integral_score = #{integralScore,jdbcType=DOUBLE},
+			</if>
+			<if test="totalScore != null">
+				total_score = #{totalScore,jdbcType=DOUBLE},
+			</if>
+			<if test="isDealOk != null">
+				is_deal_ok = #{isDealOk,jdbcType=VARCHAR},
+			</if>
+			<if test="delFlag != null">
+				del_flag = #{delFlag,jdbcType=CHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null">
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createBy != null">
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.thinkgem.jeesite.common.entity.UsersAccountOperate">
+		update users_account_operate
+		set userid = #{userid,jdbcType=VARCHAR},
+		operate_type = #{operateType,jdbcType=VARCHAR},
+		operat_money = #{operatMoney,jdbcType=DOUBLE},
+		rest_money = #{restMoney,jdbcType=DOUBLE},
+		pay_style = #{payStyle,jdbcType=VARCHAR},
+		order_no = #{orderNo,jdbcType=VARCHAR},
+		bank_card_no = #{bankCardNo,jdbcType=VARCHAR},
+		integral_score = #{integralScore,jdbcType=DOUBLE},
+		total_score = #{totalScore,jdbcType=DOUBLE},
+		is_deal_ok = #{isDealOk,jdbcType=VARCHAR},
+		del_flag = #{delFlag,jdbcType=CHAR},
+		remarks = #{remarks,jdbcType=VARCHAR},
+		update_date = #{updateDate,jdbcType=TIMESTAMP},
+		update_by = #{updateBy,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		create_by = #{createBy,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<!-- 根据用户ID查询钱包明细 文帅 -->
+	<select id="findListByUserId" resultMap="BaseResultMap"
+		parameterType="com.thinkgem.jeesite.common.entity.UsersAccountOperate">
+		SELECT
+		*
+		FROM
+		users_account_operate
+		WHERE
+		userid = #{userid,jdbcType=VARCHAR}
+		AND del_flag="0"
+		<if test="operateType != null and operateType !='' ">
+			and operate_type = #{operateType,jdbcType=VARCHAR}
+		</if>
+		<if test="beginDate!= null and beginDate!= ''">
+			and DATE_FORMAT(create_date, '%Y-%m-%d') &gt;=#{beginDate}
+		</if>
+		<if test="endDate!= null and endDate!= ''">
+			and DATE_FORMAT(create_date, '%Y-%m-%d') &lt;=#{endDate}
+		</if>
+		order by create_date desc
+	</select>
+	<!-- 根据用户ID查询钱包明细 刘思雨 -->
+	<select id="findInfoListByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		*
+		FROM
+		users_account_operate
+		WHERE
+		userid = #{userId,jdbcType=VARCHAR}
+		AND del_flag="0"
+		order by create_date desc
+	</select>
+	<!-- 获取最新提现记录 刘思雨 -->
+	<select id="findLateWithdrawCashInfo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		operate_type,
+		operat_money,
+		rest_money,
+		create_date
+		FROM
+		users_account_operate
+		WHERE
+		userid = #{userId,jdbcType=VARCHAR}
+		AND del_flag = 0
+		AND operate_type = 0
+		ORDER BY
+		create_date DESC LIMIT 1
+	</select>
+	<!-- 获取最新充值记录 刘思雨 -->
+	<select id="findLateRechargeInfo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		operate_type,
+		operat_money,
+		rest_money,
+		create_date
+		FROM
+		users_account_operate
+		WHERE
+		userid = #{userId,jdbcType=VARCHAR}
+		AND del_flag = 0
+		AND operate_type = 2
+		ORDER BY
+		create_date DESC LIMIT 1
+	</select>
+
+</mapper>

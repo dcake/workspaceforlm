@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	app版本设置，把新版本放入本目录，修改version和url
+ -->
+<RESULT>  
+<SHIPPER>　　 
+  <!-- 货主端app -->
+  <version>0.1</version>
+  <title>APP版本更新</title>
+  <url>http://192.168.5.108:8080/jzwl/APPVersion/JJ0.2.apk</url>
+</SHIPPER>
+
+<OWNER>　　 
+  <!-- 车主端app -->
+  <version>0.1</version>
+  <title>app版本更新</title>
+  <url>http://192.168.5.108:8080/jzwl/APPVersion/JJ0.2.apk</url>
+</OWNER>
+
+<AGENT>　　 
+  <!-- 经纪人端app -->
+  <version>0.1</version>
+  <title>app版本更新</title>
+  <url>http://192.168.5.108:8080/jzwl/APPVersion/JJ0.2.apk</url>
+</AGENT>
+</RESULT>

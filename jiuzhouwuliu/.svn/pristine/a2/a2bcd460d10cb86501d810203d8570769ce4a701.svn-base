@@ -1,0 +1,130 @@
+package com.thinkgem.jeesite.mobile.driver.web;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.thinkgem.jeesite.common.entity.Drivers;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.mobile.driver.service.MobileDriversManagerService;
+import com.thinkgem.jeesite.mobile.utils.AjaxBeanUtil;
+
+/** 
+ * @author 作者:cuiyg
+ * @version 创建时间：2017年9月6日 下午5:16:42 
+ * 类说明:车辆管理Controller 
+ */
+@Controller
+@RequestMapping(value="/${adminPath}/mobileDriversManager")
+public class MobileDriversManagerController extends BaseController{
+	@Autowired
+	private MobileDriversManagerService mobileDriversManagerService;
+	
+	/**
+	 * 测试页面
+	 * 崔亚光
+	 * 2017-09-07
+	 */
+	@RequestMapping(value="/test")
+	public String test(){
+		return "/mobile/test/driversManagerTest";
+	}
+	/**
+	 * 车辆管理列表
+	 * 崔亚光
+	 * 2017-09-06
+	 * @return
+	 */
+	@RequestMapping(value="/list", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil list(String pageNo,String userid){
+		return mobileDriversManagerService.getList(pageNo,userid);
+	}
+	/**
+	 * 添加车辆
+	 * 崔亚光
+	 * 2017-09-08
+	 */
+	@RequestMapping(value="/addCar", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil addCar(Drivers record,HttpServletRequest request){
+		return mobileDriversManagerService.addCar(record,request);
+	}
+	/**
+	 * 邀请队员列表
+	 * 崔亚光
+	 * 2017-09-08
+	 */
+	@RequestMapping(value="/invite", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil invite(String pageNo,String userid){
+		return mobileDriversManagerService.invite(pageNo,userid);
+	}
+	/**
+	 * 退出车队
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	@RequestMapping(value="/exitDriveFleet", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil exitDriveFleet(Drivers record){
+		return mobileDriversManagerService.exitDriveFleet(record);
+	}
+	/**
+	 * 取消收藏
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	@RequestMapping(value="/backCollect", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil backCollect(String collectUserid){
+		return mobileDriversManagerService.backCollect(collectUserid);
+		
+	}
+	/**
+	 * 转让身份车队人员列表
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	@RequestMapping(value="/changeBodyList", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil changeBodyList(String pageNo,String driveFleetId){
+		return mobileDriversManagerService.changeBodyList(pageNo,driveFleetId);
+	}
+	/**
+	 * 转让身份
+	 * 崔亚光
+	 * 2017-09-11
+	 */
+	@RequestMapping(value="/changeBody", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil changeBody(String id){
+		return mobileDriversManagerService.changeBody(id);
+	}
+	/**
+	 * @description	根据车主ID查询车主详情
+	 * @author 崔亚光
+	 * @date 2017年9月16日 下午15:03:13
+	 * @return
+	 */
+	@RequestMapping(value="lookDriverDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil lookDriverDetail(String driverUserId,String userid){
+		return mobileDriversManagerService.driverDetail(driverUserId,userid);
+	}
+	/**
+	 * 线路记录
+	 * 崔亚光
+	 * 2017-09-12
+	 */
+	@RequestMapping(value="/driveLine", method= RequestMethod.POST)
+	@ResponseBody
+	public AjaxBeanUtil driveLine(String pageNo,String driverId){
+		return mobileDriversManagerService.driveLine(pageNo,driverId);
+	}
+	
+}

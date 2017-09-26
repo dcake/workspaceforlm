@@ -1,0 +1,27 @@
+package com.thinkgem.jeesite.common.dao;
+
+import java.util.List;
+
+import com.thinkgem.jeesite.common.entity.InseranceCompany;
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+@MyBatisDao
+public interface InseranceCompanyMapper {
+    int deleteByPrimaryKey(String id);
+
+    int insert(InseranceCompany record);
+
+    int insertSelective(InseranceCompany record);
+
+    InseranceCompany selectByPrimaryKey(String id);
+
+    int updateByPrimaryKeySelective(InseranceCompany record);
+
+    int updateByPrimaryKey(InseranceCompany record);
+    /**
+     * @description	查询保险公司列表
+     * @author 文帅
+     * @date 2017年8月22日 上午10:59:07
+     * @return
+     */
+    List<InseranceCompany> findInsCompanyList();
+}

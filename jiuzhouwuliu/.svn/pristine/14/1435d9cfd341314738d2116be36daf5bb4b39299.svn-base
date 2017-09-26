@@ -1,0 +1,96 @@
+package com.thinkgem.jeesite.mobile.shipper.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.AgentsMapper;
+import com.thinkgem.jeesite.common.dao.DriveOrderMapper;
+import com.thinkgem.jeesite.common.dao.DriversMapper;
+import com.thinkgem.jeesite.common.dao.GoodsownerOrderMapper;
+import com.thinkgem.jeesite.common.dao.UsersCollectMapper;
+import com.thinkgem.jeesite.common.dao.UsersMapper;
+import com.thinkgem.jeesite.common.entity.Agents;
+import com.thinkgem.jeesite.common.entity.Drivers;
+import com.thinkgem.jeesite.common.entity.GoodsownerOrder;
+import com.thinkgem.jeesite.common.entity.Users;
+import com.thinkgem.jeesite.common.entity.UsersCollect;
+import com.thinkgem.jeesite.common.entity.UsersIntegralRecord;
+import com.thinkgem.jeesite.common.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.mobile.entity.RecentPersonInfo;
+import com.thinkgem.jeesite.mobile.utils.PageParam;
+import com.thinkgem.jeesite.modules.sys.utils.DictUtils;
+/**
+ * @description	最近联系人
+ * @author 文帅
+ * @date 2017年9月4日 下午4:14:59
+ */
+@Service
+@Transactional
+public class MobileRecentPersonService {
+	@Autowired
+	private UsersMapper usersMapper;
+	@Autowired
+	private GoodsownerOrderMapper goodsownerOrderMapper;
+	@Autowired
+	private DriversMapper driversMapper;
+	@Autowired
+	private DriveOrderMapper driveOrderMapper;
+	@Autowired
+	private AgentsMapper agentsMapper;
+	@Autowired
+	private UsersCollectMapper usersCollectMapper;
+	/**
+	 * @description	查询最近联系人列表
+	 * @author 文帅
+	 * @date 2017年9月4日 下午5:40:31
+	 * @param pageNo
+	 * @param userId
+	 * @return
+	 */
+	public AjaxBeanUtil findRecentPersonList(String pageNo,String userId){
+		try {
+			int currentPage = Integer.parseInt(pageNo)*PageParam.DEFAULT_PAGESIZE;
+			int pageSize = PageParam.DEFAULT_PAGESIZE;
+			Map<String, Object> paramMap=new HashMap<String, Object>();
+			paramMap.put("userId", userId);
+			paramMap.put("currentPage", currentPage);
+			paramMap.put("pageSize", pageSize);
+			List<RecentPersonInfo> list=usersMapper.findRecentPersonList(paramMap);
+			if(list.size()==0){
+				return new AjaxBeanUtil("暂无数据", false);
+			}else{
+				for(RecentPersonInfo r:list){
+					if("1".equals(r.getUserSort())){//车主
+						r.setUserSort("车主");
+						Drivers drivers=driversMapper.findByUserId(r.getUserId());
+						r.setTruckType(DictUtils.getDictLabel(drivers.getTruckType(), "truck_type", drivers.getTruckType()));
+						r.setTruckHeight(DictUtils.getDictLabel(drivers.getTruckHeight(), "truck_height", drivers.getTruckHeight()));
+						r.setTruckMaxwight(drivers.getTruckMaxwight());
+						Integer transportCount=driveOrderMapper.findCountByDriverId(drivers.getId());
+						r.setTransportCount(transportCount);
+					}else if("2".equals(r.getUserSort())){
+						r.setUserSort("经纪人");
+						Agents agents=agentsMapper.findAgentsByUserId(r.getUserId());
+						r.setCompanyName(agents.getCompanyName());
+					}
+					UsersCollect usersCollect=usersCollectMapper.findCollect(r.getUserId(),userId);
+					//判断该车主或经纪人是否被当前用户收藏（0-否，1-是）
+					if(usersCollect!=null){
+						r.setIsCollect("1");
+					}else{
+						r.setIsCollect("0");
+					}
+				}
+			}
+			return new AjaxBeanUtil("查询成功", true,list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常", false);
+		}
+	}
+}

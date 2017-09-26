@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="feedback">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/icons-extra.css">
+		<style>
+			.popupbox .popup,
+			.popupbox1 .popup,
+			.popupbox2 .popup {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				bottom: 0;
+			}
+			
+			.popupbox .mui-popup-title,
+			.popupbox1 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+				margin-left: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.popupbox2 .mui-popup-title {
+				padding-top: 10px;
+				font-size: 16px;
+				color: #666;
+				font-weight: normal;
+				text-align: left;
+			}
+			
+			.popupbox .mui-popup-cont button,
+			.popupbox1 .mui-popup-cont button,
+			.popupbox2 .mui-popup-cont button {
+				width: 19%;
+				margin: 2%;
+				height: 34px;
+			}
+			
+			.mui-btn {
+				background-color: #efeff4;
+				color: #333;
+			}
+			
+			.mui-popup-button:first-child:last-child {
+				border-radius: 6px 6px 6px 6px;
+				margin: 0 20px;
+			}
+			
+			.mui-popup-button {
+				font-size: 17px;
+				line-height: 44px;
+				position: relative;
+				width: 100%;
+				height: 44px;
+				padding: 0 5px;
+				text-align: center;
+				color: #f7f7f7;
+				background: #1dacf9;
+			}
+			
+			.popupbox .mui-popup-buttons,
+			.popupbox1 .mui-popup-buttons,
+			.popupbox2 .mui-popup-buttons {
+				border-top: 0px solid #ddd;
+				margin-bottom: 11px;
+				clear: both;
+			}
+			
+			.popupbox .mui-popup-cont,
+			.popupbox1 .mui-popup-cont {
+				padding: 10px;
+				margin-bottom: 10px;
+			}
+			
+			.mui-btn-primary:enabled:active {
+				color: #fff;
+				border: 1px solid #1dacf9;
+				background-color: #1dacf9;
+			}
+			
+			.mui-btn:enabled:active {
+				color: #fff;
+				border: 1px solid #1dacf9;
+				background-color: #1dacf9;
+			}
+			
+			label.bx-bt p {
+				font-size: 16px;
+				color: #333;
+			}
+			
+			label.bx-bt span {
+				color: #f99f1d;
+			}
+			
+			.mui-radio label,
+			.mui-checkbox label {
+				padding-right: 0;
+			}
+			
+			.input-hw {
+				padding: 15px;
+				padding-left: 0;
+			}
+			
+			.input-hw label {
+				float: left;
+				width: 25%;
+				text-align: left;
+			}
+			
+			.input-hw .input-hw-time select {
+				float: left;
+				width: 70%;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.input-hw .mui-icon {
+				line-height: 0;
+			}
+			
+			.input-hw-time input {
+				width: 20%;
+				height: 30px;
+				margin-right: 10px;
+				margin-bottom: 0;
+				padding-left: 5px;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: #fff;
+			}
+			
+			.add-con ul li b {
+				font-weight: normal;
+				color: #666;
+				padding-left: 10px;
+			}
+			
+			.tp-hw {
+				padding: 8px 8px;
+				background: #fff;
+				display: inline-block;
+				width: 100%;
+			}
+			
+			.tp-hw img {
+				width: 65px;
+				float: left;
+				margin-right: 10px;
+			}
+			
+			.tk-p {
+				padding-top: 15px;
+				padding-left: 15px;
+				color: #000;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+		<div id="orderDetails" class="mui-content">
+			<div class="address">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" @click="lookShipper">
+						<a class="add-fh mui-navigate-right">
+							<!--<span class="mui-icon mui-icon-compose add-right yellow"></span>-->
+							<p>
+								<span style="color: #666;">{{shipperProvince}} {{shipperCity}} {{shipperName}} {{sendPhone}}</span>
+							</p>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" @click="lookReceiver">
+						<a class="add-fh mui-navigate-right">
+							<!--<span class="mui-icon mui-icon-compose add-right green"></span>-->
+							<p>
+								<span style="color: #666;">{{receiveProvince}} {{receiveCity}} {{receiveName}} {{receivePhone}}</span>
+							</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="add-con">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell goods">
+						需求车型 <b>车长:{{carLength}}/车宽:{{carWidth}}/车型:{{carType}}</b>
+					</li>
+					<li class="mui-table-view-cell">
+						货物单位 <b>{{numberUnit}}</b>
+					</li>
+					<li class="mui-table-view-cell">
+						装车时间 <b>{{zcDate}}  &nbsp; {{zcTime}}</b>
+					</li>
+					<li class="mui-table-view-cell goods-1">
+						货物类型 <b>{{goodsType}}</b>
+					</li>
+					<li class="mui-table-view-cell goods-2">
+						<!--<a class="mui-navigate-right">-->
+						<a>
+							保险
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						备注 <b>{{remarks}}</b>
+					</li>
+				</ul>
+			</div>
+			<div class="upload-pic">
+				<p>货物图片</p>
+				<div class="tp-hw">
+					<img v-for="val in goodsImagesData" :src="val.imageUrl" style="margin: 5px;" />
+				</div>
+			</div>
+			<div v-if="flag" class="upload-pic">
+				<p>审核意见</p>
+				<div class="tp-hw">
+					{{checkRemark}}
+				</div>
+			</div>
+		</div>
+
+		<!--弹窗-选择保险 -->
+		<div class="popupbox2 mui-backdrop">
+			<div class="popup">
+				<div class="mui-popup-cont">
+					<div class="mui-popup-title" style="border-bottom: 1px solid #F1F1F1;">
+						<div class="mui-input-row mui-checkbox">
+							<input name="checkbox1" type="checkbox">
+							<p class="tk-p">是否投递保险
+								<a class="tz" id="reference.html">参考</a>
+							</p>
+							<label class="bx-bt">								
+								<span>请评估货物价值后选择保险额度，超过100元系统会进行审核</span>
+							</label>
+						</div>
+					</div>
+					<div class="popup-class">
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保险公司</label>
+							<div class="input-hw-time">
+								人寿保险
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保险类别：</label>
+							<div class="input-hw-time">
+								易碎品
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保额：</label>
+							<div class="input-hw-time">
+								100元
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>保费：</label>
+							<div class="input-hw-time">
+								8元
+							</div>
+						</div>
+						<div class="input-hw" style="border-bottom: 1px solid #F1F1F1; margin-left: 15px;">
+							<label>备注：</label>
+							<div class="input-hw-time">
+								{{remarks}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-popup-buttons">
+					<span class="mui-popup-button mui-popup-button-bold">关闭</span>
+				</div>
+			</div>
+		</div>
+		<!-- -->
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var body = document.body;
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var orderDetails = new Vue({
+			el: '#orderDetails',
+			data: {
+				carLength: '', //车长
+				carWidth: '', //车宽
+				carType: '', //车型
+				numberUnit: '', //货物数量单位
+				zcDate: '', //装车日期
+				zcTime: '', //装车时间段
+				goodsType: '', //货物类型
+				remarks: '', //备注
+				flag: false, //审核意见开关
+				checkRemark: '', //审核意见内容
+				goodsImagesData: [], //货物图片
+				sendPhone: '', //发货人电话
+				shipperName: '', //发货人名称
+				shipperProvince: '', //发货地址   省
+				shipperCity: '', //发货地址   市区
+				receivePhone: '', //收货人电话
+				receiveName: '', //收货人名称
+				receiveProvince: '', //收货地址   省
+				receiveCity: '', //收货地址   市区
+				shipperArea: '',
+				reciverArea: '',
+				reciverAreaDetail: '',
+				shipperAreaDetail: ''
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					orderDetails.getOrderInfo(plus.webview.currentWebview().newsId);
+				})
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 获取订单详情
+				 */
+				getOrderInfo: function(orderId) {
+					var param = {
+						goodsownerOrderId: orderId
+					}
+					AjaxSend('mobileShip/findGoodsByOrderId', param, 'POST', function(result) {
+						printlog("订单详情==" + JSON.stringify(result));
+						if(result.status) {
+							orderDetails.carLength = result.data.needTruckLength; //车长
+							orderDetails.carWidth = result.data.needTruckWidth;; //车宽
+							orderDetails.carType = result.data.needTruckType; //车型
+							orderDetails.numberUnit = result.data.goodsNum + result.data.goodsUnit; //货物数量单位
+							orderDetails.zcDate = result.data.zcYmd; //装车日期
+							orderDetails.zcTime = result.data.zcSf; //装车时间段
+							orderDetails.goodsType = result.data.goodsType; //货物类型
+							orderDetails.remarks = result.data.remarks; //备注
+
+							orderDetails.sendPhone = result.data.shipperTel; //发货人电话
+							orderDetails.shipperName = result.data.shipperName; //发货人名称
+							orderDetails.shipperArea = result.data.shipperArea;
+							orderDetails.reciverArea = result.data.reciverArea;
+							orderDetails.reciverAreaDetail = result.data.reciverAreaDetail;
+							orderDetails.shipperAreaDetail = result.data.shipperAreaDetail;
+							var shipperAreaData = result.data.shipperArea.split("-");
+							orderDetails.shipperProvince = shipperAreaData[0]; //发货地址   省
+							orderDetails.shipperCity = shipperAreaData[1] + shipperAreaData[2]; //发货地址   市区
+
+							orderDetails.receivePhone = result.data.reciverTel; //收货人电话
+							orderDetails.receiveName = result.data.reciverName; //收货人名称
+							var receiveAreaData = result.data.reciverArea.split("-");
+							orderDetails.receiveProvince = receiveAreaData[0]; //收货地址   省
+							orderDetails.receiveCity = receiveAreaData[1] + receiveAreaData[2]; //收货地址   市区
+
+							if(result.data.goodCurrStatus == "已驳回") {
+								orderDetails.flag = true; //审核意见开关
+								orderDetails.checkRemark = result.data.checkRemark; //竞价审核意见
+							}
+							if(result.data.goodsImg1) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg1
+								})
+							}
+							if(result.data.goodsImg2) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg2
+								})
+							}
+							if(result.data.goodsImg3) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg3
+								})
+							}
+							if(result.data.goodsImg4) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg4
+								})
+							}
+							if(result.data.goodsImg5) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg5
+								})
+							}
+							if(result.data.goodsImg6) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg6
+								})
+							}
+							if(result.data.goodsImg7) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg7
+								})
+							}
+							if(result.data.goodsImg8) {
+								orderDetails.goodsImagesData.push({
+									imageUrl: ServerHost + result.data.goodsImg8
+								})
+							}
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-09-14
+				 * 查看发货信息
+				 */
+				lookShipper: function() {
+					mui.openWindow({
+						url: "add-xg-fh.html",
+						id: "add-xg-fh.html",
+						extras: {
+							shipperInfo: {
+								shipperArea: orderDetails.shipperArea,
+								sendPhone: orderDetails.sendPhone, //发货人电话
+								shipperName: orderDetails.shipperName, //发货人名称
+								shipperAreaDetail: orderDetails.shipperAreaDetail
+							}
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-09-14
+				 * 查看收货信息
+				 */
+				lookReceiver: function() {
+					mui.openWindow({
+						url: "add-xg-sh.html",
+						id: "add-xg-sh.html",
+						extras: {
+							receiverInfo: {
+								reciverArea: orderDetails.reciverArea,
+								receivePhone: orderDetails.receivePhone, //收货人电话
+								receiveName: orderDetails.receiveName, //收货人名称
+								reciverAreaDetail: orderDetails.reciverAreaDetail
+							}
+						}
+					});
+
+				}
+			}
+		}) //vue
+
+		//选择需求车型
+		//点击弹出选择属性界面
+		$(".popupbox").hide();
+		/*$(".goods").click(
+			function() {
+				$(".popupbox").show();
+				body.style.overflow = 'hidden';
+			}
+		);
+		//    结束
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox").hide();
+				body.style.overflow = 'auto';
+			}
+		)
+		//选择班级
+		$('.mui-popup-cont .mui-btn').click(function() {
+			$(this).addClass('mui-btn-primary').removeClass('mui-btn').siblings().removeClass('mui-btn-primary').addClass('mui-btn');
+		})*/
+
+		//		选择货物类型
+		//		点击弹出选择属性界面
+		$(".popupbox1").hide();
+		/*$(".goods-1").click(
+			function() {
+				$(".popupbox1").show();
+				body.style.overflow = 'hidden';
+			}
+		);
+		//    结束
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox1").hide();
+				body.style.overflow = 'auto';
+			}
+		)
+		//选择班级
+		$('.mui-popup-cont .mui-btn').click(function() {
+			$(this).addClass('mui-btn-primary').removeClass('mui-btn').siblings().removeClass('mui-btn-primary').addClass('mui-btn');
+		})*/
+
+		//		选择保险
+		//		点击弹出选择属性界面
+		$(".popupbox2").hide();
+		/*$(".goods-2").click(
+			function() {
+				$(".popupbox2").show();
+				body.style.overflow = 'hidden';
+			}
+		);
+		//    结束
+		$(".mui-popup-buttons span").click(
+			function() {
+				$(".popupbox2").hide();
+				body.style.overflow = 'auto';
+			}
+		)
+		//选择班级
+		$('.mui-popup-cont .mui-btn').click(function() {
+			$(this).addClass('mui-btn-primary').removeClass('mui-btn').siblings().removeClass('mui-btn-primary').addClass('mui-btn');
+		})*/
+
+		/*mui(".popupbox2").on("tap", ".tz", function() {
+			var url = this.getAttribute('id');
+			mui.openWindow({
+				url: url,
+				id: url
+			});
+		});*/
+	</script>
+
+</html>

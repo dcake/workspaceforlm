@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>委托经纪人</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 50%;
+				margin-top: -13px;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				margin-right: 10px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: auto;
+				padding: 8px 9px;
+				position: absolute;
+				top: 75px;
+				right: 15px;
+			}
+			
+			.history-sold {
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			/*	/*	/*	/*
+			.but-box {
+				margin: 35px 15px 0px;
+			}*/
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			/*.icon-xing1 {
+				margin-top: 5px;
+			}*/
+			
+			.icon-xing1:before {
+				margin-top: 5px;
+				position: absolute;
+				right: 15px;
+				font-size: 17px;
+				color: #999999;
+			}
+			
+			.icon-xingjihui:before {
+				margin-top: 5px;
+				position: absolute;
+				right: 15px;
+				margin-top: 5px;
+				font-size: 17px;
+				color: #ffb107;
+			}
+			
+			.mui-input-group {
+				margin-top: 56px;
+			}
+			
+			.mui-input-group:before,
+			.mui-input-group:after {
+				height: 0;
+			}
+			
+			.mui-pull-bottom-pocket {
+				bottom: 50px;
+			}
+			
+			.agentlist {
+				margin-top: 45px;
+			}
+			
+			.unpublished {
+				font-style: normal;
+				border: 1px solid #03a12f;
+				color: #03a12f;
+				padding: 2px 4px;
+				margin-left: 10px;
+				border-radius: 2px;
+				font-size: 14px;
+			}
+			/*地址弹出框*/
+			
+			#city {
+				max-width: 80%;
+				display: inline-block;
+				overflow: hidden;
+				word-break: keep-all;
+				/*不换行*/
+				white-space: nowrap;
+				/*不换行*/
+			}
+			
+			._citys {
+				background: #fff;
+				position: relative;
+			}
+			
+			._citys0 {
+				margin: 0;
+				padding: 0;
+				border-bottom: 2px solid #1dacf9;
+			}
+			
+			._citys0 li {
+				width: 30%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 16px;
+				display: inline-block;
+				text-align: center;
+			}
+			
+			._citys0 .citySel {
+				background: #1dacf9;
+				color: #fff;
+			}
+			
+			#cColse {
+				width: 18px;
+				height: 18px;
+				text-align: center;
+				line-height: 14px;
+				color: #1dacf9;
+				position: absolute;
+				right: 10px;
+				top: 12px;
+				border: 1px solid #1dacf9;
+				border-radius: 4px;
+			}
+			
+			._citys1 {
+				overflow: hidden;
+				padding-bottom: 10px;
+			}
+			
+			._citys1 a {
+				width: 23%;
+				height: 35px;
+				float: left;
+				background-color: #f5f5f5;
+				color: #666;
+				margin: 5px 1% 0;
+				line-height: 35px;
+				text-align: center;
+				cursor: pointer;
+				font-size: 15px;
+				overflow: hidden;
+			}
+			
+			[v-cloak] {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="agent">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 id="title" class="mui-title">委托经纪人</h1>
+				<div class="ad-selector">
+					<ul>
+						<li><span id="city" class="ui-alert select-size">选择省</span>
+							<a class="mui-icon mui-icon-arrowdown" style="vertical-align: top;"></a>
+						</li>
+						<li style="height: 50px;overflow: hidden;">
+							<span id='city2' class="ui-alert select-size">选择市</span>
+							<a class="mui-icon mui-icon-arrowdown"></a>
+						</li>
+						<li class="moreclass">
+							<span id='city3' class="select-size">选择区</span>
+							<a class="mui-icon mui-icon-arrowdown" style=""></a>
+						</li>
+					</ul>
+				</div>
+			</header>
+			<div id="agent_div" :class="agentListClass" style="margin-top: 43px;">
+				<!--<div class="mui-scroll">-->
+				<form class="mui-input-group" style="overflow: auto;margin-bottom: 50px;">
+					<ul class="mui-table-view" v-cloak>
+						<!--<li v-for="agent in agentListData" class="mui-input-row mui-radio mui-left mui-slider-group" style="position: relative;">-->
+						<li v-for="agent in agentListData" class="mui-input-row mui-radio mui-left mui-slider-group" style="position: relative;">
+							<div style="padding: 10px 15px;">
+								<div style="padding-left: 35px;">
+									<img class="mui-media-object mui-pull-left" style="border-radius: 50%;height: 80px;" :src="agent.headImg" onerror="this.src='../img/head_img01.png'">
+									<!--头像路径:  ../img/head_img01.png -->
+									<div class="mui-media-body mui-ellipsis">
+										<p><span class="name">{{agent.truename}}<i class="unpublished">经纪人</i></span>
+											<template v-if="agent.isCollect == '0'">
+												<a :id="agent.agentId" class="star1 mui-icon iconfont icon-xing1 mui-pull-right" @tap.stop="collect(agent.agentId)"></a>
+											</template>
+											<template v-else>
+												<a :id="agent.agentId" class="star1 mui-icon iconfont icon-xingjihui mui-pull-right" @tap.stop="collect(agent.agentId)"></a>
+											</template>
+											<!--收藏状态class:  icon-xingjihui-->
+										</p>
+										<p class="mui-ellipsis address">{{"湖北武汉/"+"男/"+agent.companyName}}</p>
+										<p class="mui-ellipsis">
+											<span class="mui-pull-left mui-ellipsis jiaoyi">交易{{agent.dealTotalCount}}笔</span>
+											<button @click="look(agent.agentId)" type="button" class="mui-btn mui-pull-right">查看资料</button>
+										</p>
+										<p v-if="agent.dealCount>0" class="history-sold">曾与我交易{{agent.dealCount}}笔</p>
+									</div>
+								</div>
+							</div>
+							<input :id="agent.agentId" type="radio" name="selectAgent">
+							<!--被选择-->
+						</li>
+					</ul>
+				</form>
+				<!--</div>-->
+			</div>
+			<div class="but-box fixBtn" style="position: fixed;z-index: 9999;">
+				<button @click.stop="confirm" class="queren" type="button">确定委托</button>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+	<script type="text/javascript" src="../js/Popt.js"></script>
+	<script src="../js/cityJson2.js"></script>
+	<script src="../js/citySet.js"></script>
+	<script type="text/javascript" src="../js/citySetThree.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var agentList = new Vue({
+			el: '#agent',
+			data: {
+				userInfo: getUser().userInfo,
+				agentListClass: "mui-scroll-wrapper",
+				current: '',
+				currentPager: 0,
+				flag: false,
+				pageSize: 10, //每页返回最大10条数据
+				agentListData: [],
+				onOff: false,
+				goodsInfo: '',
+				authorize: ''
+
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					agentList.current = plus.webview.currentWebview();
+					agentList.goodsInfo = agentList.current.newsId; // 保存成功页,传递数据
+					printlog("保存成功,委托经纪人参数==" + JSON.stringify(agentList.goodsInfo))
+					agentList.authorize = agentList.current.authorize; //发货列表页,重新委托传递数据
+					//经纪人详情页收藏或取消收藏后触发经纪人列表页
+					window.addEventListener('agentList', function(event) {
+						var starObj = document.getElementById(event.detail.newsId.agentId);
+						if(event.detail.newsId.isCollectFlag) {
+							//收藏
+							starObj.setAttribute("class", "star1 mui-icon iconfont icon-xingjihui mui-pull-right");
+						} else {
+							//取消收藏
+							starObj.setAttribute("class", "star1 mui-icon iconfont icon-xing1 mui-pull-right");
+						}
+
+					}, false);
+
+					//如果是ios系统,需要加margin-top,mui上拉加载ios和android不兼容
+					var ios = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+					if(ios) {
+						agentList.agentListClass = "mui-scroll-wrapper agentlist"; //处理安卓苹果界面效果不一样
+					}
+
+					mui.init({
+						swipeBack: true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '#agent_div',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: agentList.pullupRefresh
+							}
+						}
+					});
+
+					agentList.getAddressSelect();
+					printlog("本地用户信息==" + JSON.stringify(agentList.userInfo))
+					agentList.getAgentList(agentList.currentPager);
+
+				});
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-09-11
+				 * 获取省市区(县)地址
+				 */
+				getAddressSelect: function() {
+					//获取省市
+					AjaxSend('mobileShip/findGeoInfoList', {
+						type: "2"
+					}, 'POST', function(result) {
+						printlog("获取省市结果==" + JSON.stringify(result));
+						if(result.status) {
+							province = result.data;
+						}
+					});
+					//获取区(县)
+					AjaxSend('mobileShip/findGeoInfoList', {
+						type: "4"
+					}, 'POST', function(result) {
+						printlog("获取区(县)结果==" + JSON.stringify(result));
+						if(result.status) {
+							area = result.data;
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-08-28
+				 * 获取经纪人列表
+				 */
+				getAgentList: function(pagerNum) {
+					var param = {
+						currentPage: pagerNum,
+						userId: agentList.userInfo.id
+					}
+					printlog("获取经纪人列表参数==" + JSON.stringify(param))
+					AjaxSend('mobileShip/findAgentsList', param, 'POST', function(result) {
+						printlog("经纪人列表==" + JSON.stringify(result))
+						if(result.status) {
+							if(result.data.length < agentList.pageSize) {
+								agentList.flag = true;
+							}
+							//数组合并
+							agentList.agentListData = agentList.agentListData.concat(result.data);
+							for(var i = 0; i < result.data.length; i++) {
+								//拼接头像url
+								result.data[i].headImg = ServerHost + result.data[i].headImg;
+							}
+						} else {
+							agentList.flag = true;
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-08-25
+				 * 收藏经纪人
+				 */
+				collect: function(agentIdParam) {
+					var param = {
+						agentId: agentIdParam,
+						userId: agentList.userInfo.id,
+						type: "2"
+					}
+					printlog("收藏参数==" + JSON.stringify(param))
+					AjaxSend('mobileShip/collectOrCancel', param, 'POST', function(result) {
+						printlog("收藏结果==" + JSON.stringify(result))
+						if(result.status) {
+							var starObj = document.getElementById(agentIdParam);
+							var starClassName = starObj.className;
+							if(starClassName == "star1 mui-icon iconfont icon-xing1 mui-pull-right") {
+								starObj.className = "star1 mui-icon iconfont icon-xingjihui mui-pull-right";
+							} else {
+								starObj.className = "star1 mui-icon iconfont icon-xing1 mui-pull-right";
+							}
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-08-25
+				 * 查看经纪人资料
+				 */
+				look: function(agentIdParam) {
+					var param = {
+						agentId: agentIdParam,
+						userId: agentList.userInfo.id
+					}
+					printlog("查看经纪人资料参数==" + JSON.stringify(param))
+					mui.openWindow({
+						url: '../App_bidding/ck_broker_details.html',
+						id: '../App_bidding/ck_broker_details.html',
+						extras: {
+							data: param
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-08-28
+				 * 上拉加载更多
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						agentList.getAgentList(++agentList.currentPager);
+						mui('#agent_div').pullRefresh().endPullupToRefresh(agentList.flag);
+					}, 1000);
+				},
+				/**
+				 * 李留新
+				 * 2017-08-29
+				 * 确认委托
+				 */
+				confirm: function() {
+					var agent_inputObj = document.getElementsByName("selectAgent");
+					printlog("agent_inputObj长度==" + agent_inputObj.length)
+					var selectedAgentId = '';
+					for(var i = 0; i < agent_inputObj.length; i++) {
+						if(agent_inputObj[i].checked) {
+							selectedAgentId = agent_inputObj[i].id; // 获取备选中的经纪人id
+							printlog("选中的经纪人id==" + selectedAgentId);
+						}
+					}
+					if(selectedAgentId == '') {
+						mui.toast('请选择委托经纪人')
+						return;
+					}
+
+					var param = '';
+					//重新委托
+					if(agentList.authorize) {
+						param = {
+							agentId: selectedAgentId,
+							userId: agentList.userInfo.id,
+							goodsId: agentList.authorize.goodsId,
+							goodsownerOrderid: agentList.authorize.goodsOrderId
+						}
+					}
+
+					if(agentList.goodsInfo) {
+						param = {
+							agentId: selectedAgentId,
+							userId: agentList.userInfo.id,
+							goodsId: agentList.goodsInfo.goodsId,
+							goodsownerOrderid: agentList.goodsInfo.goodsOrderId
+						}
+					}
+					printlog("确认委托参数==" + JSON.stringify(param));
+					AjaxSend('mobileShip/confirmConsign', param, 'POST', function(result) {
+						printlog("委托结果==" + JSON.stringify(result));
+						if(result.status) {
+							mui.toast('委托成功!');
+							mui.fire(plus.webview.getWebviewById("deliver_sub.html"), 'publicBidding');
+							//打开竞价页面
+							mui.fire(plus.webview.getWebviewById("index-main.html"), "go_bidding", {});
+
+							var biddingPage = plus.webview.getWebviewById("bidding_sub.html");
+							printlog("biddingPage==" + JSON.stringify(biddingPage))
+							mui.fire(biddingPage, "publiSuccess");
+
+							//关闭之前打开页面
+							/*agentList.current.close();
+							if(!agentList.authorize) {
+								plus.webview.getWebviewById("save-success.html").close();
+							}
+							if(agentList.goodsInfo.add == "add") {
+								//从添加页跳转过来
+								plus.webview.getWebviewById("add-hw.html").close();
+							}*/
+							mui.openWindow({
+								url:'../index-main.html',
+								id:'index-main.html'
+							})
+
+						}
+					})
+				}
+			}
+		}) // vue
+		//地址选择样式设置
+		var oW = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+		var oH = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+		$("#city").click(function(e) {
+			SelCity(this, e);
+			$("._citys").css("width", oW)
+			$("._citys").css("height", oH - 83 + 'px')
+			$("#PoPy").css("width", oW)
+			$("#PoPy").css("left", 0)
+		});
+	</script>
+
+</html>

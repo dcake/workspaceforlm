@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>经纪人资料详情</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				margin-right: 10px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+				margin-right: 15px;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: 40%;
+				padding: 8px 9px;
+			}
+			
+			.history-sold {
+				margin-top: -15px;
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.but-box {
+				margin: 35px 15px;
+				text-align: center;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				margin-top: 44px;
+				height: 40px;
+				background: #FFFFFF;
+			}
+			
+			.mui-content {
+				margin-top: 40px;
+			}
+			
+			ul {
+				width: 100%;
+				list-style: none;
+				padding: 0px 10px;
+			}
+			
+			.ad-selector li {
+				position: relative;
+				float: left;
+				width: 33.333%;
+				font-size: 14px;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				margin-top: 7px;
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding-top: 0px;
+			}
+			
+			.content-padding {
+				padding: 23px 15px;
+				border-bottom: 1px solid #efefef;
+			}
+			
+			.money {
+				font-size: 18px;
+				color: #ff4800;
+				margin-left: 130px;
+			}
+			
+			.shopping .left {
+				width: 50%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+			}
+			
+			.shopping .right {
+				width: 50%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+				text-align: right;
+			}
+			
+			.mui-table-view-cell:after {
+				height: 0px;
+			}
+			
+			.queren {
+				background: #1dacf9;
+				color: #fff;
+				width: 42%;
+				height: 48px;
+				font-size: 18px;
+				border-radius: 6px;
+				display: inline-block;
+			}
+			
+			.address {
+				color: #3f9e00;
+			}
+			
+			.label {
+				position: absolute;
+				top: 88px;
+				left: 30px;
+				width: 50px;
+			}
+			
+			.mui-table-view-cell {
+				margin: 5px 0px;
+				padding: 10px 0px;
+			}
+			
+			.mui-table-view-cell h5 {
+				padding: 5px 15px;
+				font-size: 16px;
+			}
+			
+			.mui-table-view-cell p {
+				padding: 0px 15px;
+				font-size: 16px;
+				color: #666666;
+				height: 38px;
+			}
+			
+			.car_infor_left {
+				width: 40%;
+				float: left;
+				text-align: right;
+				padding: 0px 15px;
+				color: #666666;
+			}
+			
+			.car_infor_right {
+				width: 60%;
+				float: right;
+				text-align: left;
+				color: #333333;
+			}
+			
+			.command .left {
+				width: 20%;
+				float: left;
+				padding: 8px 15px;
+			}
+			
+			.command .left img {
+				width: 60px;
+			}
+			
+			.command .right {
+				width: 80%;
+				float: left;
+				/*padding: 15px 0px;*/
+				margin-top: 6px;
+				padding-left: 10px;
+			}
+			
+			.command .mui-table-view-cell:after {
+				height: 1px;
+			}
+			
+			.command .mui-table-view-cell {
+				margin: 5px 0px;
+				padding: 5px 0px;
+			}
+			
+			.qualification {
+				margin-left: 80px;
+			}
+			
+			.qualification img {
+				width: 67px;
+			}
+			
+			.base .left {
+				width: 42%;
+				float: left;
+				font-size: 16px;
+				color: #666;
+				padding: 1px 15px;
+			}
+			
+			.base .right {
+				width: 58%;
+				float: left;
+				font-size: 16px;
+				color: #333;
+				padding: 1px 15px;
+				text-align: left;
+			}
+			/*收藏*/
+			
+			.icon-xing1:before {
+				padding-right: 5px;
+				font-size: 18px;
+			}
+			
+			.icon-star1:before {
+				padding-right: 5px;
+				font-size: 18px;
+				color: #F0AD4E;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: transparent;
+			}
+			
+			.mui-table-view:before {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view:after {
+				background-color: #DDDDDD;
+			}
+			
+			.mui-table-view-cell:after {
+				background-color: #DDDDDD;
+			}
+			
+			.complain-date {
+				font-size: 14px;
+			}
+			
+			.mui-table-view-cell .comment {
+				color: #333;
+			}
+			
+			.mui-pull-bottom-pocket {
+				position: absolute;
+				bottom: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">经纪人资料详情</h1>
+		</header>
+		<div id="details" class="mui-content">
+			<form class="mui-input-group">
+				<img class="label" src="../img/label_broker.png">
+				<div class="mui-left content-padding">
+					<img class="mui-media-object mui-pull-left" :src="headUrl" onerror="this.src='../img/head_img01.png'">
+					<div class="mui-media-body mui-ellipsis">
+						<p><span class="name">{{agnetName}}</span>
+							<!--<span class="mui-icon iconfont icon-xing1" id="div1"></span>-->
+							<span id="shoucang" @click="collect" :class="collectClass">{{collectText}}</span>
+						</p>
+						<p class="mui-ellipsis address" style="font-size: 15px;height: 21px;">{{istrue}}</p>
+					</div>
+				</div>
+			</form>
+			<ul class="mui-table-view base">
+				<li class="mui-table-view-cell mui-media">
+					<h5>个人简介</h5>
+					<p>{{personDescribe}}</p>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<h5>{{imgType}}</h5>
+					<p class="qualification">
+						{{imgstatus}}
+						<img :src="companyImgUp" />
+						<img :src="companyImgOther" />
+					</p>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">累计运输次数</div>
+					<div class="right">{{transportCount}}次</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">累计发货次数</div>
+					<div class="right">{{shipCount}}次</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="left">联系方式</div>
+					<div class="right" @click="dialTest(phoneno)">{{phoneno}}</div>
+				</li>
+			</ul>
+			<p style="text-align: center;color: #777777;margin-top: 10px;">— 评价(共{{evaluateCount}}条) —</p>
+			<div id="evaluate_ul" style="position: relative;">
+				<ul id="evaluateStatue" class="mui-table-view command pinglun" style="padding-bottom: 40px;">
+					<li v-for="evaluate in evaluateList" class="mui-table-view-cell mui-media">
+						<div class="left">
+							<img :src="evaluate.headImg" onerror="this.src='../img/command_head01.png'" />
+						</div>
+						<div class="right">
+							<p>{{evaluate.createBy}}<span class="complain-date" style="float: right;">{{evaluate.createDate}}</span></p>
+							<p class="comment">{{evaluate.content}}</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script src="../js/base.js"></script>
+	<script src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var details = new Vue({
+			el: '#details',
+			data: {
+				agentParam: {},
+				imgType: '', // 认证资料类型(个人或企业)
+				agnetName: '', //经纪人名称
+				headUrl: '', //头像url
+				companyImgUp: '', //认证资料正面
+				companyImgOther: '', //认证资料反面
+				shipCount: 0, //发货次数
+				transportCount: 0, // 运输次数
+				personDescribe: '', //个人简介
+				phoneno: '', //联系方式
+				collectClass: '', //收藏状态样式
+				collectText: '', //收藏状态字体
+				onOff: false,
+				currentPage: 0, //经纪人评论当前页
+				pageSize: 10, // 每页评论数
+				evaluateCount: 0, //评论最大数
+				evaluateList: [], //评论
+				flag: false,
+				imgstatus: '', //认证资料显示状态
+				istrue: '' //认证显示状态
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					mui.init({
+						swipeBack: true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '#evaluate_ul',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: details.pullupRefresh
+							}
+						}
+					});
+
+					details.agentParam = plus.webview.currentWebview().data; //获取经纪人列表页传递的参数
+					printlog("详情页收到经纪人参数==" + JSON.stringify(details.agentParam))
+					//获取经纪人详情信息
+					details.getAgentDetails();
+					//获取经纪人评价列表
+					details.getEvaluate(details.currentPage);
+				});
+			},
+			methods: {
+				/**
+				 * 李留新
+				 * 2017-08-28
+				 * 获取经纪人详情资料
+				 */
+				getAgentDetails: function() {
+					var param = {
+						agentId: details.agentParam.agentId,
+						userId: details.agentParam.userId
+					}
+					AjaxSend('mobileShip/lookAgentDetail', param, 'POST', function(result) {
+						printlog("经纪人详情信息==" + JSON.stringify(result));
+						if(result.status) {
+							var agentInfo = result.data;
+							if(agentInfo.truename) {
+								details.agnetName = agentInfo.truename;
+							} else {
+								details.agnetName = agentInfo.username;
+							}
+							details.shipCount = agentInfo.shipCount; //发货次数
+							details.transportCount = agentInfo.transportCount; //运输次数
+							details.phoneno = agentInfo.phoneno; //联系方式
+							details.headUrl = ServerHost + agentInfo.headImg; //头像
+
+							//个人简介
+							if(agentInfo.personDescribe) {
+								details.personDescribe = agentInfo.personDescribe;
+							} else {
+								details.personDescribe = "无";
+							}
+							//收藏状态
+							if(agentInfo.isCollect == '0') {
+								//没有收藏
+								details.collectClass = "iconfont icon-xing1";
+								details.collectText = '收藏';
+								details.onOff = false;
+							} else {
+								details.collectClass = "iconfont icon-star1";
+								details.collectText = '已收藏';
+								details.onOff = true;
+							}
+							//认证状态
+							if(agentInfo.isTruecommpany == "1") {
+								details.istrue = "实名认证.企业执照";
+								details.imgType = "企业运营资质";
+								details.companyImgUp = ServerHost + agentInfo.businessLicenseFaceImg; //企业运营资质正面
+								details.companyImgOther = ServerHost + agentInfo.businessLicenseOtherImg; //企业运营资质反面
+
+							} else if(agentInfo.isTruecommpany == "0" && agentInfo.isTruename == "1") {
+								details.istrue = "实名认证.个人身份证";
+								details.imgType = "个人运营资质";
+								details.companyImgUp = ServerHost + agentInfo.cardFaceImg; //个人身份证正面
+								details.companyImgOther = ServerHost + agentInfo.cardOtherImg; //个人身份证反面
+							} else {
+								details.imgType = "运营资质";
+								details.istrue = "未认证";
+								details.imgstatus = "未认证";
+							}
+
+						}
+
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-08-31
+				 * 获取经纪人评价列表
+				 */
+				getEvaluate: function(pagerNum) {
+					var param = {
+						currentPage: pagerNum,
+						agentId: details.agentParam.agentId
+					}
+					printlog("获取经纪人评价列表参数==" + JSON.stringify(param));
+					AjaxSend('mobileShip/findEvaluationList', param, 'POST', function(result) {
+						printlog("经纪人评价列表==" + JSON.stringify(result));
+						if(result.status) {
+							details.evaluateCount = result.data.totalCount;
+							if(result.data.list.length < details.pageSize) {
+								details.flag = true;
+							}
+							//数组拼接
+							details.evaluateList = details.evaluateList.concat(result.data.list);
+							if(result.data.list.length > 0) {
+								for(var i = 0; i < result.data.list.length; i++) {
+									result.data.list[i].createDate = result.data.list[i].createDate.substring(0, 10);
+									result.data.list[i].headImg = ServerHost + result.data.list[i].headImg;
+								}
+							}
+						} else {
+							details.flag = true;
+						}
+					});
+				},
+				/**
+				 * 李留新
+				 * 2017-08-28
+				 * 收藏或取消
+				 */
+				collect: function() {
+					var param = {
+						agentId: details.agentParam.agentId,
+						userId: details.agentParam.userId
+					}
+					printlog("经纪人详情页收藏参数==" + JSON.stringify(param))
+					AjaxSend('mobileShip/collectOrCancel', param, 'POST', function(result) {
+						printlog("经纪人详情页收藏或取消结果==" + JSON.stringify(result))
+						if(result.status) {
+							//成功,改变收藏状态
+							if(details.onOff == false) {
+								details.collectClass = "iconfont icon-star1";
+								details.collectText = '已收藏';
+								details.onOff = true;
+							} else {
+								details.collectClass = "iconfont icon-xing1";
+								details.collectText = '收藏';
+								details.onOff = false;
+							}
+
+							var agentList_html = plus.webview.getWebviewById("authorize-agent.html");
+							mui.fire(agentList_html, 'agentList', {
+								newsId: {
+									isCollectFlag: details.onOff,
+									agentId: details.agentParam.agentId
+								}
+							});
+						}
+					});
+
+				},
+				/**
+				 * 李留新
+				 * 2017-08-28
+				 * 上拉加载更多
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						details.getEvaluate(++details.currentPage);
+						mui('#evaluate_ul').pullRefresh().endPullupToRefresh(details.flag);
+					}, 1000);
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-08
+				 * 点击电话直接拨打
+				 */
+				dialTest: function(phone) {
+					plus.nativeUI.confirm("您确定要拨打电话吗？",
+						function(event) {
+							if(event.index == 1) {
+								plus.device.dial(phone, false);
+							} else {
+								return false;
+							}
+						}, '客服消息', ['取消', '确定']
+					)
+				}
+			}
+		}) //vue
+	</script>
+
+</html>

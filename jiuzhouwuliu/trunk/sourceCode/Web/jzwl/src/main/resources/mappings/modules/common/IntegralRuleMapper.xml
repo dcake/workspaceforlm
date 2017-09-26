@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thinkgem.jeesite.common.dao.IntegralRuleMapper" >
+  <resultMap id="BaseResultMap" type="com.thinkgem.jeesite.common.entity.IntegralRule" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="rule_name" property="ruleName" jdbcType="VARCHAR" />
+    <result column="integral_to_money" property="integralToMoney" jdbcType="INTEGER" />
+    <result column="goodsowner_register" property="goodsownerRegister" jdbcType="INTEGER" />
+    <result column="driver_register" property="driverRegister" jdbcType="INTEGER" />
+    <result column="agent_register" property="agentRegister" jdbcType="INTEGER" />
+    <result column="user_login" property="userLogin" jdbcType="INTEGER" />
+    <result column="improve_user_info" property="improveUserInfo" jdbcType="INTEGER" />
+    <result column="remark_order" property="remarkOrder" jdbcType="INTEGER" />
+    <result column="complete_order" property="completeOrder" jdbcType="INTEGER" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.thinkgem.jeesite.common.entity.IntegralRule" >
+    insert into integral_rule (id, rule_name, integral_to_money, 
+      goodsowner_register, driver_register, agent_register, 
+      user_login, improve_user_info, remark_order, 
+      complete_order, del_flag, remarks, 
+      update_date, update_by, create_date, 
+      create_by)
+    values (#{id,jdbcType=VARCHAR}, #{ruleName,jdbcType=VARCHAR}, #{integralToMoney,jdbcType=INTEGER}, 
+      #{goodsownerRegister,jdbcType=INTEGER}, #{driverRegister,jdbcType=INTEGER}, #{agentRegister,jdbcType=INTEGER}, 
+      #{userLogin,jdbcType=INTEGER}, #{improveUserInfo,jdbcType=INTEGER}, #{remarkOrder,jdbcType=INTEGER}, 
+      #{completeOrder,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.thinkgem.jeesite.common.entity.IntegralRule" >
+    insert into integral_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ruleName != null" >
+        rule_name,
+      </if>
+      <if test="integralToMoney != null" >
+        integral_to_money,
+      </if>
+      <if test="goodsownerRegister != null" >
+        goodsowner_register,
+      </if>
+      <if test="driverRegister != null" >
+        driver_register,
+      </if>
+      <if test="agentRegister != null" >
+        agent_register,
+      </if>
+      <if test="userLogin != null" >
+        user_login,
+      </if>
+      <if test="improveUserInfo != null" >
+        improve_user_info,
+      </if>
+      <if test="remarkOrder != null" >
+        remark_order,
+      </if>
+      <if test="completeOrder != null" >
+        complete_order,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleName != null" >
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="integralToMoney != null" >
+        #{integralToMoney,jdbcType=INTEGER},
+      </if>
+      <if test="goodsownerRegister != null" >
+        #{goodsownerRegister,jdbcType=INTEGER},
+      </if>
+      <if test="driverRegister != null" >
+        #{driverRegister,jdbcType=INTEGER},
+      </if>
+      <if test="agentRegister != null" >
+        #{agentRegister,jdbcType=INTEGER},
+      </if>
+      <if test="userLogin != null" >
+        #{userLogin,jdbcType=INTEGER},
+      </if>
+      <if test="improveUserInfo != null" >
+        #{improveUserInfo,jdbcType=INTEGER},
+      </if>
+      <if test="remarkOrder != null" >
+        #{remarkOrder,jdbcType=INTEGER},
+      </if>
+      <if test="completeOrder != null" >
+        #{completeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateSelective" parameterType="com.thinkgem.jeesite.common.entity.IntegralRule">
+  	update integral_rule
+  	<set>
+  	  <if test="ruleName != null" >
+       rule_name=#{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="integralToMoney != null" >
+        integral_to_money=#{integralToMoney,jdbcType=INTEGER},
+      </if>
+      <if test="goodsownerRegister != null" >
+        goodsowner_register=#{goodsownerRegister,jdbcType=INTEGER},
+      </if>
+      <if test="driverRegister != null" >
+        driver_register=#{driverRegister,jdbcType=INTEGER},
+      </if>
+      <if test="agentRegister != null" >
+        agent_register=#{agentRegister,jdbcType=INTEGER},
+      </if>
+      <if test="userLogin != null" >
+       user_login= #{userLogin,jdbcType=INTEGER},
+      </if>
+      <if test="improveUserInfo != null" >
+        improve_user_info = #{improveUserInfo,jdbcType=INTEGER},
+      </if>
+      <if test="remarkOrder != null" >
+        remark_order=#{remarkOrder,jdbcType=INTEGER},
+      </if>
+      <if test="completeOrder != null" >
+        complete_order=#{completeOrder,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null" >
+        del_flag=#{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks=#{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date=#{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by=#{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+       create_date=#{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by=#{createBy,jdbcType=VARCHAR},
+      </if>
+  	</set>
+  </update>
+  <!--查询积分管理 崔亚光 -->
+    <select id="findEntity" resultMap="BaseResultMap">
+  	select * from integral_rule
+  </select>
+</mapper>

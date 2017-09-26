@@ -1,0 +1,97 @@
+package com.thinkgem.jeesite.modules.finance.service;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.thinkgem.jeesite.common.dao.GoodsBillingMapper;
+import com.thinkgem.jeesite.common.dao.GoodsMapper;
+import com.thinkgem.jeesite.common.entity.Goods;
+import com.thinkgem.jeesite.common.entity.GoodsBilling;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.AjaxBeanUtil;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.modules.sys.security.SystemAuthorizingRealm.Principal;
+import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
+/**
+ * @description	开票管理
+ * @author 文帅
+ * @date 2017年8月10日 上午9:23:24
+ */
+@Service
+@Transactional
+public class BillingService {
+	@Autowired
+	private GoodsBillingMapper goodsBillingMapper;
+	@Autowired
+	private GoodsMapper goodsMapper;
+	/**
+	 * @description	查询开票分页
+	 * @author 文帅
+	 * @date 2017年8月10日 上午9:25:02
+	 * @param page
+	 * @param driveOrder
+	 * @return
+	 */
+	public Page<GoodsBilling> findBillingList(Page<GoodsBilling> page, GoodsBilling  goodsBilling) {
+		goodsBilling.setPage(page);
+		page.setList(goodsBillingMapper.findBillingList(goodsBilling));
+		return page;	
+	}
+	
+	/**
+	 * @description	根据开票信息ID查询实体
+	 * @author 文帅
+	 * @date 2017年8月10日 上午11:26:15
+	 * @param id
+	 * @return
+	 */
+	public GoodsBilling findBillingById(String id){
+		return goodsBillingMapper.findBillingById(id);
+	}
+	
+	/**
+	 * @description	查询所有数据
+	 * @author 文帅
+	 * @date 2017年8月14日 上午10:55:15
+	 * @param goodsBilling
+	 * @return
+	 */
+	public List<GoodsBilling> findList(GoodsBilling goodsBilling){
+		return goodsBillingMapper.findBillingList(goodsBilling);
+	}
+	
+	/**
+	 * @description 填写发票编号后点击确定
+	 * @author 文帅
+	 * @date 2017年8月16日 下午2:25:07
+	 * @param goodsBilling
+	 * @return
+	 */
+	public AjaxBeanUtil saveBilling(GoodsBilling goodsBilling){
+		try {
+			Principal principal = UserUtils.getPrincipal();
+			if(StringUtils.isEmpty(goodsBilling.getBillingNo())){
+				return new AjaxBeanUtil("请输入发票编号！", false);
+			}
+			if(goodsBilling.getBillingNo().length()>32){
+				return new AjaxBeanUtil("发票编号输入过长，32个字符以内！", false);
+			}
+			goodsBilling.setUpdateDate(new Date());
+			goodsBilling.setUpdateBy(principal.getName());
+			goodsBillingMapper.updateByPrimaryKeySelective(goodsBilling);
+			Goods goods=goodsMapper.selectByPrimaryKey(goodsBilling.getGoodsid());
+			goods.setUpdateDate(new Date());
+			goods.setUpdateBy(principal.getName());
+			goods.setIsHasBill("1");
+			goodsMapper.updateByPrimaryKeySelective(goods);
+			return new AjaxBeanUtil("保存成功！", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new AjaxBeanUtil("系统异常！", false);
+		}
+	}
+}

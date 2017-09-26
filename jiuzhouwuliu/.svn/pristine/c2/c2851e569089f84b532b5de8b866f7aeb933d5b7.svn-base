@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: auto;
+			}
+			
+			.mui-radio.mui-left input[type='radio'],
+			.mui-checkbox.mui-left input[type='checkbox'] {
+				left: 15px;
+				top: 40%;
+			}
+			
+			.mui-radio input[type='radio']:before,
+			.mui-checkbox input[type='checkbox']:before {
+				font-size: 25px;
+			}
+			
+			.mui-radio.mui-left label,
+			.mui-checkbox.mui-left label {
+				padding-right: 15px;
+				padding-left: 53px;
+			}
+			
+			img {
+				width: 80px;
+				margin-right: 20px;
+			}
+			
+			.name {
+				font-size: 18px;
+				color: #000;
+				line-height: 30px;
+			}
+			
+			.address {
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.jiaoyi {
+				width: 60%;
+				font-size: 15px;
+				color: #666;
+			}
+			
+			.mui-input-row .mui-btn {
+				width: 40%;
+				padding: 8px 9px;
+			}
+			
+			.history-sold {
+				margin-top: -15px;
+				font-size: 12px;
+				color: #d8760d;
+			}
+			
+			.icon-wodeshoucang {
+				margin: 5px;
+			}
+			
+			.but-box {
+				margin: 35px 15px 0px;
+			}
+			
+			.mui-bar {
+				padding: 0;
+			}
+			
+			.mui-bar-nav.mui-bar .mui-icon {
+				margin-right: 0px;
+				margin-left: 0px;
+			}
+			
+			.ad-selector {
+				margin-top: 44px;
+				height: 40px;
+				background: #FFFFFF;
+			}
+			
+			ul {
+				width: 100%;
+				list-style: none;
+				padding: 0px 10px;
+			}
+			
+			.ad-selector li {
+				position: relative;
+				float: left;
+				width: 33.333%;
+				font-size: 14px;
+			}
+			
+			li a {
+				padding: 0;
+			}
+			
+			.mui-icon-arrowdown:before {
+				color: #000000;
+				font-size: 18px;
+			}
+			
+			.icon-xing1 {
+				margin-top: 5px;
+			}
+			
+			.mui-input-row {
+				padding: 15px;
+			}
+			
+			.re_tip {
+				font-style: normal;
+				border: 1px solid #3f9e00;
+				color: #3f9e00;
+				padding: 0 6px;
+				margin-left: 10px;
+				border-radius: 6px;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title">最近联系人</h1>
+		</header>
+
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row " v-for="person in personList" @click="ckperson(person.userSort,person.userId)">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-left" src="../img/touxiang2.png">
+						<div class="mui-media-body mui-ellipsis">
+							<p><span class="name">{{person.truename}}<i class="re_tip">{{person.userSort}}</i></span>
+								<template v-if="person.isCollect == 1">
+									<span id="shoucang01" class="iconfont icon-star1 mui-pull-right"></span>
+								</template>
+								<template v-if="person.userSort == '车主'">
+									<p class="mui-ellipsis address">{{person.truckType}}/{{person.truckHeight}}/{{person.truckMaxwight}}</p>
+									<p class="mui-ellipsis">
+										<span class="mui-pull-left mui-ellipsis jiaoyi">运输{{person.transportCount}}次</span>
+									</p>
+								</template>
+								<template v-else="person.userSort == '经纪人'">
+									<p class="mui-ellipsis address">{{person.companyName}}</p>
+								</template>
+						</div>
+					</a>
+				</div>
+			</form>
+
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script type="text/javascript" src="../js/base.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var person = new Vue({
+			el: '.mui-content',
+			data: {
+				userInfo: getUser().userInfo,
+				currentPager: 0,
+				flag: false,
+				pageSize: 10,
+				personList: []
+			},
+			mounted: function() {
+				mui.plusReady(function() {
+					person.getPersonList()
+					mui.init({
+						swipeBack: true, //启用右滑关闭功能
+						pullRefresh: {
+							container: '.mui-content',
+							up: {
+								contentinit: '',
+								contentrefresh: '正在加载...',
+								contentnomore: '没有更多数据了 ',
+								callback: person.pullupRefresh
+							}
+						}
+					});
+				})
+			},
+			methods: {
+				/**
+				 * 熊世齐
+				 * 2017-09-13
+				 * 获取最近联系人
+				 */
+				getPersonList: function() {
+					var data = {
+						currentPage: person.currentPager,
+						userId: "1"
+					}
+					AjaxSend('mobileRecentPerson/findRecentPersonList', data, 'POST', function(result) {
+						if(result.status) {
+							//数组合并
+							person.personList = person.personList.concat(result.data);
+							if(result.data.length < person.pageSize) {
+								person.flag = true;
+							}
+						} else {
+							person.flag = true;
+						}
+					})
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-13
+				 * 跳转到查看资料页
+				 */
+				ckperson: function(type,jingJiaRenid) {
+					if(type == '车主'){
+						var id = '../App_bidding/ck_person_details.html'
+					}else{
+						var id = '../App_bidding/ck_broker_details.html'
+					};
+					var data = {
+						agentId: jingJiaRenid,
+						userId: person.userInfo.id
+					}
+					mui.openWindow({
+						url: id,
+						id: id,
+						extras: {
+							data: data
+						}
+					});
+				},
+				/**
+				 * 熊世齐
+				 * 2017-09-13
+				 * 上拉加载
+				 */
+				pullupRefresh: function() {
+					setTimeout(function() {
+						person.getPersonList(++person.currentPager);
+						mui('.mui-content').pullRefresh().endPullupToRefresh(person.flag);
+					}, 1000);
+				}
+			}
+		})
+	</script>
+
+</html>

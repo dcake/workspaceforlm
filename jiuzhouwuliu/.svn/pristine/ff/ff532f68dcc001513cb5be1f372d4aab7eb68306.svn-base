@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>保存成功</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/css.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+	</head>
+
+	<body>
+		<div id="success">
+			<header class="mui-bar mui-bar-nav">
+				<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				<h1 id="title" class="mui-title">保存成功</h1>
+			</header>
+			<div class="mui-content">
+				<div class="save-cg">
+					<img :src="img_url" />
+					<div class="save-wz">
+						<h2>{{name}}</h2>
+						<span>{{time}}  出发</span>
+						<p>{{content}}</p>
+					</div>
+				</div>
+				<div class="anniu">
+					<div class="an">
+						<a v-if="authorizeAgent" class="an-1" @click.stop="authorize_agent">委托经纪人</a>
+						<a v-if="publicBidding" class="an-1 an-2" @click.stop="publish_bidding">发布竞价</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.js"></script>
+	<script src="../js/vue.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript">
+		var success = new Vue({
+			el: '#success',
+			data: {
+				userInfo: getUser().userInfo,
+				img_url: '../img/car-img.jpg', //图片路径
+				name: '蔬菜', //货物名称
+				time: '2017-06-30', //出发时间
+				content: '食品/10吨/纤袋/高栏车...', //类型/单位/需求车型
+				authorizeAgent: true, //控制委托经纪人显示隐藏
+				publicBidding: true, //控制发布竞价显示隐藏
+				goodsInfo: '',
+				addOrder: ''
+			},
+			mounted: function() {
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				mui.plusReady(function() {
+					//接收新添加订单信息
+					success.addOrder = plus.webview.currentWebview().addOrder;
+					if(success.addOrder) {
+						success.name = success.addOrder.goodsType //货物名称
+						success.time = success.addOrder.zcYmd //出发时间
+						success.content = success.addOrder.goodsNum + success.addOrder.goodsUnit + "/" + success.addOrder.needTruckType + "车"; //类型/单位/需求车型
+					}
+
+					//接收发货列表也传递信息
+					success.goodsInfo = plus.webview.currentWebview().newsId;
+					if(success.goodsInfo) {
+						document.getElementById("title").innerHTML = "选择发布方式"
+						success.name = success.goodsInfo.goodsType //货物名称
+						success.time = success.goodsInfo.zcYmd //出发时间
+						success.content = success.goodsInfo.goodsNum + success.goodsInfo.goodsUnit + "/" + success.goodsInfo.needTruckType; //类型/单位/需求车型
+					}
+				})
+
+				printlog("用户信息==" + JSON.stringify(this.userInfo))
+				if(this.userInfo.level == "A" || this.userInfo.level == "a") {
+					//用户是A类客户
+					this.publicBidding = false;
+				} else if(this.userInfo.level == "C" || this.userInfo.level == "c") {
+					//用户是C类客户
+					this.authorizeAgent = false;
+				}
+			},
+			methods: {
+				//委托经纪人
+				authorize_agent: function() {
+					var goodsOrderInfo = '';
+					if(success.goodsInfo) {
+						goodsOrderInfo = success.goodsInfo; //发货列表传递参数
+					} else if(success.addOrder) {
+						goodsOrderInfo = success.addOrder //新添加货物参数
+					}
+					mui.openWindow({
+						url: "authorize-agent.html",
+						id: "authorize-agent.html",
+						extras: {
+							newsId: goodsOrderInfo
+						}
+					})
+				},
+				//发布竞价
+				publish_bidding: function() {
+					var goodsOrderInfo = '';
+					if(success.goodsInfo) {
+						goodsOrderInfo = success.goodsInfo;
+					} else if(success.addOrder) {
+						goodsOrderInfo = success.addOrder
+					}
+					mui.openWindow({
+						url: "publish-bidding.html",
+						id: "publish-bidding.html",
+						extras: {
+							newsId: goodsOrderInfo
+						}
+					})
+				}
+			}
+		})
+	</script>
+
+</html>

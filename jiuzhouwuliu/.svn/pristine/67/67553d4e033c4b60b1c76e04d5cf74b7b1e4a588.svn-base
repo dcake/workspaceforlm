@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row {
+				height: 50px;
+				line-height: 50px;
+			}
+			.mui-input-row label {
+				padding: 15px;
+			}
+			input[type='text'] {
+				height: 50px;
+				padding: 15px;
+			}
+			.btn2{
+				border-left: none;
+				float: left;
+			}
+			#bankinfo{
+				color: #333;
+				height: 45px;
+				text-align: left;
+				line-height: 44px;
+				padding-right: 30px;
+				background: url(../img/xia.png) right center no-repeat;
+				background-size: 10%;
+			}
+			.mui-input-row span a {
+				color: #333;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>持卡人</label>
+					<input v-model="name" type="text" placeholder="请填写持卡人姓名">
+				</div>
+				<div class="mui-input-row">
+					<label>卡号</label>
+					<input v-model="acount" type="text" placeholder="请填写卡号" />
+				</div>
+				<div class="mui-input-row">
+					<label>银行</label>	
+						<input v-model="bank" id="bankinfo" type="button" class="btn2"></input>
+				</div>
+			</form>
+			<div class="but-box ">
+				<button @tap="submit()" class="queren" type="button">确定</button>
+			</div>
+		</div>
+
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.min.js"></script>
+		<script src="../js/bank.data.js"></script>
+		<script src="../js/vue.js"></script>
+		<script src="../js/base.js"></script>
+		<script>
+			new Vue({
+				el:'.mui-content',
+				data:{
+					name:'',
+					acount:'',
+					bank:'',
+					userId:getUser().userInfo.id,
+					prePage:null
+				},
+				mounted:function(){
+					var self = this;
+					mui.init({
+						swipeBack: true //启用右滑关闭功能
+					});
+					mui.plusReady(function(){
+						if(!self.prePage){
+							self.prePage = plus.webview.getWebviewById('bank_cards.html');
+						}
+					})
+					var userPicker = new mui.PopPicker();
+					userPicker.setData(bankList);
+					var bankinfo = document.getElementById("bankinfo");
+					self.bank = bankList[0].text;
+					bankinfo.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							self.bank = items[0].text;
+						});
+					}, false);
+				},
+				methods:{
+					submit:function(){
+						var self = this;
+						console.log(!self.acount.trim())
+						if(!self.name.trim()){
+							mui.toast("请输入持卡人姓名");
+							return;
+						}
+						if(!self.acount.trim()){
+							mui.toast("请输入卡号");
+							return;
+						}
+						/*if(!luhmCheck(self.acount+'')){
+							return;
+						}*/
+						var param = {
+							userId:self.userId,
+							bankName:self.bank,
+							bankCardNo:self.acount,
+							bankCardPerson:htmlEncode(self.name)
+						}
+						console.log(JSON.stringify(param))
+						AjaxSend("MobileCommonBankCard/addBankCard",param,"post",function(result){
+							console.log(JSON.stringify(result))
+							if(result.status){
+								mui.toast(result.msg);
+								mui.fire(self.prePage,'updateList');
+								mui.back();
+							}else{
+								mui.toast(result.msg);
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
